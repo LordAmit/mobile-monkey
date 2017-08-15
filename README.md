@@ -1,5 +1,5 @@
 # mobile-monkey (beta)
-Mobile-Monkey is a CLI based stress testing tool for Android based mobile applications.
+Mobile-Monkey is a CLI based light-weight stress testing tool for Android based mobile applications.
 It not only stress tests your application based on GUI events, but also contexts, such as
 
 - Network Delay,
@@ -96,6 +96,8 @@ We are assuming that you have setup the `configFile` properly and have your APK 
 
     after successful execution, mobile-monkey will create a log file of execution in `apkname_YYYYMMDDHHMM_Monkey.log` format.
 - in both cases, mobile_monkey will stop contextual events execution in case a fatality or error occurs during execution.
--
+- It will also display in terminal what contextual event it is executing. A different option will be provided later that will help it store the contextual events sequence for checking.
+- Finally, it will show you a list containing number  of errors, warnings, unique errors, and unique warnings the app created during execution.
 
 
+Please note that we have tried our best to clean up the warnings and errors related to advertisement, but everyone uses different formats of advertisement integration. Therefore, it is highly advised to remove your advertisement integration before testing the app.
