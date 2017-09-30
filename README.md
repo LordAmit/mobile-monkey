@@ -8,7 +8,7 @@ It not only stress tests your application based on GUI events, but also contexts
 - Key events (Alphanumeric, Volume, etc)
 - Screen Orientation
 
-## How it works:
+## How it works
 The steps of using Mobile-Monkey is fairly simple. Similar to the Monkey Stress Testing tool from Google, it requires only Android Application (APK) to function. In simple terms, the following takes place when you provide it an APK, along with a few parameters:
 
 - It analyzes the permissions requested to guess the required contexts in the app.
@@ -98,6 +98,5 @@ We are assuming that you have setup the `configFile` properly and have your APK 
 - in both cases, mobile_monkey will stop contextual events execution in case a fatality or error occurs during execution.
 - It will also display in terminal what contextual event it is executing. A different option will be provided later that will help it store the contextual events sequence for checking.
 - Finally, it will show you a list containing number  of errors, warnings, unique errors, and unique warnings the app created during execution.
-
 
 Please note that we have tried our best to clean up the warnings and errors related to advertisement, but everyone uses different formats of advertisement integration. Therefore, it is highly advised to remove your advertisement integration before testing the app.
