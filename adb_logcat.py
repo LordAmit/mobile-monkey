@@ -65,7 +65,8 @@ class Logcat:
         self.app_pid = api_commands.adb_pidof_app(self.emulator, self.apk)
         print("app_pid: " + self.app_pid)
         self.clear_logcat()
-        command = "adb logcat --format=threadtime *:W --pid=" + self.app_pid
+        command = config.adb + \
+            " logcat --format=threadtime *:W --pid=" + self.app_pid
         self.logfile = open(self.file_address, 'w')
         self.log_process = subprocess.Popen(
             shlex.split(command), stdout=self.logfile)
@@ -121,5 +122,5 @@ class Logcat:
         '''
         clears logcat
         '''
-        command = "adb logcat --clear"
+        command = config.adb + " logcat --clear"
         subprocess.check_output(shlex.split(command))
