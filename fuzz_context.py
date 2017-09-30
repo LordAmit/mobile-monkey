@@ -31,7 +31,7 @@ class IntervalEvent:
 
     '''
     `Interval Event` class contains the steps,
-    for each of which, an interval, an event and an event_typ is assigned
+    for each of which, an interval, an event and an event_type is assigned
     e.g.
 
     >>> [event_type: <enum 'NetworkStatus'>, step: 0, interval: 4, event: full]
