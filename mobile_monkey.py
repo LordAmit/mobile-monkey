@@ -86,11 +86,13 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer, will_monkey: bool
         contextual_events += len(gsm_profile_interval_events)
         threads.append(Thread(target=fuzz.random_gsm_profile, args=(
             config.LOCALHOST, emulator, config.UNIFORM_INTERVAL, gsm_profile_interval_events)))
+
     user_rotation_interval_events = fuzz.generate_step_interval_event(
         UserRotation)
     contextual_events += len(user_rotation_interval_events)
     threads.append(Thread(
         target=fuzz.random_rotation, args=((emulator_name, user_rotation_interval_events))))
+
     key_event_interval_events = fuzz.generate_step_interval_event(KeyEvent)
     contextual_events += len(key_event_interval_events)
     threads.append(Thread(
