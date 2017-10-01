@@ -142,6 +142,27 @@ def adb_input_tap(emulator: Emulator, xpos: int, ypos: int):
     subprocess.check_output(shlex.split(command))
 
 
+def adb_uiautomator_dump(emulator: Emulator):
+    '''
+    dumps the current uiautomator view to the default dump directory in
+    YYYYMMDDHHmm format
+    '''
+    command = "{} -s emulator-{} shell uiautomator dump".format(
+        config.adb, emulator.port)
+    subprocess.check_output(shlex.split(command))
+
+    dump_file_address = config.DUMP_ADDRESS + \
+        util.return_current_time() + "_dump.xml"
+
+    command_cat = "{} -s emulator-{} shell cat /sdcard/window_dump.xml ".format(
+        config.adb, emulator.port)
+
+    dump_content = subprocess.check_output(shlex.split(command_cat)).decode()
+    dump_file = open(dump_file_address, mode='w')
+    dump_file.write(dump_content)
+    dump_file.close()
+
+
 def adb_list_avd_ports() -> List[str]:
     '''
         returns:
