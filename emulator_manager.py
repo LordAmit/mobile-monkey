@@ -210,6 +210,8 @@ def adb_instances_manager() -> List[Emulator]:
     util.detail_print(emulators)
     return emulators
 
+def get_list_emulators():
+    return adb_instances_manager()
 
 def get_adb_instance_from_emulators(model: str) -> Emulator:
     '''
