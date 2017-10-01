@@ -54,7 +54,7 @@ SAMPLE_LOG = get("sample_log")
 MONKEY_INTERVAL = get("monkey_interval")
 MONKEY_LOG = get("monkey_log")
 MOBILE_MONKEY_LOG = get("mobile_monkey_log")
-
+DUMP_ADDRESS = get("dump_address")
 
 # def avd_file_reader():
 #     """
