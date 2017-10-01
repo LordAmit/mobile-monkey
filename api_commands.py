@@ -2,6 +2,7 @@
 api commands from python to gain information about android avds
 '''
 import subprocess
+import shlex
 from typing import List
 import config_reader as config
 import util
@@ -130,6 +131,15 @@ def adb_list_avd_devices() -> List:
     for device in adb_devices:
         adb_devices_without_attached.append(device.split('\t')[0])
     return adb_devices_without_attached
+
+
+def adb_input_tap(emulator: Emulator, xpos: int, ypos: int):
+    '''
+    sends tap event to specified `emulator` via adb at the `X`, `Y` coordinates
+    '''
+    command = "{} -s emulator-{} shell input tap {} {}".format(config.adb,
+                                                               emulator.port, xpos, ypos)
+    subprocess.check_output(shlex.split(command))
 
 
 def adb_list_avd_ports() -> List[str]:
