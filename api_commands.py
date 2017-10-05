@@ -161,6 +161,7 @@ def adb_uiautomator_dump(emulator: Emulator):
     dump_file = open(dump_file_address, mode='w')
     dump_file.write(dump_content)
     dump_file.close()
+    return dump_file_address
 
 
 def adb_list_avd_ports() -> List[str]:
