@@ -3,7 +3,7 @@ Emulator Manager
 '''
 
 import subprocess
-
+import shlex
 from subprocess import Popen, PIPE
 import syslog
 import time
@@ -61,11 +61,12 @@ def get_running_avd_ports() -> List:
     return api_commands.adb_list_avd_ports()
 
 
-def kill_emulator():
-    android = config.get('android')
-    process = subprocess.Popen(
-        [android, 'delete', 'avd', '-n', context_list['emulator_name']])
-
+def kill_emulator(port: int = config.EMULATOR_PORT):
+    # android = config.get('android')
+    # process = subprocess.Popen(
+    #     [android, 'delete', 'avd', '-n', context_list['emulator_name']])
+    command = "{} -s emulator-{} emu kill".format(config.adb, port)
+    subprocess.check_output(shlex.split(command))
 
 def check_avd_booted_completely(emulator_port) -> str:
     """
@@ -104,55 +105,55 @@ def check_avd_booted_completely(emulator_port) -> str:
         # return check
 
 
-def check_running_avd():
-    '''
-        check if required avd in contextConfig in running avds
-    '''
-    list_avds = config.avd_file_reader()
+# def check_running_avd():
+#     '''
+#         check if required avd in contextConfig in running avds
+#     '''
+#     list_avds = config.avd_file_reader()
 
-    list_avds.pop(-1)
+#     list_avds.pop(-1)
 
-    emulator_instances = adb_instances_manager()
+#     emulator_instances = adb_instances_manager()
 
-    running_emulator_model = []
-    valid_model = []
+#     running_emulator_model = []
+#     valid_model = []
 
-    for instance in emulator_instances:
-        running_emulator_model.append(instance.model)
-    for avd in list_avds:
-        if avd in running_emulator_model:
-            pass
-        else:
-            valid_model.append(avd)
-    print(valid_model)
-    return valid_model
+#     for instance in emulator_instances:
+#         running_emulator_model.append(instance.model)
+#     for avd in list_avds:
+#         if avd in running_emulator_model:
+#             pass
+#         else:
+#             valid_model.append(avd)
+#     print(valid_model)
+#     return valid_model
 
 
-def emulator_runner(contexts: List):
-    '''
-    runs emulator based on the settings provided in context
-    '''
+# def emulator_runner(contexts: List):
+#     '''
+#     runs emulator based on the settings provided in context
+#     '''
 
-    util.show_step(1)
-    print(contexts['emulator_name'])
-    if not is_context_avd_in_system_avds(contexts['emulator_name']):
-        print('Error: provided context_avd ' +
-              contexts['emulator_name'] + ' is not present in list of avds')
-        print('Possible list of Avds are: ')
-        util.detail_print(get_avd_list())
-        return
+#     util.show_step(1)
+#     print(contexts['emulator_name'])
+#     if not is_context_avd_in_system_avds(contexts['emulator_name']):
+#         print('Error: provided context_avd ' +
+#               contexts['emulator_name'] + ' is not present in list of avds')
+#         print('Possible list of Avds are: ')
+#         util.detail_print(get_avd_list())
+#         return
 
-    api_commands.adb_start_server_safe()
-    util.show_step(4)
+#     api_commands.adb_start_server_safe()
+#     util.show_step(4)
 
-    avds = check_running_avd()
+#     avds = check_running_avd()
 
-    if avds:
-        emulator_port = get_running_avd_ports()
-        if emulator_port:
-            emulator_port = int(emulator_port[-1]) + 2
-        else:
-            emulator_port = 5555
+#     if avds:
+#         emulator_port = get_running_avd_ports()
+#         if emulator_port:
+#             emulator_port = int(emulator_port[-1]) + 2
+#         else:
+#             emulator_port = 5555
     # print(emulator_port)
     #
     # The console port number must be an even integer between 5554 and 5584,
@@ -210,8 +211,10 @@ def adb_instances_manager() -> List[Emulator]:
     util.detail_print(emulators)
     return emulators
 
+
 def get_list_emulators():
     return adb_instances_manager()
+
 
 def get_adb_instance_from_emulators(model: str) -> Emulator:
     '''
@@ -276,10 +279,18 @@ def emulator_wipe_data(emulator: Emulator):
 
 
 def emulator_start_avd(port: int, emulator_name: str):
-    subprocess.Popen([config.EMULATOR,
-                      '-port', str(port), '-avd',
-                      emulator_name, '-accel', 'auto', '-use-system-libs'],
-                     stdout=subprocess.PIPE)
+    '''
+        starts emulator at the designated `port` specified by the `emulator_name`.
+        Internally, it observers headless flag from config file to start emulator in headless mode.
+    '''
+    if config.HEADLESS:
+        command = "{} -port {} -avd {} -no-skin -no-audio -no-window".format(
+            config.EMULATOR, str(port), emulator_name)
+    else:
+        command = "{} -port {} -avd {} -accel auto -use-system-libs".format(
+            config.EMULATOR, str(port), emulator_name)
+    subprocess.Popen(shlex.split(command),
+                    stdout=subprocess.PIPE)
 
 
 if __name__ == '__main__':

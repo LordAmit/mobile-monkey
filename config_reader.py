@@ -3,8 +3,7 @@ config_reader module
 """
 
 import configparser as ConfigParser
-
-
+import util
 """
 ConfigReader takes care of config file reading
 """
@@ -55,6 +54,7 @@ MONKEY_INTERVAL = get("monkey_interval")
 MONKEY_LOG = get("monkey_log")
 MOBILE_MONKEY_LOG = get("mobile_monkey_log")
 DUMP_ADDRESS = get("dump_address")
+HEADLESS = util.StringToBoolean((get("headless")))
 
 # def avd_file_reader():
 #     """

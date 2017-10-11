@@ -13,6 +13,7 @@ telnet_key: rsEH0WZrxSN7mzU6
 minimum_interval: 1
 maximum_interval: 3
 monkey_interval: 500
+headless: False
 seed: 155
 duration: 100
 uniform_interval: 12
