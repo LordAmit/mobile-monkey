@@ -43,8 +43,7 @@ def start_emulator() -> bool:
             str.format("No emulator instance running. starting {} at port {}",
                        emulator_model, emulator_port), flag=PRINT_FLAG)
         api_commands.adb_start_server_safe()
-        emulator_manager.emulator_start_avd(
-            emulator_port, emulator_model)
+        emulator_manager.emulator_start_avd(emulator_port, emulator_model)
         # subprocess.Popen([command,
         #                   '-port', str(emulator_port), '-avd',
         #                   emulator_name, '-use-system-libs'],
@@ -70,9 +69,7 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
 
     # telnet_connector = TelnetAdb(config.LOCALHOST, emulator.port)
     # apk = Apk(config.APK_FULL_PATH)
-
     api_commands.adb_uninstall_apk(emulator, apk)
-
     api_commands.adb_install_apk(emulator, apk)
 
     api_commands.adb_start_launcher_of_apk(emulator, apk)
