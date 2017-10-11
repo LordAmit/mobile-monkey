@@ -49,6 +49,14 @@ def move_dir_safe(source: str, destination: str):
         print('something wrong with safe_move: ')
         print(source, destination)
 
+def StringToBoolean(value:str):
+    if value == "True":
+        return True
+    elif value == "False":
+        return False
+    else:
+        raise ValueError("value must be True/False. You provided: "+value)
+
 
 def remove_existing_file_directory(address: str):
     """
