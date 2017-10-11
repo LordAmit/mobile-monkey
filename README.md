@@ -37,36 +37,39 @@ Mobile Monkey is dependent on `configFile`. It is also configurable using the sa
 
 ### Dependencies
 
-|Key | Meaning|
-| --  | -- |
-| root | the root directory |
-| directory | directory where apk files of apps are kept |
-| adb | path of adb from Android SDK |
-| aapt | path of aapt from Android SDK |
-| emulator | path of emulator from Android SDK |
-| android | path of android from Android SDK |
-| tools |  path of tools from Android SDK|
-| current_directory | path of the current directory of mobile-manager |
-| temp | path of the temporary directory, where the apk files are extracted and analyzed |
-| telnet_key | value of the telnet key. Generally found in a file called `.emulator_console_auth_token` from your home directory. Automatically created by Android SDK |
-| localhost | is required for telnet |
+| Key               | Meaning                                                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| root              | the root directory                                                                                                                                      |
+| directory         | directory where apk files of apps are kept                                                                                                              |
+| adb               | path of adb from Android SDK                                                                                                                            |
+| aapt              | path of aapt from Android SDK                                                                                                                           |
+| emulator          | path of emulator from Android SDK                                                                                                                       |
+| android           | path of android from Android SDK                                                                                                                        |
+| tools             | path of tools from Android SDK                                                                                                                          |
+| current_directory | path of the current directory of mobile-manager                                                                                                         |
+| temp              | path of the temporary directory, where the apk files are extracted and analyzed                                                                         |
+| telnet_key        | value of the telnet key. Generally found in a file called `.emulator_console_auth_token` from your home directory. Automatically created by Android SDK |
+| localhost         | is required for telnet                                                                                                                                  |
 
 ### Configurations
 
 Mobile-Monkey is configurable in various ways using the `configFile`. All duration keys specified below are in seconds unless otherwise specified.
 
-| Key | Value |
-| -- | -- |
-| minimum_interval | minimum interval between contextual events |
-| maximum_interval | maximum interval between contextual events. Must be greater than minimum_interval and less than duration |
-| monkey_interval | Mobile-Monkey can utilize the `monkey` tool from Google internally. monkey_interval is the interval between each events from monkey in millilseconds |
-| seed | seed is used to control the Pseudo-randomness of interval_events. integers only |
-| duration | the complete duration of contextual stress testing |
-| apk_name | name of the apk file without the apk extension |
-| apk_full_path | the full path is automatically deduced by combining the `root` and `apk_name`. You need to provide the rest of the path |
-| emulator_name | Case Sensitive name of the emulator to be used. Must be created before using. |
-| emulator_port | mobile_monkey will try to start the emulator using this port. 5555 is the default, however it may sometimes change due to unavailability of the port. Mobile-Monkey can handle that. |
-| log_address | path where logs will be kept |
+| Key              | Value                                                                                                                                                                                |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| minimum_interval | minimum interval between contextual events                                                                                                                                           |
+| maximum_interval | maximum interval between contextual events. Must be greater than minimum_interval and less than duration                                                                             |
+| monkey_interval  | Mobile-Monkey can utilize the `monkey` tool from Google internally. monkey_interval is the interval between each events from monkey in millilseconds                                 |
+| headless         | Determines whether the emulator will run in headless mode or not, only accepts `True/False`                                                                                          |
+| seed             | seed is used to control the Pseudo-randomness of interval_events. integers only                                                                                                      |
+| duration         | the complete duration of contextual stress testing                                                                                                                                   |
+| apk_name         | name of the apk file without the apk extension                                                                                                                                       |
+| apk_full_path    | the full path is automatically deduced by combining the `root` and `apk_name`. You need to provide the rest of the path                                                              |
+| emulator_name    | Case Sensitive name of the emulator to be used. Must be created before using.                                                                                                        |
+| emulator_port    | mobile_monkey will try to start the emulator using this port. 5555 is the default, however it may sometimes change due to unavailability of the port. Mobile-Monkey can handle that. |
+| log_address      | path where logs will be kept                                                                                                                                                         |
+| dump_address     | path where uiautomator dumps will be kept                                                                                                                                            |
+
 
 ### Others
 
