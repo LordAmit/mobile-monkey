@@ -23,7 +23,7 @@ from log_analyzer import Analyzer
 
 PRINT_FLAG = True
 TIME_PRINT_FLAG = True
-emulator_model = 'Nexus6T'
+emulator_model = config.EMULATOR_NAME
 emulator_port = config.EMULATOR_PORT
 contextual_events = 0
 WILL_MONKEY = True
