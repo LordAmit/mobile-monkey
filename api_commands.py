@@ -26,6 +26,15 @@ def adb_install_apk(emulator: Emulator, apk: Apk):
         print(error)
         raise ValueError("error installing.")
 
+def adb_get_activity_list(emulator: Emulator, apk: Apk):
+    '''
+    returns list of activities
+    '''
+
+    command = "{} dump xmltree {} AndroidManifest.xml".format(config.AAPT, apk.apk_path)
+    result = subprocess.check_output(shlex.split(command)).decode()
+    return result
+
 
 def adb_stop_activity_of_apk(emulator: Emulator, apk: Apk):
     '''
