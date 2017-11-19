@@ -172,6 +172,13 @@ class AdbSettings:
 
         # http://stackoverflow.com/questions/6236340/how-to-limit-speed-of-internet-connection-on-android-emulator
 
+    def adb_send_key_event_test(self, event_name: str):
+        '''
+        sends key event to the emulator
+        '''
+        subprocess.check_output(
+            [ADB, '-s', self.emulator_name, 'shell', 'input', 'keyevent', event_name])
+
     def subprocess_call_get(self, value, namespace: Namespace):
         '''
             sets a value. for example,

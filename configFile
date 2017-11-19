@@ -5,20 +5,20 @@ adb: %(root)s/Android/Sdk/platform-tools/adb
 aapt: %(root)s/Android/Sdk/build-tools/26.0.1/aapt
 localhost: localhost
 emulator: %(root)s/Android/Sdk/emulator/emulator
-android:%(root)s/Android/Sdk/tools/android
-tools:%(root)s/Android/Sdk/tools/
+android: %(root)s/Android/Sdk/tools/android
+tools: %(root)s/Android/Sdk/tools/
 current_directory: %(root)s/mobile-monkey/
 temp: %(current_directory)stemp/
 telnet_key: rsEH0WZrxSN7mzU6
 minimum_interval: 1
-maximum_interval: 3
+maximum_interval: 10
 monkey_interval: 500
 headless: False
 seed: 155
 duration: 100
 uniform_interval: 12
 apk_name: com.datasoft.co_op360
-apk_full_path: %(root)s/Downloads/cpuz.apk
+apk_full_path: %(root)s/Downloads/app-debug.apk
 emulator_name: Nexus_5X_API_26
 emulator_port: 5555
 dump_address: %(root)s/Downloads/testApps/dumps/
