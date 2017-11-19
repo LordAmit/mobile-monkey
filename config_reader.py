@@ -4,6 +4,7 @@ config_reader module
 
 import configparser as ConfigParser
 import util
+import os
 """
 ConfigReader takes care of config file reading
 """
@@ -16,7 +17,9 @@ def get(value: str):
     :return: string that contains value from config file.
     """
     config = ConfigParser.ConfigParser()
-    config.read("configFile")
+    # config.read("configFile")
+    config.read(os.path.join(os.path.abspath(
+        os.path.dirname(__file__)), 'configFile'))
     return config.get('emulator', value)
 
 
