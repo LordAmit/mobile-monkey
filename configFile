@@ -21,7 +21,7 @@ apk_name: com.datasoft.co_op360
 apk_full_path: %(root)s/Downloads/app-debug.apk
 emulator_name: Nexus_5X_API_26
 emulator_port: 5555
-dump_address: %(root)s/Downloads/testApps/dumps/
+dump_address: %(root)s/Downloads/
 log_address: %(root)s/
 log_file: de.motain.iliga_201706181424_MobileMonkey
 sample_log: %(log_address)s%(log_file)s.log
