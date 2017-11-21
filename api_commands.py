@@ -62,6 +62,15 @@ def adb_start_launcher_of_apk(emulator: Emulator, apk: Apk):
     print("package_name: " + apk.package_name + " is started")
 
 
+def adb_start_activity(emulator: Emulator, apk: Apk, activity: str):
+    '''
+        starts the specified activity.
+    '''
+    subprocess.check_output(
+        [config.adb, 'shell', 'am', 'start', '-n', apk.package_name+"/"+activity])
+    print(activity+" is started")
+
+
 def adb_is_package_present(emulator: Emulator, app_package_name: str) -> int:
     '''
         returns 1 if the specified package is present.
