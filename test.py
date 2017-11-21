@@ -9,6 +9,8 @@ from adb_settings import AdbSettings
 import random
 from typing import List
 from threading import Thread
+from adb_settings import KeyboardEvent
+import enum
 
 def __random_value_generator(lower_limit: int, upper_limit: int):
 
@@ -47,12 +49,12 @@ def some_method() -> str:
         for s in itemlist:
             if s.attributes['class'].value in ["android.widget.EditText"]:
                 bounds = s.attributes['bounds'].value.split("][")
-                xpos = bounds[0][1:]
-                ypos = bounds[1][:len(bounds[1])-1]
-                x1 = int (xpos.split(",")[0])
-                x2 = int (xpos.split(",")[1])
-                y1 = int (ypos.split(",")[0])
-                y2 = int (ypos.split(",")[1])
+                Lpos = bounds[0][1:]
+                Rpos = bounds[1][:len(bounds[1])-1]
+                x1 = int (Lpos.split(",")[0])
+                y1 = int (Lpos.split(",")[1])
+                x2 = int (Rpos.split(",")[0])
+                y2 = int (Rpos.split(",")[1])
                 x = XML_Element(s.attributes['resource-id'].value,
                             s.attributes['class'].value,
                             s.attributes['checkable'].value,
@@ -70,12 +72,14 @@ def some_method() -> str:
                 element_list.append(x)
 
         for item in element_list:
-            rand = __random_value_generator(config.MINIMUM_INTERVAL, config.MAXIMUM_INTERVAL)
-            ''' print(rand) '''
             print(item.resource_id, item.xpos, item.ypos)
-            ''' api_commands.adb_input_tap(emulator, item.xpos, item.ypos)
-            adb_settings.adb_send_key_event_test("KEYCODE_BACK")     '''
-
+            api_commands.adb_input_tap(emulator, item.xpos, item.ypos)
+            rand = random.randint(5, 10)
+            for i in range(rand):
+                KeyCode = KeyboardEvent(random.randint(0, 40)).name
+                print("Sending event " + KeyCode)
+                adb_settings.adb_send_key_event_test(KeyCode)
+            adb_settings.adb_send_key_event_test("KEYCODE_BACK")
 
 if __name__ == '__main__':
     some_method()
