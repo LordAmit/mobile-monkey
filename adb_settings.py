@@ -25,9 +25,7 @@ class KeyboardEvent(Enum):
     KEYCODE_7 = auto()
     KEYCODE_8 = auto()
     KEYCODE_9 = auto()
-    KEYCODE_STAR = auto()
-    KEYCODE_POUND = auto()
-
+    
     KEYCODE_A = auto()
     KEYCODE_B = auto()
     KEYCODE_C = auto()
@@ -54,6 +52,9 @@ class KeyboardEvent(Enum):
     KEYCODE_X = auto()
     KEYCODE_Y = auto()
     KEYCODE_Z = auto()
+
+    KEYCODE_STAR = auto()
+    KEYCODE_POUND = auto()
     KEYCODE_COMMA = auto()
     KEYCODE_PERIOD = auto()
     KEYCODE_PLUS = auto()
@@ -66,7 +67,7 @@ class KeyboardEvent(Enum):
     KEYCODE_APOSTROPHE = auto()
     KEYCODE_SLASH = auto()
     KEYCODE_AT = auto()
-    KEYCODE_NUM = auto()
+    # KEYCODE_NUM = auto()
     KEYCODE_SPACE = auto()
 
 class KeyEvent(Enum):
