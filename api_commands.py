@@ -71,6 +71,15 @@ def adb_start_activity(emulator: Emulator, apk: Apk, activity: str):
     print(activity+" is started")
 
 
+def adb_display_properties():
+    result = subprocess.check_output([config.adb, 'shell', 'dumpsys', 'display'])
+    return result;
+
+def adb_display_scroll(height: str):
+    subprocess.check_output(
+        [config.adb, 'shell', 'input', 'swipe 0 '+height+' 0 0' ])
+
+
 def adb_is_package_present(emulator: Emulator, app_package_name: str) -> int:
     '''
         returns 1 if the specified package is present.
