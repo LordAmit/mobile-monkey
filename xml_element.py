@@ -18,3 +18,12 @@ class XML_Element:
         self.selected = selected
         self.xpos = xpos
         self.ypos = ypos
+
+    def __str__(self) -> str:
+
+        # return "[event_type: {}, step: {}, interval: {}, event: {}]".format(
+        #     self.event_type, self.step, self.interval, self.event)
+        return "{}".format(
+            self.resource_id)
+
+    __repr__ = __str__
