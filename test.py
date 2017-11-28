@@ -12,13 +12,6 @@ from threading import Thread
 from adb_settings import KeyboardEvent
 import enum
 
-''' def __random_value_generator(lower_limit: int, upper_limit: int):
-
-    if not isinstance(lower_limit, int):
-        raise ValueError("lower_limit must be int")
-    if not isinstance(upper_limit, int):
-        raise ValueError("upper_limit must be int")
-    return random.randint(lower_limit, upper_limit) '''
 
 def some_method() -> str:
 
@@ -47,8 +40,8 @@ def some_method() -> str:
         previous_elements = []
         api_commands.adb_start_activity(emulator, apk, activity)
         element_list = test(emulator,adb_settings)
-       
-        while previous_elements != element_list:
+
+        while len(set(previous_elements).intersection(element_list)) >0 :
             previous_elements = element_list
             api_commands.adb_display_scroll("{}".format(int(display_height) - int(display_height) / 10))
             element_list = test(emulator,adb_settings)
