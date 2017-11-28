@@ -19,7 +19,7 @@ duration: 100
 uniform_interval: 12
 apk_name: com.datasoft.co_op360
 apk_full_path: %(root)s/Downloads/app-debug.apk
-emulator_name: Nexus_5X_API_26
+emulator_name: Nexus_5_API_25
 emulator_port: 5555
 dump_address: %(root)s/Downloads/
 log_address: %(root)s/
