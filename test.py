@@ -18,19 +18,19 @@ def some_method() -> str:
     apk = Apk(config.APK_FULL_PATH)
     emulator = emulator_manager.get_adb_instance_from_emulators(config.EMULATOR_NAME)
     adb_settings = AdbSettings("emulator-" + emulator.port)
-    activities = ['com.datasoft.co_op360.presentation.login.LoginActiv']
+    activities = []
     
-    # file = open("activity_list", "w")
-    # file.write(api_commands.adb_get_activity_list(emulator, apk))
-    # file.close()
+    file = open("activity_list", "w")
+    file.write(api_commands.adb_get_activity_list(emulator, apk))
+    file.close()
 
-    # file = open('activity_list', 'r')
-    # for l in file.readlines():
-    #     if 'A: android:name' in l and 'Activity' in l:
-    #         arr = l.split('"')
-    #         activities.append(arr[1])
-    #         print(arr[1])
-    # print(len(activities))
+    file = open('activity_list', 'r')
+    for l in file.readlines():
+        if 'A: android:name' in l and 'Activity' in l:
+            arr = l.split('"')
+            activities.append(arr[1])
+            print(arr[1])
+    print(len(activities))
 
     display_properties = api_commands.adb_display_properties().decode()
     if 'DisplayDeviceInfo' in display_properties:

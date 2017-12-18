@@ -13,7 +13,7 @@ from telnet_connector import NetworkDelay
 from telnet_connector import NetworkStatus
 from emulator import Emulator
 from fuzz_context import Fuzzer
-from adb_settings import Airplane, KeyEvent, UserRotation
+from adb_settings import Airplane, KeyboardEvent, UserRotation
 # import adb_settings as AdbSettings
 import util
 from adb_monkey import AdbMonkey
@@ -93,7 +93,8 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer, will_monkey: bool
     threads.append(Thread(
         target=fuzz.random_rotation, args=((emulator_name, user_rotation_interval_events))))
 
-    key_event_interval_events = fuzz.generate_step_interval_event(KeyEvent)
+    key_event_interval_events = fuzz.generate_step_interval_event(
+        KeyboardEvent)
     contextual_events += len(key_event_interval_events)
     threads.append(Thread(
         target=fuzz.random_key_event, args=((emulator_name, key_event_interval_events))))

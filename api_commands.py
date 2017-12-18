@@ -78,6 +78,7 @@ def adb_display_properties():
 def adb_display_scroll(height: str):
     subprocess.check_output(
         [config.adb, 'shell', 'input', 'swipe 0 '+height+' 0 0' ])
+    print("scrolling up")
 
 
 def adb_is_package_present(emulator: Emulator, app_package_name: str) -> int:
