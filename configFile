@@ -31,3 +31,4 @@ monkey_log: %(log_address)s%(monkey_log_file)s.log
 mobile_monkey_log: %(log_address)s%(mobile_monkey_log_file)s.log
 minimum_keyevent: 5
 maximum_keyevent: 10
+guided_approach: 1

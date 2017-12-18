@@ -11,6 +11,7 @@ from typing import List
 from threading import Thread
 from adb_settings import KeyboardEvent
 import enum
+import os
 
 
 def some_method() -> str:
@@ -19,17 +20,28 @@ def some_method() -> str:
     emulator = emulator_manager.get_adb_instance_from_emulators(config.EMULATOR_NAME)
     adb_settings = AdbSettings("emulator-" + emulator.port)
     activities = []
-    
-    file = open("activity_list", "w")
-    file.write(api_commands.adb_get_activity_list(emulator, apk))
-    file.close()
 
-    file = open('activity_list', 'r')
-    for l in file.readlines():
-        if 'A: android:name' in l and 'Activity' in l:
-            arr = l.split('"')
-            activities.append(arr[1])
-            print(arr[1])
+    if config.GUIDED_APPROACH == 1:
+        file = open('activities', 'r')
+        for l in file.readlines():
+            activities.append(l.strip())
+            print(l.strip())
+        file.close()
+
+    else:
+        file = open("activity_list", "w")
+        file.write(api_commands.adb_get_activity_list(emulator, apk))
+        file.close()
+
+        file = open('activity_list', 'r')
+        for l in file.readlines():
+            if 'A: android:name' in l and 'Activity' in l:
+                arr = l.split('"')
+                activities.append(arr[1])
+                print(arr[1])
+        file.close()
+        os.remove('activity_list')
+
     print(len(activities))
 
     display_properties = api_commands.adb_display_properties().decode()
@@ -38,9 +50,13 @@ def some_method() -> str:
         display_height = arr.split(',')[0]
 
     for activity in activities:
-        api_commands.adb_start_activity(emulator, apk, activity)
+        try:
+            api_commands.adb_start_activity(emulator, apk, activity)
+        except Exception:
+            print(Exception)
+            
         element_list = get_elements_list(emulator, adb_settings)
-        
+
         while len(element_list) > 0 :
             input_key_event(element_list,emulator,adb_settings)
             previous_elements = element_list

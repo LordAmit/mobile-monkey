@@ -60,6 +60,8 @@ HEADLESS = util.StringToBoolean((get("headless")))
 MINIMUM_KEYEVENT = int(get("minimum_keyevent"))
 MAXIMUM_KEYEVENT = int(get("maximum_keyevent"))
 
+GUIDED_APPROACH = int(get("guided_approach"))
+
 # def avd_file_reader():
 #     """
 #     returns the list of avds
