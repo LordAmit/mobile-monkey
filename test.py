@@ -12,6 +12,7 @@ from threading import Thread
 from adb_settings import KeyboardEvent
 import enum
 import os
+import util
 
 eventlog = open('EventLog', 'w')
 
@@ -85,7 +86,7 @@ def input_key_event(activity: str, element_list: XML_Element, emulator: Emulator
             print("Sending event " + KeyCode)
             adb_settings.adb_send_key_event_test(KeyCode)
             eventlog.write(activity + '\t' + item.resource_id +
-                           '\t' + KeyCode + '\n')
+                           '\t' + KeyCode + '\t' + util.return_current_time_in_logcat_style() + '\n')
         adb_settings.adb_send_key_event_test("KEYCODE_BACK")
 
 def get_elements_list(emulator : Emulator, adb_settings : AdbSettings) -> List:
