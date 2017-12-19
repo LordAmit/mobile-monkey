@@ -13,9 +13,9 @@ from adb_settings import KeyboardEvent
 import enum
 import os
 
+eventlog = open('EventLog', 'w')
 
 def some_method() -> str:
-
     apk = Apk(config.APK_FULL_PATH)
     emulator = emulator_manager.get_adb_instance_from_emulators(config.EMULATOR_NAME)
     adb_settings = AdbSettings("emulator-" + emulator.port)
@@ -58,11 +58,13 @@ def some_method() -> str:
         element_list = get_elements_list(emulator, adb_settings)
 
         while len(element_list) > 0 :
-            input_key_event(element_list,emulator,adb_settings)
+            input_key_event(activity, element_list,emulator,adb_settings)
             previous_elements = element_list
             api_commands.adb_display_scroll("{}".format(int(display_height) - int(display_height) / 10))
             element_list = get_elements_list(emulator,adb_settings)
             element_list = element_list_compare(previous_elements,element_list)
+
+    eventlog.close()
 
 def element_list_compare(previous_elements : XML_Element, current_elements : XML_Element):
     for previous_item in previous_elements:
@@ -73,7 +75,7 @@ def element_list_compare(previous_elements : XML_Element, current_elements : XML
     return current_elements
 
 
-def input_key_event(element_list: XML_Element, emulator: Emulator, adb_settings: AdbSettings):
+def input_key_event(activity: str, element_list: XML_Element, emulator: Emulator, adb_settings: AdbSettings):
     for item in element_list:
         print(item.resource_id, item.xpos, item.ypos)
         api_commands.adb_input_tap(emulator, item.xpos, item.ypos)
@@ -82,6 +84,8 @@ def input_key_event(element_list: XML_Element, emulator: Emulator, adb_settings:
             KeyCode = KeyboardEvent(random.randint(0, 40)).name
             print("Sending event " + KeyCode)
             adb_settings.adb_send_key_event_test(KeyCode)
+            eventlog.write(activity + '\t' + item.resource_id +
+                           '\t' + KeyCode + '\n')
         adb_settings.adb_send_key_event_test("KEYCODE_BACK")
 
 def get_elements_list(emulator : Emulator, adb_settings : AdbSettings) -> List:
