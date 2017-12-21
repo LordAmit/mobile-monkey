@@ -54,8 +54,7 @@ class Logcat:
         self.log_process = None
         self.test_type = test_type
         self.file_address = config.LOG_ADDRESS + \
-            self.package_name + "_" + util.return_current_time() + \
-            "_" + self.test_type.name + ".log"
+            self.package_name + "_" + ".log"
         self.logfile = None
 
     def start_logcat(self):

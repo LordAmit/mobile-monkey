@@ -9,7 +9,7 @@ android: %(root)s/Android/Sdk/tools/android
 tools: %(root)s/Android/Sdk/tools/
 current_directory: %(root)s/mobile-monkey/
 temp: %(current_directory)stemp/
-telnet_key: rsEH0WZrxSN7mzU6
+telnet_key: EkT73OIU5NSUH7ZT
 minimum_interval: 1
 maximum_interval: 10
 monkey_interval: 500
@@ -31,4 +31,4 @@ monkey_log: %(log_address)s%(monkey_log_file)s.log
 mobile_monkey_log: %(log_address)s%(mobile_monkey_log_file)s.log
 minimum_keyevent: 5
 maximum_keyevent: 10
-guided_approach: 1
+guided_approach: 0

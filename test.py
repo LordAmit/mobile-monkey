@@ -13,14 +13,22 @@ from adb_settings import KeyboardEvent
 import enum
 import os
 import util
+import monkey
+from adb_logcat import Logcat, TestType
 
 eventlog = open('EventLog', 'w')
 
 def some_method() -> str:
+
     apk = Apk(config.APK_FULL_PATH)
+
     emulator = emulator_manager.get_adb_instance_from_emulators(config.EMULATOR_NAME)
     adb_settings = AdbSettings("emulator-" + emulator.port)
     activities = []
+
+    log = Logcat(emulator, apk, TestType.MobileMonkey)
+
+    log.start_logcat()
 
     if config.GUIDED_APPROACH == 1:
         file = open('activities', 'r')
@@ -50,22 +58,48 @@ def some_method() -> str:
         arr = display_properties.split('height=')[1]
         display_height = arr.split(',')[0]
 
+    seed = config.SEED
+
     for activity in activities:
+        
         try:
             api_commands.adb_start_activity(emulator, apk, activity)
         except Exception:
             print(Exception)
-            
-        element_list = get_elements_list(emulator, adb_settings)
 
-        while len(element_list) > 0 :
-            input_key_event(activity, element_list,emulator,adb_settings)
-            previous_elements = element_list
-            api_commands.adb_display_scroll("{}".format(int(display_height) - int(display_height) / 10))
-            element_list = get_elements_list(emulator,adb_settings)
-            element_list = element_list_compare(previous_elements,element_list)
+        threads = []
 
+        threads.append(Thread(target=monkey.run, args=(
+            emulator, apk, config.EMULATOR_NAME, config.EMULATOR_PORT, seed, log)))
+
+        #monkey.run(emulator, apk, config.EMULATOR_NAME, config.EMULATOR_PORT, seed, log)
+
+        threads.append(Thread(target=test_ui, args=(activity, emulator, adb_settings, display_height)))
+
+        [thread.start() for thread in threads]
+
+        [thread.join() for thread in threads]
+
+        seed = seed + 1
+
+    log.stop_logcat()
     eventlog.close()
+
+def test_ui(activity: str, emulator : Emulator, adb_settings : AdbSettings, display_height: str):
+
+    file = open('StopFlagWatcher', 'w')
+    file.truncate()
+
+    element_list = get_elements_list(emulator, adb_settings)
+
+    while len(element_list) > 0:
+        input_key_event(activity, element_list, emulator, adb_settings)
+        previous_elements = element_list
+        api_commands.adb_display_scroll("{}".format(int(display_height) - int(display_height) / 10))
+        element_list = get_elements_list(emulator, adb_settings)
+        element_list = element_list_compare(previous_elements, element_list)
+
+    file.write("1")
 
 def element_list_compare(previous_elements : XML_Element, current_elements : XML_Element):
     for previous_item in previous_elements:

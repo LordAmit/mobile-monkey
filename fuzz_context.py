@@ -21,6 +21,7 @@ from telnet_connector import NetworkStatus
 import util
 import config_reader as config
 
+
 PRINT_FLAG = True
 
 EVENT_TYPES = Union[GsmProfile, NetworkDelay,
@@ -297,11 +298,20 @@ class Fuzzer:
     def __execute_interval_event(self, method_name,
                                  interval_events: List[IntervalEvent]):
         # util.debug_print("Execution: ", interval_events, flag=PRINT_FLAG)
+
+        file = open('StopFlagWatcher', 'r')
+
         for interval_event in interval_events:
+
+            if "1" in file.readline(1):
+                print("Contextual event finished")
+                break
+
             if self.fatal_watcher.has_fatal_exception_watch():
                 print("Fatal Exception Detected. Breaking from " +
                       interval_event.event_type.__name__)
                 break
+
             # if self.fatal_exception:
             #     print("fatal crash. Stopping " +
             #           interval_event.event_type.__name__)
@@ -371,6 +381,7 @@ class Fuzzer:
         and NetworkStatus type IntervalEvent
         '''
         telnet_obj = TelnetAdb(host, emulator.port)
+        
         if interval_events is None:
             interval_events = self.generate_step_interval_event(NetworkStatus)
         # util.debug_print(interval_events, flag=PRINT_FLAG)
