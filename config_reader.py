@@ -62,6 +62,11 @@ MAXIMUM_KEYEVENT = int(get("maximum_keyevent"))
 
 GUIDED_APPROACH = int(get("guided_approach"))
 
+JARSIGNER = get("jarsigner")
+KEY = get("key_address")
+ALIAS = get("key_alias")
+PASSWORD = get("key_password")
+
 # def avd_file_reader():
 #     """
 #     returns the list of avds

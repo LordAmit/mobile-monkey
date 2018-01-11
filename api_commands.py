@@ -1,6 +1,7 @@
 '''
 api commands from python to gain information about android avds
 '''
+import xml.etree.ElementTree as ET
 import subprocess
 import shlex
 from typing import List
@@ -12,6 +13,66 @@ ADB = config.adb
 
 PRINT_FLAG = True
 
+def decode_apk(apk:Apk):
+    '''
+    decodes provided apk to a folder
+    '''
+    util.check_file_directory_exists(apk.apk_path, True)
+    try:
+        result = subprocess.check_output(
+            ['apktool', 'if', apk.apk_path]).decode()
+        util.debug_print(result, flag=PRINT_FLAG)
+
+        result = subprocess.check_output(
+            ['apktool', 'd', apk.apk_path, '-o', config.APK_FULL_PATH.split('.apk')[0], '-f']).decode()
+        util.debug_print(result, flag=PRINT_FLAG)
+    except subprocess.SubprocessError as error:
+        print(error)
+        raise ValueError("error decoding.")
+
+
+def overwrite_android_manifest():
+
+    ''' 
+    adds android:exported="true" to AndroidManifest.xml
+    '''
+
+    file_address = config.APK_FULL_PATH.split('.apk')[0] + '/AndroidManifest.xml'
+
+    tree = ET.parse(file_address)
+    root = tree.getroot()
+
+    for activity in root.iter('activity'):
+        activity.set('android:exported', 'true')
+
+    tree.write(file_address)
+
+    f = open(file_address, 'r')
+
+    filedata = f.read()
+    f.close()
+
+    newdata = filedata.replace("ns0", "android")
+
+    f = open(file_address, 'w')
+    f.write(newdata)
+    f.close()
+
+def build_apk(apk: Apk):
+    '''
+    builds modified apk
+    '''
+    result = subprocess.check_output(
+        ['apktool', 'b', config.APK_FULL_PATH.split('.apk')[0], '-o', apk.apk_path]).decode()
+    util.debug_print(result, flag=PRINT_FLAG)
+
+def sign_apk(apk: Apk):
+    result = subprocess.check_output(
+        [config.JARSIGNER, '-keystore',
+         config.KEY, '-verbose', apk.apk_path,
+         config.ALIAS], input=config.PASSWORD.encode()).decode()
+         
+    util.debug_print(result, flag=PRINT_FLAG)
 
 def adb_install_apk(emulator: Emulator, apk: Apk):
     '''

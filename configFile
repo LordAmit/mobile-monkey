@@ -18,7 +18,7 @@ seed: 155
 duration: 100
 uniform_interval: 12
 apk_name: com.datasoft.co_op360
-apk_full_path: %(root)s/Downloads/app-debug.apk
+apk_full_path: %(root)s/ride.apk
 emulator_name: Nexus_5_API_25
 emulator_port: 5555
 dump_address: %(root)s/Downloads/
@@ -32,3 +32,7 @@ mobile_monkey_log: %(log_address)s%(mobile_monkey_log_file)s.log
 minimum_keyevent: 5
 maximum_keyevent: 10
 guided_approach: 0
+jarsigner: /usr/lib/jvm/java-8-openjdk-amd64/bin/jarsigner
+key_address: /home/mehedi/my.keystore
+key_alias: mehedi
+key_password: iit123
