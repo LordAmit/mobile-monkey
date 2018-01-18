@@ -2,9 +2,8 @@
 Fuzz contexts - to conduct contextual testing of app
 '''
 import time
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Type
 import random
-import enum
 from adb_logcat import FatalWatcher
 
 from emulator import Emulator
@@ -17,51 +16,13 @@ from telnet_connector import TelnetAdb
 from telnet_connector import GsmProfile
 from telnet_connector import NetworkDelay
 from telnet_connector import NetworkStatus
-
-import util
 import config_reader as config
 
-PRINT_FLAG = True
+from interval_event import IntervalEvent
 
+PRINT_FLAG = True
 EVENT_TYPES = Union[GsmProfile, NetworkDelay,
                     NetworkStatus, Airplane, UserRotation, KeyEvent]
-
-
-class IntervalEvent:
-
-    '''
-    `Interval Event` class contains the steps,
-    for each of which, an interval, an event and an event_type is assigned
-    e.g.
-
-    >>> [event_type: <enum 'NetworkStatus'>, step: 0, interval: 4, event: full]
-
-    where `event_type` represents one of the Event Types:
-    - GsmProfile,
-    - NetworkDelay,
-    - NetworkStatus,
-    - Airplane,
-    - UserRotation
-
-    `step` is a 0 indexed list, against which an `interval` in seconds
-    and an `event` of event_type is assigned.
-    '''
-
-    def __init__(self, step: int, interval: int, event: EVENT_TYPES, event_type: enum):
-        self.step = step
-        self.interval = interval
-        self.event = event
-        self.event_type = event_type
-
-    def __str__(self) -> str:
-
-        # return "[event_type: {}, step: {}, interval: {}, event: {}]".format(
-        #     self.event_type, self.step, self.interval, self.event)
-        return "{} {} {} {} {}".format(
-            util.return_current_time_in_logcat_style(),
-            self.event_type.__name__, self.step, self.interval, self.event)
-
-    __repr__ = __str__
 
 
 class Fuzzer:
@@ -79,7 +40,7 @@ class Fuzzer:
                  interval_maximum: int,
                  seed: int, duration: int,
                  fatal_watcher: FatalWatcher,
-                 uniform_interval: int=config.UNIFORM_INTERVAL):
+                 uniform_interval: int = config.UNIFORM_INTERVAL)->None:
         '''
             `interval_minimum`, `interval_maximum`, `seed`, and `duration` are all integers.
             `interval_minimum`, `interval_maximum`, and `duration` are in seconds.
@@ -207,9 +168,9 @@ class Fuzzer:
         return interval_events
 
     def generate_step_interval_event(self,
-                                     event_type: EVENT_TYPES) -> List[IntervalEvent]:
+                                     event_type: Type[EVENT_TYPES]) -> List[IntervalEvent]:
         '''
-            returns a List of interval_event for each step
+            returns a List of Interval_Event for each step
         '''
 
         total_duration = self.duration
@@ -318,7 +279,8 @@ class Fuzzer:
             #     method_name(enum_type(events[i]))
             #     time.sleep(intervals[i])
 
-    def random_airplane_mode_call(self, adb_device: str, interval_events: List[IntervalEvent]=None):
+    def random_airplane_mode_call(self, adb_device: str,
+                                  interval_events: List[IntervalEvent] = None):
         '''
         randomly fuzzes airplane_mode_call for the specified
         running virtual device identified by `adb_device`
@@ -347,7 +309,7 @@ class Fuzzer:
             device.adb_send_key_event, interval_events)
 
     def random_rotation(self, adb_device: str,
-                        interval_events: List[IntervalEvent]=None):
+                        interval_events: List[IntervalEvent] = None):
         '''
         randomly fuzzes airplane_mode_call for the specified
         running virtual device identified by `adb_device`

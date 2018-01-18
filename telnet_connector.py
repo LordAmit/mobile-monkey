@@ -47,6 +47,7 @@ class GsmProfile(Enum):
     STRENGTH2 = 2
     STRENGTH3 = 3
     STRENGTH4 = 4
+    __name__ = 'GsmProfile'
 
 
 class TelnetAdb:
