@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="332.0" prefWidth="505.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FxController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About App" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+      <children>
+            <TextField fx:id="config" layoutX="201.0" layoutY="39.0" />
+            <Text layoutX="24.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Configuration File" />
+            <TextField fx:id="min_inteval" layoutX="202.0" layoutY="78.0" />
+            <Text layoutX="25.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minimum Interval" />
+            <TextField fx:id="max_interval" layoutX="203.0" layoutY="117.0" />
+            <Text layoutX="26.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Maximum Interval" />
+            <TextField fx:id="duration" layoutX="203.0" layoutY="157.0" />
+            <Text layoutX="26.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Duration" />
+            <TextField fx:id="seed" layoutX="204.0" layoutY="197.0" />
+            <Text layoutX="27.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Seed" />
+            <Button fx:id="save" layoutX="27.0" layoutY="261.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="stop" layoutX="110.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleStopButtonAction" text="Stop" />
+            <Button fx:id="run" layoutX="191.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleRunButtonAction" text="Run Test" />
+            <Button fx:id="result" layoutX="296.0" layoutY="260.0" mnemonicParsing="false" onAction="#handleResultButtonAction" text="Result" />
+            <Button fx:id="browse" layoutX="394.0" layoutY="39.0" mnemonicParsing="false" onAction="#handleBrowseButtonAction" text="Browse" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
