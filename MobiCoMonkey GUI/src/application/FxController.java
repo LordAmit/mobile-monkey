@@ -79,6 +79,8 @@ public class FxController implements Initializable{
     @FXML
     private void handleRunButtonAction(ActionEvent event) {
     	
+    	System.out.println("Running test...");
+    	
     	new Thread(new Runnable() {
 			
 			@Override
@@ -98,7 +100,8 @@ public class FxController implements Initializable{
 		            
 		            process.waitFor();
 		            
-		            String command2 = python+" "+directory+"/MobiCoMonkey.py";
+		            
+		            String command2 = python+" "+directory+"/mobicomonkey.py";
 		            process2 = Runtime.getRuntime().exec(command2);
 		            
 		            stdInput = new BufferedReader(new 

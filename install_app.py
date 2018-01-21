@@ -85,6 +85,10 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
 
     api_commands.adb_start_launcher_of_apk(emulator, apk)
 
+    #mobicomonkey.start_test()
+
+
+
 
 if __name__ == '__main__':
     run(Apk(config.APK_FULL_PATH), config.EMULATOR_NAME, config.EMULATOR_PORT)

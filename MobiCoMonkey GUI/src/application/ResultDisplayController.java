@@ -64,7 +64,11 @@ public class ResultDisplayController {
                 	
                     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                                 	
-                    	if(!secondItems.isEmpty())secondItems.clear();
+                    	if(!secondItems.isEmpty()){
+                    		secondItems.clear();
+                    		thirdListViewItems.clear();
+                    		fourthListViewItems.clear();
+                    	}
 						
                     	FileInputStream fis = null;
                         BufferedReader reader = null;
@@ -92,89 +96,6 @@ public class ResultDisplayController {
 							// TODO: handle exception
 							e.printStackTrace();
 						}
-                        
-/*						try {
-							
-							fis = new FileInputStream(FxController.logaddress);
-				            reader = new BufferedReader(new InputStreamReader(fis));
-				            
-				            fis2 = new FileInputStream(FxController.eventLog);
-				            reader2 = new BufferedReader(new InputStreamReader(fis2));
-
-						} catch (FileNotFoundException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-                    	
-                    	try {
-                    		String myLine, eventLogLine;
-                    		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-							while ( (myLine = reader.readLine()) != null)
-							{
-								if(newValue == "Error"){
-									if(myLine.contains("E")){
-										String time = myLine.split(" ")[1].split(".")[0];
-										String[] array2 = array[1].split(":");
-										rightItems.add(array2[0]);
-										errorSets = errorSets+ "\n"+array2[1];
-									}
-		                    	}
-								
-								if(newValue == "Warning"){
-									if(myLine.contains("W")){
-										
-										String events = null;
-										String logTime = myLine.split(" ")[1].split("\\.")[0];
-										
-										while ((eventLogLine = reader2.readLine())!= null) {
-											String eventTime = eventLogLine.split(" ")[1];
-											
-										    Date d1 = sdf.parse(logTime);
-										    Date d2 = sdf.parse(eventTime);
-										    
-										    if(Math.abs(d1.getTime()-d2.getTime()) <= 100000){
-										    	
-										    	String activity = eventLogLine.split("\t")[1].split("\\.")[3];
-										    	String id = eventLogLine.split("\t")[2].split(":")[1];
-										    	String keycode = eventLogLine.split("\t")[3];
-										    	
-										    	if(rightItems.contains(activity)){
-										    		events = events + "\n\n" + id + " " + keycode;
-										    	}
-										    	
-										    	else{
-										    		
-										    		if(rightItems.size()>0){
-										    			hmap.put(rightItems.get(rightItems.size()-1), events);	
-										    		}
-										    		rightItems.add(activity);
-										    		events = null + "\n\n" + id + " " + keycode;
-										    	}
-										    	
-										    }
-										}
-										//String[] array2 = array[1].split(":");
-										//rightItems.add(array2[0]);
-										//errorSets = errorSets+ "\n"+array2[1];
-									}
-		                    	}
-								
-								if(newValue == "Fatal"){
-									if(myLine.contains("F")){
-										String[] array = myLine.split("F ");
-										String[] array2 = array[1].split(":");
-										rightItems.add(array2[0]);
-										errorSets = errorSets+ "\n"+array2[1];
-									}
-		                    	}
-								
-							}
-							
-						} catch (IOException | ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}*/
-                    	
 						
                     }
                 }
@@ -236,7 +157,7 @@ public class ResultDisplayController {
         								    Date d1 = sdf.parse(logTime);
         								    Date d2 = sdf.parse(eventTime);
         								    
-        								    if(Math.abs(d1.getTime()-d2.getTime()) <= 60000){
+        								    if(Math.abs(d1.getTime()-d2.getTime()) <= 5000){
         								    	
         								    	String[] arr = logCatLine.split(" ");
         								    	String error = "";
@@ -301,7 +222,9 @@ public class ResultDisplayController {
                     		
                     		while ((eventLogLine = reader2.readLine())!= null) {
                     			
-                    			if (eventLogLine.length()<10) {
+                    			System.out.println(eventLogLine);
+                    			
+                    			if (eventLogLine.isEmpty()) {
 									break;
 								}
 								
@@ -312,7 +235,8 @@ public class ResultDisplayController {
     						    Date d1 = sdf.parse(hmapTime.get(error));
     						    Date d2 = sdf.parse(eventTime);
     						    
-    						    if(Math.abs(d1.getTime()-d2.getTime()) <= 5000){
+    						    
+    						    if(Math.abs(d1.getTime()-d2.getTime()) <= 10000){
     						    	
     						    	String[] arr = eventLogLine.split(" ");
 							    	
@@ -350,6 +274,9 @@ public class ResultDisplayController {
     						    }
                         		
     						}
+                        	
+                        	fourthListView.setItems(fourthListViewItems);
+                        	
 						} catch (Exception e) {
 							// TODO: handle exception
 							e.printStackTrace();

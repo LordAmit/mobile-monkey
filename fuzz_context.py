@@ -324,8 +324,15 @@ class Fuzzer:
             filedata = file2.read()
 
             file2 = open("test/ContextEventLog", "w")
-            file2.write(filedata + "\n" + IntervalEvent.__str__(interval_event))
 
+            print(len(filedata))
+
+            if len(filedata) < 10 :
+                file2.write(IntervalEvent.__str__(interval_event))
+            else:
+                file2.write(filedata + "\n" +
+                            IntervalEvent.__str__(interval_event))
+            
             file2.close()
 
             method_name(interval_event.event_type[interval_event.event])
@@ -390,7 +397,7 @@ class Fuzzer:
         and NetworkStatus type IntervalEvent
         '''
         telnet_obj = TelnetAdb(host, emulator.port)
-        
+
         if interval_events is None:
             interval_events = self.generate_step_interval_event(NetworkStatus)
         # util.debug_print(interval_events, flag=PRINT_FLAG)
