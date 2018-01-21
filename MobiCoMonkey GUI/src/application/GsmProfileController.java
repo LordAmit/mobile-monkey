@@ -58,9 +58,9 @@ public class GsmProfileController implements Initializable{
 		}
 		
 		else{
-			firstItems.add(delay.getText().toString() +
-					"," + hmap.get(value.getSelectionModel().getSelectedItem()) +
-							"," + "GsmProfile");
+			firstItems.add(hmap.get(value.getSelectionModel().getSelectedItem()) +
+					"," + delay.getText().toString() + 
+					"," + "GsmProfile");
 			firstListView.setItems(firstItems);
 		}
 	}

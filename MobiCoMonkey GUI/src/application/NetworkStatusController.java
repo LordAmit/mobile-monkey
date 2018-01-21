@@ -58,8 +58,8 @@ public class NetworkStatusController implements Initializable{
 		}
 		
 		else{
-			firstItems.add(delay.getText().toString() +
-					"," + hmap.get(value.getSelectionModel().getSelectedItem()) +
+			firstItems.add(hmap.get(value.getSelectionModel().getSelectedItem()) +
+					"," + delay.getText().toString() +
 							"," + "NetworkStatus");
 			firstListView.setItems(firstItems);
 		}

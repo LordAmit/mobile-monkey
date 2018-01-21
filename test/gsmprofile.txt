@@ -1,2 +1,4 @@
 3,0,GsmProfile
-5,0,GsmProfile
+3,4,GsmProfile
+1,4,GsmProfile
+1,7,GsmProfile

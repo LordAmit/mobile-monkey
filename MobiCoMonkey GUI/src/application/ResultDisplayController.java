@@ -264,7 +264,7 @@ public class ResultDisplayController {
     						    Date d1 = sdf.parse(hmapTime.get(error));
     						    Date d2 = sdf.parse(eventTime);
     						    
-    						    if(Math.abs(d1.getTime()-d2.getTime()) <= 2000){
+    						    if(Math.abs(d1.getTime()-d2.getTime()) <= 4000){
     						    	
     						    	String id = eventLogLine.split("\t")[2].split(":")[1];
 							    	String keycode = eventLogLine.split("\t")[3];
