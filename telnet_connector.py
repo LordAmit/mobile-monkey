@@ -25,7 +25,6 @@ class NetworkStatus(Enum):
     evdo = 7
     full = 8
 
-
 class NetworkDelay(Enum):
 
     '''
@@ -35,7 +34,6 @@ class NetworkDelay(Enum):
     edge = 1
     umts = 2
     none = 3
-
 
 class GsmProfile(Enum):
 
@@ -47,7 +45,6 @@ class GsmProfile(Enum):
     STRENGTH2 = 2
     STRENGTH3 = 3
     STRENGTH4 = 4
-
 
 class TelnetAdb:
 
