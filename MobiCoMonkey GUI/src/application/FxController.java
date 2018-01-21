@@ -11,6 +11,8 @@ import java.util.ResourceBundle;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -34,16 +37,38 @@ public class FxController implements Initializable{
 	private TextField duration;
 	@FXML
 	private TextField seed;
-	@FXML
-	private Button result;
+	
 	@FXML
 	private Button browse;
+	
+	@FXML
+	private Button stop;
+	
+	@FXML
+	private Button result;
+	
+	@FXML
+	private Button run;
+	
+	@FXML
+	private Button gsm;
+	
+	@FXML
+	private Button network_status;
+	
+	@FXML
+	private Button network_delay;
 	
 	public static String python = "/usr/bin/python3.6";
 	public static String directory;
 	public static String filePath;
-	public static String logaddress;
+	public static String log, logaddress;
 	public static String eventLog;
+	public static String contextEventLog;
+	public static String activityList;
+	public static String networkstatus;
+	public static String networkdelay;
+	public static String gsmprofile;
 	public static String package_name;
 	public static String root;
 	final FileChooser fileChooser = new FileChooser();
@@ -72,7 +97,7 @@ public class FxController implements Initializable{
 		            process.waitFor();
 		            
 		            
-		            String command2 = python+" "+directory+"/test.py";
+		            String command2 = python+" "+directory+"/MobiCoMonkey.py";
 		            process2 = Runtime.getRuntime().exec(command2);
 		            
 		            stdInput = new BufferedReader(new 
@@ -99,8 +124,7 @@ public class FxController implements Initializable{
     
     @FXML
     private void handleStopButtonAction(ActionEvent event) {
-    	process2.destroy();
-		process.destroy();
+  
 		try {
 			String command = python+" "+directory+"/kill_emulator.py";
 			process = Runtime.getRuntime().exec(command);
@@ -119,15 +143,107 @@ public class FxController implements Initializable{
 	}
     
     @FXML
-    private void handleResultButtonAction(ActionEvent event) throws IOException{
-    	Parent root = FXMLLoader.load(getClass().getResource("resultDisplayView.fxml"));
+    private void handleGsmButtonAction(ActionEvent event) throws IOException{
+    	Parent root = FXMLLoader.load(getClass().getResource("gsmprofile.fxml"));
         Scene scene = new Scene(root);
+        GridPane baseGrid = (GridPane) root;
         Stage stage = new Stage();
-        stage.setTitle("Mobile Monkey Result");
+        stage.setTitle("Gsm Profile Events Generation");
         stage.setScene(scene);
         stage.show();
         
-        result.getScene().getWindow().hide();
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+            	System.out.println("Width: " +newSceneWidth);
+            	baseGrid.setPrefWidth((double) newSceneWidth);
+            }
+        });
+        
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+            	System.out.println("Height: " + newSceneHeight);
+            	baseGrid.setPrefHeight((double) newSceneHeight);
+            }
+        });
+        
+    }
+    
+    @FXML
+    private void handleNsButtonAction(ActionEvent event) throws IOException{
+    	Parent root = FXMLLoader.load(getClass().getResource("networkstatus.fxml"));
+        Scene scene = new Scene(root);
+        GridPane baseGrid = (GridPane) root;
+        Stage stage = new Stage();
+        stage.setTitle("Network Status Events Generation");
+        stage.setScene(scene);
+        stage.show();
+        
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+            	System.out.println("Width: " +newSceneWidth);
+            	baseGrid.setPrefWidth((double) newSceneWidth);
+            }
+        });
+        
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+            	System.out.println("Height: " + newSceneHeight);
+            	baseGrid.setPrefHeight((double) newSceneHeight);
+            }
+        });
+        
+    }
+    
+    @FXML
+    private void handleNdButtonAction(ActionEvent event) throws IOException{
+    	Parent root = FXMLLoader.load(getClass().getResource("networkdelay.fxml"));
+        Scene scene = new Scene(root);
+        GridPane baseGrid = (GridPane) root;
+        Stage stage = new Stage();
+        stage.setTitle("Network Delay Events Generation");
+        stage.setScene(scene);
+        stage.show();
+        
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+            	System.out.println("Width: " +newSceneWidth);
+            	baseGrid.setPrefWidth((double) newSceneWidth);
+            }
+        });
+        
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+            	System.out.println("Height: " + newSceneHeight);
+            	baseGrid.setPrefHeight((double) newSceneHeight);
+            }
+        });
+        
+    }
+    
+    @FXML
+    private void handleResultButtonAction(ActionEvent event) throws IOException{
+    	Parent root = FXMLLoader.load(getClass().getResource("resultDisplayView.fxml"));
+        Scene scene = new Scene(root);
+        GridPane baseGrid = (GridPane) root;
+        Stage stage = new Stage();
+        stage.setTitle("MobiCoMonkey Result");
+        stage.setScene(scene);
+        stage.show();
+        
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+            	System.out.println("Width: " +newSceneWidth);
+            	baseGrid.setPrefWidth((double) newSceneWidth);
+            }
+        });
+        
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+            	System.out.println("Height: " + newSceneHeight);
+            	baseGrid.setPrefHeight((double) newSceneHeight);
+            }
+        });
+        
     }
     
     private void openFile(File file) {
@@ -142,7 +258,14 @@ public class FxController implements Initializable{
     }
     
     private void loadProperties() throws IOException {	
-
+    	
+        run.setDisable(false);
+        stop.setDisable(false);
+        result.setDisable(false);
+        gsm.setDisable(false);
+        network_status.setDisable(false);
+        network_delay.setDisable(false);
+    	
     	FileReader input = new FileReader(filePath);
     	bufRead = new BufferedReader(input);
     	String myLine = null;
@@ -170,16 +293,24 @@ public class FxController implements Initializable{
         	    if(array[0].equals("root")) {
         	    	root = array[1];
         	    }
+        	    if(array[0].equals("log_address")) {
+        	    	logaddress = array[1];
+        	    }
         	    
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
     	}
     	
-    	logaddress = root+"/"+package_name + "_.log";
-    	eventLog = root+"/EventLog";
+    	log = root + "/" + package_name + "_.log";
+    	eventLog = directory + "/EventLog";
+    	contextEventLog = directory + "/ContextEventLog";
+    	activityList = directory + "/activity_list";
+    	networkstatus = root + "/networkstatus.txt";
+    	networkdelay = root + "/networkdelay.txt";
+    	gsmprofile = root + "/gsmprofile.txt";
     	
-    	System.out.println(logaddress);
+    	System.out.println(log);
     	
     	input.close();
 		
@@ -188,6 +319,13 @@ public class FxController implements Initializable{
     @Override 
     public void initialize(URL url, ResourceBundle rb) {
         config.setDisable(true);
+        
+        run.setDisable(true);
+        stop.setDisable(true);
+        result.setDisable(true);
+        gsm.setDisable(true);
+        network_status.setDisable(true);
+        network_delay.setDisable(true);
     }   
 	
 }

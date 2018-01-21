@@ -15,10 +15,11 @@ import os
 import util
 import monkey
 from adb_logcat import Logcat, TestType
+import subprocess
 
 eventlog = open('EventLog', 'w')
 
-def some_method() -> str:
+def start_test() -> str:
 
     apk = Apk(config.APK_FULL_PATH)
 
@@ -31,26 +32,30 @@ def some_method() -> str:
     log.start_logcat()
 
     if config.GUIDED_APPROACH == 1:
-        file = open('activities', 'r')
+        file = open('activity_list', 'r')
         for l in file.readlines():
             activities.append(l.strip())
             print(l.strip())
         file.close()
 
     else:
-        file = open("activity_list", "w")
+        file = open("activity", "w")
         file.write(api_commands.adb_get_activity_list(emulator, apk))
         file.close()
 
-        file = open('activity_list', 'r')
+        file = open('activity', 'r')
+        file2 = open('activity_list', 'w')
+
         for l in file.readlines():
             if 'A: android:name' in l and 'Activity' in l:
                 arr = l.split('"')
                 activities.append(arr[1])
+                file2.write(arr[1] +"\n")
                 print(arr[1])
         file.close()
-        os.remove('activity_list')
-
+        file2.close()
+        os.remove('activity')
+        
     print(len(activities))
 
     display_properties = api_commands.adb_display_properties().decode()
@@ -119,8 +124,8 @@ def input_key_event(activity: str, element_list: XML_Element, emulator: Emulator
             KeyCode = KeyboardEvent(random.randint(0, 40)).name
             print("Sending event " + KeyCode)
             adb_settings.adb_send_key_event_test(KeyCode)
-            eventlog.write(activity + '\t' + item.resource_id +
-                           '\t' + KeyCode + '\t' + util.return_current_time_in_logcat_style() + '\n')
+            eventlog.write(util.return_current_time_in_logcat_style() + '\t' + activity + '\t' + item.resource_id +
+                           '\t' + KeyCode + '\n')
         adb_settings.adb_send_key_event_test("KEYCODE_BACK")
 
 def get_elements_list(emulator : Emulator, adb_settings : AdbSettings) -> List:
@@ -153,5 +158,5 @@ def get_elements_list(emulator : Emulator, adb_settings : AdbSettings) -> List:
             element_list.append(x)
     return element_list
 
-if __name__ == '__main__':    
-    some_method()
+if __name__ == '__main__':
+    start_test()
