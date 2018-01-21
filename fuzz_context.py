@@ -299,7 +299,7 @@ class Fuzzer:
                                  interval_events: List[IntervalEvent]):
         # util.debug_print("Execution: ", interval_events, flag=PRINT_FLAG)
 
-        file = open('StopFlagWatcher', 'r')
+        file = open('test/StopFlagWatcher', 'r')
 
         for interval_event in interval_events:
 
@@ -319,6 +319,15 @@ class Fuzzer:
             # util.debug_print(interval_event, flag=PRINT_FLAG)
 
             print(interval_event)
+
+            file2 = open("test/ContextEventLog", 'r')
+            filedata = file2.read()
+
+            file2 = open("test/ContextEventLog", "w")
+            file2.write(filedata + "\n" + IntervalEvent.__str__(interval_event))
+
+            file2.close()
+
             method_name(interval_event.event_type[interval_event.event])
             time.sleep(interval_event.interval)
             # for i in range(0, len(intervals) - 1):

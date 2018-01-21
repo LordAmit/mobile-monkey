@@ -17,7 +17,7 @@ import monkey
 from adb_logcat import Logcat, TestType
 import subprocess
 
-eventlog = open('EventLog', 'w')
+eventlog = open('test/EventLog', 'w')
 
 def start_test() -> str:
 
@@ -32,19 +32,19 @@ def start_test() -> str:
     log.start_logcat()
 
     if config.GUIDED_APPROACH == 1:
-        file = open('activity_list', 'r')
+        file = open('test/activity_list', 'r')
         for l in file.readlines():
             activities.append(l.strip())
             print(l.strip())
         file.close()
 
     else:
-        file = open("activity", "w")
+        file = open("test/activity", "w")
         file.write(api_commands.adb_get_activity_list(emulator, apk))
         file.close()
 
-        file = open('activity', 'r')
-        file2 = open('activity_list', 'w')
+        file = open('test/activity', 'r')
+        file2 = open('test/activity_list', 'w')
 
         for l in file.readlines():
             if 'A: android:name' in l and 'Activity' in l:
@@ -54,7 +54,7 @@ def start_test() -> str:
                 print(arr[1])
         file.close()
         file2.close()
-        os.remove('activity')
+        os.remove('test/activity')
         
     print(len(activities))
 
@@ -92,7 +92,7 @@ def start_test() -> str:
 
 def test_ui(activity: str, emulator : Emulator, adb_settings : AdbSettings, display_height: str):
 
-    file = open('StopFlagWatcher', 'w')
+    file = open('test/StopFlagWatcher', 'w')
     file.truncate()
 
     element_list = get_elements_list(emulator, adb_settings)

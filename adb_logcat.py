@@ -53,8 +53,7 @@ class Logcat:
         self.app_pid = None
         self.log_process = None
         self.test_type = test_type
-        self.file_address = config.LOG_ADDRESS + \
-            self.package_name + "_" + ".log"
+        self.file_address = config.CURRENT_DIRECTORY + "/test/logcat.log"
         self.logfile = None
 
     def start_logcat(self):

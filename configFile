@@ -17,12 +17,10 @@ headless: False
 seed: 155
 duration: 100
 uniform_interval: 12
-apk_name: com.datasoft.co_op360
-apk_full_path: %(root)s/ride.apk
+apk_full_path: %(root)s/co_op360.apk
 emulator_name: Nexus_5_API_25
 emulator_port: 5555
-dump_address: %(root)s/Downloads/
-log_address: %(root)s/
+dump_address: %(root)s/Downloads/Dump/
 log_file: de.motain.iliga_201706181424_MobileMonkey
 sample_log: %(log_address)s%(log_file)s.log
 monkey_log_file: net.jaqpot.netcounter_201706151747_Monkey
