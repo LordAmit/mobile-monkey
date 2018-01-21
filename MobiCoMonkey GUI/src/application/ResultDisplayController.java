@@ -21,7 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 public class ResultDisplayController {
-
+	
 	@FXML
     private ListView<String> firstListView;
 
@@ -39,8 +39,14 @@ public class ResultDisplayController {
     
     HashMap<String, String> hmap = new HashMap<String, String>();
     
+    HashMap<String, String> hmapTime = new HashMap<String, String>();
+    
     public void initialize() throws IOException{
     	
+    	hmap.put("Error", "E");
+    	hmap.put("Fatal", "F");
+    	hmap.put("Warning", "W");
+    	    	
         ObservableList<String> firstItems = FXCollections.observableArrayList (
                 "Fatal", "Error","Warning");
         firstListView.setItems(firstItems);
@@ -75,7 +81,11 @@ public class ResultDisplayController {
                         try {
                         	String myLine;
                         	while ( (myLine = reader.readLine()) != null){
-                        		String activity = myLine.split("\\.")[3];
+                        		String[] arr = myLine.split("\\.");
+                        		String activity = "";  
+                        		for(int i = 3; i<arr.length; i++){
+                        			activity = activity +"."+ arr[i];
+                        		}
                         		secondItems.add(activity);
                         	}
 						} catch (Exception e) {
@@ -179,6 +189,7 @@ public class ResultDisplayController {
                     	if(!thirdListViewItems.isEmpty()) {
                     		thirdListViewItems.clear();
                     		fourthListViewItems.clear();
+                    		hmapTime.clear();
                     	}
                     	
                     	FileInputStream fis = null, fis2 = null;
@@ -202,46 +213,58 @@ public class ResultDisplayController {
                     		String activity = secondListView.getSelectionModel().getSelectedItem();
                     		String type = firstListView.getSelectionModel().getSelectedItem();
                     		
+                    		//System.out.println(hmap.get(type));
+                    		
                     		String eventLogLine, logCatLine;
                     		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 							
                     		while ( (eventLogLine = reader.readLine()) != null)
 							
-                    		{
-								String eventTime = eventLogLine.split(" ")[1];
-								
-								while ((logCatLine = reader2.readLine())!= null) {
-									
-									String logTime = logCatLine.split(" ")[1].split("\\.")[0];
-									
-								    Date d1 = sdf.parse(logTime);
-								    Date d2 = sdf.parse(eventTime);
-								    
-								    if(Math.abs(d1.getTime()-d2.getTime()) <= 100000){
-								    	
-								    	String[] arr = logCatLine.split(" ");
-								    	String error = "";
-								    	for (int i = 0; i < arr.length; i++) {
-											if(i>5){
-												error = error + arr[i]; 
-											}
+                    		{	
+                    			if (eventLogLine.contains(activity)) {
+                    				
+                    				String eventTime = eventLogLine.split(" ")[1].split("\t")[0];
+    								
+    								while ((logCatLine = reader2.readLine())!= null) {
+    									   									
+    									if (logCatLine.contains(hmap.get(type))) {
+												
+    										String logTime = logCatLine.split(" ")[1].split("\\.")[0];
+        									
+        									//System.out.println(eventTime + " " +logTime);
+        									
+        								    Date d1 = sdf.parse(logTime);
+        								    Date d2 = sdf.parse(eventTime);
+        								    
+        								    if(Math.abs(d1.getTime()-d2.getTime()) <= 60000){
+        								    	
+        								    	String[] arr = logCatLine.split(" ");
+        								    	String error = "";
+        								    	
+        								    	for (int i = 7; i < arr.length; i++) {
+        											
+        											error = error + " " + arr[i];
+        											
+        										}
+        								    	
+        								    	thirdListViewItems.add(error);
+        								    	
+        								    	hmapTime.put(error, logTime);
+        								    }
+    										
 										}
-								    	
-								    	thirdListViewItems.add("");
-								    	
-								    }
+    									
+    								}
 								}
+                    			
 							}
+                    		
+                    		thirdListView.setItems(thirdListViewItems);
 							
 						} catch (IOException | ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-                    	
-						
-						thirdListViewItems.add("IInputConnectionWrapper: finishComposingText");
-						
-                    	
                     }
                 }
         );
@@ -253,13 +276,84 @@ public class ResultDisplayController {
                     	
                     	if(!fourthListViewItems.isEmpty())fourthListViewItems.clear();
 						
-						fourthListViewItems.add("id/ride_name	KEYCODE_B");
-						fourthListViewItems.add("Airpane Mode	On");
-						fourthListViewItems.add("id/ride_name	KEYCODE_X");
-						fourthListViewItems.add("id/ride_name	KEYCODE_F");
-						fourthListViewItems.add("id/ride_name	KEYCODE_L");
-						fourthListViewItems.add("id/ride_name	KEYCODE_M");
-						
+                    	FileInputStream fis = null, fis2 = null;
+                        BufferedReader reader = null, reader2 = null;
+                    	
+                    	try {
+							
+							fis = new FileInputStream(FxController.eventLog);
+				            reader = new BufferedReader(new InputStreamReader(fis));
+				            
+				            fis2 = new FileInputStream(FxController.contextEventLog);
+				            reader2 = new BufferedReader(new InputStreamReader(fis2));
+				            
+						} catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+                    	
+                    	try {
+                    		
+                    		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    		String error = thirdListView.getSelectionModel().getSelectedItem();
+                    		
+                    		String eventLogLine;
+                    		
+                    		while ((eventLogLine = reader2.readLine())!= null) {
+                    			
+                    			if (eventLogLine.length()<10) {
+									break;
+								}
+								
+                        		String eventTime = eventLogLine.split(" ")[1];
+    							
+    							//System.out.println(eventTime + " " +logTime);
+    							
+    						    Date d1 = sdf.parse(hmapTime.get(error));
+    						    Date d2 = sdf.parse(eventTime);
+    						    
+    						    if(Math.abs(d1.getTime()-d2.getTime()) <= 5000){
+    						    	
+    						    	String[] arr = eventLogLine.split(" ");
+							    	
+    						    	String msg = "";
+							    	
+							    	for (int i = 2; i < arr.length; i++) {
+										
+										msg = msg + " " + arr[i];
+										
+									}
+    						    	
+    						    	fourthListViewItems.add(msg);
+    						    	
+    						    }
+                        		
+    						}
+                    		
+                        	
+                        	while ((eventLogLine = reader.readLine())!= null) {
+    								
+                        		String eventTime = eventLogLine.split(" ")[1].split("\t")[0];
+    							
+    							//System.out.println(eventTime + " " +logTime);
+    							
+    						    Date d1 = sdf.parse(hmapTime.get(error));
+    						    Date d2 = sdf.parse(eventTime);
+    						    
+    						    if(Math.abs(d1.getTime()-d2.getTime()) <= 5000){
+    						    	
+    						    	String id = eventLogLine.split("\t")[2].split(":")[1];
+							    	String keycode = eventLogLine.split("\t")[3];
+    						    	
+    						    	fourthListViewItems.add(id + " " + keycode);
+    						    	
+    						    }
+                        		
+    						}
+						} catch (Exception e) {
+							// TODO: handle exception
+							e.printStackTrace();
+						}
                     	
                     }
                 }

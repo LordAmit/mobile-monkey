@@ -22,6 +22,7 @@ emulator_name: Nexus_5_API_25
 emulator_port: 5555
 dump_address: %(root)s/Downloads/Dump/
 log_file: de.motain.iliga_201706181424_MobileMonkey
+log_address: %(root)s
 sample_log: %(log_address)s%(log_file)s.log
 monkey_log_file: net.jaqpot.netcounter_201706151747_Monkey
 mobile_monkey_log_file: net.jaqpot.netcounter_201706151751_MobileMonkey

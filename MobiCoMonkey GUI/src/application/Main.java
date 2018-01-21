@@ -18,7 +18,7 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("mobile_monkey.fxml"));
 	    Scene scene = new Scene(root);
 	    stage.setScene(scene);
-	    stage.setTitle("Mobile Monkey");
+	    stage.setTitle("MobiCoMonkey");
 	    stage.show();
 	}
 	

@@ -62,7 +62,7 @@ public class FxController implements Initializable{
 	public static String python = "/usr/bin/python3.6";
 	public static String directory;
 	public static String filePath;
-	public static String log, logaddress;
+	public static String log;
 	public static String eventLog;
 	public static String contextEventLog;
 	public static String activityList;
@@ -74,6 +74,8 @@ public class FxController implements Initializable{
 	final FileChooser fileChooser = new FileChooser();
 	private BufferedReader bufRead;
 	private Process process, process2;
+	
+	
     @FXML
     private void handleRunButtonAction(ActionEvent event) {
     	
@@ -95,7 +97,6 @@ public class FxController implements Initializable{
 		            }
 		            
 		            process.waitFor();
-		            
 		            
 		            String command2 = python+" "+directory+"/MobiCoMonkey.py";
 		            process2 = Runtime.getRuntime().exec(command2);
@@ -293,22 +294,19 @@ public class FxController implements Initializable{
         	    if(array[0].equals("root")) {
         	    	root = array[1];
         	    }
-        	    if(array[0].equals("log_address")) {
-        	    	logaddress = array[1];
-        	    }
         	    
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
     	}
     	
-    	log = root + "/" + package_name + "_.log";
-    	eventLog = directory + "/EventLog";
-    	contextEventLog = directory + "/ContextEventLog";
-    	activityList = directory + "/activity_list";
-    	networkstatus = root + "/networkstatus.txt";
-    	networkdelay = root + "/networkdelay.txt";
-    	gsmprofile = root + "/gsmprofile.txt";
+    	log = directory + "/test/logcat.log";
+    	eventLog = directory + "/test/EventLog";
+    	contextEventLog = directory + "/test/ContextEventLog";
+    	activityList = directory + "/test/activity_list";
+    	networkstatus = directory + "/test/networkstatus.txt";
+    	networkdelay = directory + "/test/networkdelay.txt";
+    	gsmprofile = directory + "/test/gsmprofile.txt";
     	
     	System.out.println(log);
     	
