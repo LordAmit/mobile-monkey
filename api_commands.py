@@ -1,6 +1,7 @@
 '''
 api commands from python to gain information about android avds
 '''
+import xml.etree.ElementTree as ET
 import subprocess
 import shlex
 from typing import List
@@ -12,6 +13,66 @@ ADB = config.adb
 
 PRINT_FLAG = True
 
+def decode_apk(apk:Apk):
+    '''
+    decodes provided apk to a folder
+    '''
+    util.check_file_directory_exists(apk.apk_path, True)
+    try:
+        result = subprocess.check_output(
+            ['apktool', 'if', apk.apk_path]).decode()
+        util.debug_print(result, flag=PRINT_FLAG)
+
+        result = subprocess.check_output(
+            ['apktool', 'd', apk.apk_path, '-o', config.APK_FULL_PATH.split('.apk')[0], '-f']).decode()
+        util.debug_print(result, flag=PRINT_FLAG)
+    except subprocess.SubprocessError as error:
+        print(error)
+        raise ValueError("error decoding.")
+
+
+def overwrite_android_manifest():
+
+    ''' 
+    adds android:exported="true" to AndroidManifest.xml
+    '''
+
+    file_address = config.APK_FULL_PATH.split('.apk')[0] + '/AndroidManifest.xml'
+
+    tree = ET.parse(file_address)
+    root = tree.getroot()
+
+    for activity in root.iter('activity'):
+        activity.set('android:exported', 'true')
+
+    tree.write(file_address)
+
+    f = open(file_address, 'r')
+
+    filedata = f.read()
+    f.close()
+
+    newdata = filedata.replace("ns0", "android")
+
+    f = open(file_address, 'w')
+    f.write(newdata)
+    f.close()
+
+def build_apk(apk: Apk):
+    '''
+    builds modified apk
+    '''
+    result = subprocess.check_output(
+        ['apktool', 'b', config.APK_FULL_PATH.split('.apk')[0], '-o', apk.apk_path]).decode()
+    util.debug_print(result, flag=PRINT_FLAG)
+
+def sign_apk(apk: Apk):
+    result = subprocess.check_output(
+        [config.JARSIGNER, '-keystore',
+         config.KEY, '-verbose', apk.apk_path,
+         config.ALIAS], input=config.PASSWORD.encode()).decode()
+         
+    util.debug_print(result, flag=PRINT_FLAG)
 
 def adb_install_apk(emulator: Emulator, apk: Apk):
     '''
@@ -25,6 +86,15 @@ def adb_install_apk(emulator: Emulator, apk: Apk):
     except subprocess.SubprocessError as error:
         print(error)
         raise ValueError("error installing.")
+
+def adb_get_activity_list(emulator: Emulator, apk: Apk):
+    '''
+    returns list of activities
+    '''
+
+    command = "{} dump xmltree {} AndroidManifest.xml".format(config.AAPT, apk.apk_path)
+    result = subprocess.check_output(shlex.split(command)).decode()
+    return result
 
 
 def adb_stop_activity_of_apk(emulator: Emulator, apk: Apk):
@@ -51,6 +121,25 @@ def adb_start_launcher_of_apk(emulator: Emulator, apk: Apk):
         [config.adb, '-s', emulator_name, 'shell', 'monkey', '-p',
          apk.package_name, '-c', 'android.intent.category.LAUNCHER', '1'])
     print("package_name: " + apk.package_name + " is started")
+
+
+def adb_start_activity(emulator: Emulator, apk: Apk, activity: str):
+    '''
+        starts the specified activity.
+    '''
+    subprocess.check_output(
+        [config.adb, 'shell', 'am', 'start', '-n', apk.package_name+"/"+activity])
+    print(activity+" is started")
+
+
+def adb_display_properties():
+    result = subprocess.check_output([config.adb, 'shell', 'dumpsys', 'display'])
+    return result;
+
+def adb_display_scroll(height: str):
+    subprocess.check_output(
+        [config.adb, 'shell', 'input', 'swipe 0 '+height+' 0 0' ])
+    print("scrolling up")
 
 
 def adb_is_package_present(emulator: Emulator, app_package_name: str) -> int:

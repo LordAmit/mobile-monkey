@@ -25,7 +25,6 @@ class NetworkStatus(Enum):
     evdo = 7
     full = 8
 
-
 class NetworkDelay(Enum):
 
     '''
@@ -35,7 +34,6 @@ class NetworkDelay(Enum):
     edge = 1
     umts = 2
     none = 3
-
 
 class GsmProfile(Enum):
 
@@ -49,7 +47,6 @@ class GsmProfile(Enum):
     STRENGTH4 = 4
     __name__ = 'GsmProfile'
 
-
 class TelnetAdb:
 
     '''
@@ -58,7 +55,7 @@ class TelnetAdb:
     GSM_BREAK = 10
     telnet = None
 
-    def __init__(self, host: str='localhost', port: str='5555'):
+    def __init__(self, host: str='localhost', port: str=config.EMULATOR_PORT):
         '''initiates the telnet to adb connection at provided `host`:`port`'''
         self.__establish_connection(host, port)
 

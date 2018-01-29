@@ -59,6 +59,16 @@ MOBILE_MONKEY_LOG = get("mobile_monkey_log")
 DUMP_ADDRESS = get("dump_address")
 HEADLESS = util.StringToBoolean((get("headless")))
 
+MINIMUM_KEYEVENT = int(get("minimum_keyevent"))
+MAXIMUM_KEYEVENT = int(get("maximum_keyevent"))
+
+GUIDED_APPROACH = int(get("guided_approach"))
+
+JARSIGNER = get("jarsigner")
+KEY = get("key_address")
+ALIAS = get("key_alias")
+PASSWORD = get("key_password")
+
 # def avd_file_reader():
 #     """
 #     returns the list of avds

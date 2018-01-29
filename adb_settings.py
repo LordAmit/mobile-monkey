@@ -9,17 +9,12 @@ ADB = config.adb
 PRINT_FLAG = False
 
 
-class KeyEvent(Enum):
+class KeyboardEvent(Enum):
 
     '''
     Keyboard events
     '''
-    # KEYCODE_UNKNOWN = ()
-    # KEYCODE_SOFT_RIGHT = ()
-    # KEYCODE_HOME = ()
-    # KEYCODE_BACK = ()
-    # KEYCODE_CALL = ()
-    # KEYCODE_ENDCALL = auto()
+
     KEYCODE_0 = 0
     KEYCODE_1 = auto()
     KEYCODE_2 = auto()
@@ -30,18 +25,7 @@ class KeyEvent(Enum):
     KEYCODE_7 = auto()
     KEYCODE_8 = auto()
     KEYCODE_9 = auto()
-    KEYCODE_STAR = auto()
-    KEYCODE_POUND = auto()
-    # KEYCODE_DPAD_UP = auto()
-    # KEYCODE_DPAD_DOWN = auto()
-    # KEYCODE_DPAD_LEFT = auto()
-    # KEYCODE_DPAD_RIGHT = auto()
-    # KEYCODE_DPAD_CENTER = auto()
-    KEYCODE_VOLUME_UP = auto()
-    KEYCODE_VOLUME_DOWN = auto()
-    # KEYCODE_POWER = auto()
-    # KEYCODE_CAMERA = auto()
-    KEYCODE_CLEAR = auto()
+    
     KEYCODE_A = auto()
     KEYCODE_B = auto()
     KEYCODE_C = auto()
@@ -68,20 +52,12 @@ class KeyEvent(Enum):
     KEYCODE_X = auto()
     KEYCODE_Y = auto()
     KEYCODE_Z = auto()
+
+    KEYCODE_STAR = auto()
+    KEYCODE_POUND = auto()
     KEYCODE_COMMA = auto()
     KEYCODE_PERIOD = auto()
-    # KEYCODE_ALT_LEFT = auto()
-    # KEYCODE_ALT_RIGHT = auto()
-    # KEYCODE_SHIFT_LEFT = auto()
-    # KEYCODE_SHIFT_RIGHT = auto()
-    # KEYCODE_TAB = auto()
-    KEYCODE_SPACE = auto()
-    # KEYCODE_SYM = auto()
-    # KEYCODE_EXPLORER = auto()
-    # KEYCODE_ENVELOPE = auto()
-    KEYCODE_ENTER = auto()
-    KEYCODE_DEL = auto()
-    # KEYCODE_GRAVE = auto()
+    KEYCODE_PLUS = auto()
     KEYCODE_MINUS = auto()
     KEYCODE_EQUALS = auto()
     KEYCODE_LEFT_BRACKET = auto()
@@ -91,10 +67,49 @@ class KeyEvent(Enum):
     KEYCODE_APOSTROPHE = auto()
     KEYCODE_SLASH = auto()
     KEYCODE_AT = auto()
-    KEYCODE_NUM = auto()
+    # KEYCODE_NUM = auto()
+    KEYCODE_SPACE = auto()
+
+class KeyEvent(Enum):
+
+    '''
+    Key events
+    '''
+    # KEYCODE_UNKNOWN = ()
+    # KEYCODE_SOFT_RIGHT = ()
+    # KEYCODE_HOME = ()
+    # KEYCODE_BACK = ()
+    # KEYCODE_CALL = ()
+    # KEYCODE_ENDCALL = auto()
+    
+    # KEYCODE_DPAD_UP = auto()
+    # KEYCODE_DPAD_DOWN = auto()
+    # KEYCODE_DPAD_LEFT = auto()
+    # KEYCODE_DPAD_RIGHT = auto()
+    # KEYCODE_DPAD_CENTER = auto()
+    KEYCODE_ENTER = auto()
+    KEYCODE_DEL = auto()
+    KEYCODE_VOLUME_UP = auto()
+    KEYCODE_VOLUME_DOWN = auto()
+    # KEYCODE_POWER = auto()
+    # KEYCODE_CAMERA = auto()
+    KEYCODE_CLEAR = auto()
+    
+    # KEYCODE_ALT_LEFT = auto()
+    # KEYCODE_ALT_RIGHT = auto()
+    # KEYCODE_SHIFT_LEFT = auto()
+    # KEYCODE_SHIFT_RIGHT = auto()
+    # KEYCODE_TAB = auto()
+    
+    # KEYCODE_SYM = auto()
+    # KEYCODE_EXPLORER = auto()
+    # KEYCODE_ENVELOPE = auto()
+    
+    # KEYCODE_GRAVE = auto()
     # KEYCODE_HEADSETHOOK = auto()
+    
     # KEYCODE_FOCUS = auto()
-    KEYCODE_PLUS = auto()
+    
     # KEYCODE_MENU = auto()
     # KEYCODE_NOTIFICATION = auto()
     # KEYCODE_SEARCH = auto()
@@ -171,6 +186,13 @@ class AdbSettings:
             [ADB, '-s', self.emulator_name, 'shell', 'input', 'keyevent', str(event.name)])
 
         # http://stackoverflow.com/questions/6236340/how-to-limit-speed-of-internet-connection-on-android-emulator
+
+    def adb_send_key_event_test(self, event_name: str):
+        '''
+        sends key event to the emulator for testing purpose
+        '''
+        subprocess.check_output(
+            [ADB, '-s', self.emulator_name, 'shell', 'input', 'keyevent', event_name])
 
     def subprocess_call_get(self, value, namespace: Namespace):
         '''
