@@ -1,15 +1,15 @@
 [emulator]
-root: /home/mehedi
+root: /home/amit
 directory: %(root)s/Downloads/
 adb: %(root)s/Android/Sdk/platform-tools/adb
-aapt: %(root)s/Android/Sdk/build-tools/26.0.1/aapt
+aapt: %(root)s/Android/Sdk/build-tools/27.0.3/aapt
 localhost: localhost
 emulator: %(root)s/Android/Sdk/emulator/emulator
 android: %(root)s/Android/Sdk/tools/android
 tools: %(root)s/Android/Sdk/tools/
-current_directory: %(root)s/mobile-monkey/
+current_directory: %(root)s/git/mobile-monkey/
 temp: %(current_directory)stemp/
-telnet_key: EkT73OIU5NSUH7ZT
+telnet_key: rsEH0WZrxSN7mzU6
 minimum_interval: 1
 maximum_interval: 10
 monkey_interval: 500
@@ -17,12 +17,12 @@ headless: False
 seed: 155
 duration: 100
 uniform_interval: 12
-apk_full_path: %(root)s/co_op360.apk
-emulator_name: Nexus_5_API_25
+apk_full_path: %(root)s/git/testApps/ride.apk
+emulator_name: Nexus6T
 emulator_port: 5555
-dump_address: %(root)s/Downloads/
+dump_address: %(root)s/git/testApps/dump/
 log_file: de.motain.iliga_201706181424_MobileMonkey
-log_address: %(root)s
+log_address: %(root)s/git/testApps/logs/
 sample_log: %(log_address)s%(log_file)s.log
 monkey_log_file: net.jaqpot.netcounter_201706151747_Monkey
 mobile_monkey_log_file: net.jaqpot.netcounter_201706151751_MobileMonkey
@@ -31,7 +31,7 @@ mobile_monkey_log: %(log_address)s%(mobile_monkey_log_file)s.log
 minimum_keyevent: 5
 maximum_keyevent: 10
 guided_approach: 0
-jarsigner: /usr/lib/jvm/java-8-openjdk-amd64/bin/jarsigner
-key_address: /home/mehedi/my.keystore
-key_alias: mehedi
+jarsigner: /usr/bin/jarsigner
+key_address: %(root)s/my.keystore
+key_alias: amit
 key_password: iit123

@@ -10,7 +10,7 @@ ConfigReader takes care of config file reading
 """
 
 
-def get(value: str):
+def get(value):
     """
     :rtype: str
     :param value: available options are directory, uploads, projects,
