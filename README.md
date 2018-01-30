@@ -1,5 +1,6 @@
-# mobile-monkey (beta)
-Mobile-Monkey is a CLI based light-weight stress testing tool for Android based mobile applications.
+# MobiCoMonkey (beta)
+(Previously known as mobile-monkey, we are still updating the readme file!)
+MobiCoMonkey is a GUI based light-weight Android **Mo**bile app **Co**ntextual **Monkey** type stress testing tool.
 It not only stress tests your application based on GUI events, but also contexts, such as
 
 - Network Delay,
@@ -19,7 +20,7 @@ The steps of using Mobile-Monkey is fairly simple. Similar to the Monkey Stress 
 
 ## Setup / Requirements / Dependencies
 
-Mobile-Monkey was created and and tested in Ubuntu 17.04, 64 bit. It is dependent on:
+MobiCoMonkey was created and and tested in Linux Mint 18.3 and Ubuntu 16.04, 64 bit. It is dependent on:
 
 - Android SDK
 - Python 3.6
