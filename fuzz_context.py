@@ -4,6 +4,7 @@ Fuzz contexts - to conduct contextual testing of app
 import time
 from typing import List, Tuple, Union, Type
 import random
+import enum
 from adb_logcat import FatalWatcher
 
 from emulator import Emulator
@@ -16,13 +17,53 @@ from telnet_connector import TelnetAdb
 from telnet_connector import GsmProfile
 from telnet_connector import NetworkDelay
 from telnet_connector import NetworkStatus
+
+import util
 import config_reader as config
 
 from interval_event import IntervalEvent
 
 PRINT_FLAG = True
+
 EVENT_TYPES = Union[GsmProfile, NetworkDelay,
                     NetworkStatus, Airplane, UserRotation, KeyEvent]
+
+
+class IntervalEvent:
+
+    '''
+    `Interval Event` class contains the steps,
+    for each of which, an interval, an event and an event_type is assigned
+    e.g.
+
+    >>> [event_type: <enum 'NetworkStatus'>, step: 0, interval: 4, event: full]
+
+    where `event_type` represents one of the Event Types:
+    - GsmProfile,
+    - NetworkDelay,
+    - NetworkStatus,
+    - Airplane,
+    - UserRotation
+
+    `step` is a 0 indexed list, against which an `interval` in seconds
+    and an `event` of event_type is assigned.
+    '''
+
+    def __init__(self, step: int, interval: int, event: EVENT_TYPES, event_type: enum):
+        self.step = step
+        self.interval = interval
+        self.event = event
+        self.event_type = event_type
+
+    def __str__(self) -> str:
+
+        # return "[event_type: {}, step: {}, interval: {}, event: {}]".format(
+        #     self.event_type, self.step, self.interval, self.event)
+        return "{} {} {} {} {}".format(
+            util.return_current_time_in_logcat_style(),
+            self.event_type.__name__, self.step, self.interval, self.event)
+
+    __repr__ = __str__
 
 
 class Fuzzer:
@@ -258,11 +299,20 @@ class Fuzzer:
     def __execute_interval_event(self, method_name,
                                  interval_events: List[IntervalEvent]):
         # util.debug_print("Execution: ", interval_events, flag=PRINT_FLAG)
+
+        file = open('test/StopFlagWatcher', 'r')
+
         for interval_event in interval_events:
+
+            if "1" in file.readline(1):
+                print("Contextual event finished")
+                break
+
             if self.fatal_watcher.has_fatal_exception_watch():
                 print("Fatal Exception Detected. Breaking from " +
                       interval_event.event_type.__name__)
                 break
+
             # if self.fatal_exception:
             #     print("fatal crash. Stopping " +
             #           interval_event.event_type.__name__)
@@ -270,6 +320,20 @@ class Fuzzer:
             # util.debug_print(interval_event, flag=PRINT_FLAG)
 
             print(interval_event)
+
+            file2 = open("test/ContextEventLog", 'r')
+            filedata = file2.read()
+
+            file2 = open("test/ContextEventLog", "w")
+
+            if len(filedata) < 10 :
+                file2.write(IntervalEvent.__str__(interval_event))
+            else:
+                file2.write(filedata + "\n" +
+                            IntervalEvent.__str__(interval_event))
+            
+            file2.close()
+
             method_name(interval_event.event_type[interval_event.event])
             time.sleep(interval_event.interval)
             # for i in range(0, len(intervals) - 1):
@@ -279,8 +343,7 @@ class Fuzzer:
             #     method_name(enum_type(events[i]))
             #     time.sleep(intervals[i])
 
-    def random_airplane_mode_call(self, adb_device: str,
-                                  interval_events: List[IntervalEvent] = None):
+    def random_airplane_mode_call(self, adb_device: str, interval_events: List[IntervalEvent] = None):
         '''
         randomly fuzzes airplane_mode_call for the specified
         running virtual device identified by `adb_device`
@@ -333,6 +396,7 @@ class Fuzzer:
         and NetworkStatus type IntervalEvent
         '''
         telnet_obj = TelnetAdb(host, emulator.port)
+
         if interval_events is None:
             interval_events = self.generate_step_interval_event(NetworkStatus)
         # util.debug_print(interval_events, flag=PRINT_FLAG)

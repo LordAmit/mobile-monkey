@@ -1,0 +1,6 @@
+com.ashequr.rideshareing.MainActivity
+com.ashequr.rideshareing.RequestRideActivity
+com.ashequr.rideshareing.DriveRideActivity
+com.ashequr.rideshareing.AvailableRoutesActivity
+com.ashequr.rideshareing.RequestSuccessActivity
+com.ashequr.rideshareing.DriveSuccessActivity

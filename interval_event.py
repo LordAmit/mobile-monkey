@@ -9,6 +9,7 @@ from telnet_connector import GsmProfile
 from telnet_connector import NetworkDelay
 from telnet_connector import NetworkStatus
 import util
+import config_reader as config
 
 EVENT_TYPES = Union[GsmProfile, NetworkDelay,
                     NetworkStatus, Airplane, UserRotation, KeyEvent]
@@ -71,18 +72,18 @@ def read_interval_event_from_file(file_address: str,
                 event_type_name = str(in_values[2])
             except ValueError:
                 print('Caught Error! Please check value of: ' + in_values)
-            if in_values[2] == 'GsmProfile' and event_type is GsmProfile:
+            if in_values[2] == 'GsmProfile':
                 i_event = IntervalEvent(
-                    step, event_interval, GsmProfile(event_value), GsmProfile)
-            elif in_values[2] == 'NetworkDelay' and event_type is NetworkDelay:
+                    step, event_interval, GsmProfile(event_value).name, GsmProfile)
+            elif in_values[2] == 'NetworkDelay':
                 i_event = IntervalEvent(
-                    step, event_interval, NetworkDelay(event_value), NetworkDelay)
-            elif in_values[2] == 'NetworkStatus' and event_type is NetworkStatus:
+                    step, event_interval, NetworkDelay(event_value).name, NetworkDelay)
+            elif in_values[2] == 'NetworkStatus':
                 i_event = IntervalEvent(
-                    step, event_interval, NetworkStatus(event_value), NetworkStatus)
-            elif in_values[2] == 'UserRotation' and event_type is UserRotation:
+                    step, event_interval, NetworkStatus(event_value).name, NetworkStatus)
+            elif in_values[2] == 'UserRotation':
                 i_event = IntervalEvent(
-                    step, event_interval, UserRotation(event_value), UserRotation)
+                    step, event_interval, UserRotation(event_value).name, UserRotation)
             else:
                 raise ValueError(
                     "incorrect format of Event type: " + in_values[2])

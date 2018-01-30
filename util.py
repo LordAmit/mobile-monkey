@@ -20,12 +20,13 @@ def show_step(step):
         print(step)
 
 
-def check_file_directory_exists(address: str, to_quit: bool) -> bool:
+def check_file_directory_exists(address: str, to_quit: bool):
     """
     checks if specified directory exists. if not, exits.
     :param address: address of file or directory to be checked.
     :param to_quit: determines if to exit if address does not exist.
     """
+
     if os.path.exists(address):
         return True
     else:
@@ -34,6 +35,7 @@ def check_file_directory_exists(address: str, to_quit: bool) -> bool:
             return False
         else:
             quit()
+            return False
 
 
 def move_dir_safe(source: str, destination: str):
