@@ -1,6 +1,3 @@
-
-#!/usr/bin/env python3
-
 """
 util module
 """
@@ -51,7 +48,8 @@ def move_dir_safe(source: str, destination: str):
         print('something wrong with safe_move: ')
         print(source, destination)
 
-def StringToBoolean(value:str):
+
+def StringToBoolean(value: str):
     if value == "True":
         return True
     elif value == "False":

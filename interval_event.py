@@ -4,7 +4,6 @@ from adb_settings import UserRotation
 from adb_settings import Airplane
 from adb_settings import KeyEvent
 
-from telnet_connector import TelnetAdb
 from telnet_connector import GsmProfile
 from telnet_connector import NetworkDelay
 from telnet_connector import NetworkStatus
@@ -35,7 +34,8 @@ class IntervalEvent:
     and an `event` of event_type is assigned.
     '''
 
-    def __init__(self, step: int, interval: int, event: EVENT_TYPES, event_type: EVENT_TYPES)->None:
+    def __init__(self, step: int, interval: int,
+                 event: str, event_type: EVENT_TYPES)->None:
         self.step = step
         self.interval = interval
         self.event = event
@@ -53,7 +53,8 @@ class IntervalEvent:
 
 
 def read_interval_event_from_file(file_address: str,
-                                  event_type: Type[EVENT_TYPES])->List[IntervalEvent]:
+                                  event_type:
+                                  str)->List[IntervalEvent]:
     '''
         imports event from file and returns `List[IntervalEvent]`
     '''
@@ -74,16 +75,20 @@ def read_interval_event_from_file(file_address: str,
                 print('Caught Error! Please check value of: ' + in_values)
             if in_values[2] == 'GsmProfile':
                 i_event = IntervalEvent(
-                    step, event_interval, GsmProfile(event_value).name, GsmProfile)
+                    step, event_interval, GsmProfile(event_value).name,
+                    GsmProfile)
             elif in_values[2] == 'NetworkDelay':
                 i_event = IntervalEvent(
-                    step, event_interval, NetworkDelay(event_value).name, NetworkDelay)
+                    step, event_interval, NetworkDelay(event_value).name,
+                    NetworkDelay)
             elif in_values[2] == 'NetworkStatus':
                 i_event = IntervalEvent(
-                    step, event_interval, NetworkStatus(event_value).name, NetworkStatus)
+                    step, event_interval, NetworkStatus(event_value).name,
+                    NetworkStatus)
             elif in_values[2] == 'UserRotation':
                 i_event = IntervalEvent(
-                    step, event_interval, UserRotation(event_value).name, UserRotation)
+                    step, event_interval, UserRotation(event_value).name,
+                    UserRotation)
             else:
                 raise ValueError(
                     "incorrect format of Event type: " + in_values[2])
@@ -97,3 +102,12 @@ def read_interval_event_from_file(file_address: str,
     print("successfully imported from file. Type: " +
           event_type_name + "; total duration=" + str(total_event_duration))
     return events
+
+
+def main():
+    pass
+
+
+if __name__ == '__main__':
+
+    main()

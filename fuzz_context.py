@@ -4,7 +4,6 @@ Fuzz contexts - to conduct contextual testing of app
 import time
 from typing import List, Tuple, Union, Type
 import random
-import enum
 from adb_logcat import FatalWatcher
 
 from emulator import Emulator
@@ -17,8 +16,6 @@ from telnet_connector import TelnetAdb
 from telnet_connector import GsmProfile
 from telnet_connector import NetworkDelay
 from telnet_connector import NetworkStatus
-
-import util
 import config_reader as config
 
 from interval_event import IntervalEvent
@@ -27,43 +24,6 @@ PRINT_FLAG = True
 
 EVENT_TYPES = Union[GsmProfile, NetworkDelay,
                     NetworkStatus, Airplane, UserRotation, KeyEvent]
-
-
-class IntervalEvent:
-
-    '''
-    `Interval Event` class contains the steps,
-    for each of which, an interval, an event and an event_type is assigned
-    e.g.
-
-    >>> [event_type: <enum 'NetworkStatus'>, step: 0, interval: 4, event: full]
-
-    where `event_type` represents one of the Event Types:
-    - GsmProfile,
-    - NetworkDelay,
-    - NetworkStatus,
-    - Airplane,
-    - UserRotation
-
-    `step` is a 0 indexed list, against which an `interval` in seconds
-    and an `event` of event_type is assigned.
-    '''
-
-    def __init__(self, step: int, interval: int, event: EVENT_TYPES, event_type: enum):
-        self.step = step
-        self.interval = interval
-        self.event = event
-        self.event_type = event_type
-
-    def __str__(self) -> str:
-
-        # return "[event_type: {}, step: {}, interval: {}, event: {}]".format(
-        #     self.event_type, self.step, self.interval, self.event)
-        return "{} {} {} {} {}".format(
-            util.return_current_time_in_logcat_style(),
-            self.event_type.__name__, self.step, self.interval, self.event)
-
-    __repr__ = __str__
 
 
 class Fuzzer:
@@ -83,8 +43,10 @@ class Fuzzer:
                  fatal_watcher: FatalWatcher,
                  uniform_interval: int = config.UNIFORM_INTERVAL)->None:
         '''
-            `interval_minimum`, `interval_maximum`, `seed`, and `duration` are all integers.
-            `interval_minimum`, `interval_maximum`, and `duration` are in seconds.
+            `interval_minimum`, `interval_maximum`, `seed`, and `duration`
+            are all integers.
+            `interval_minimum`, `interval_maximum`, and `duration`
+                are in seconds.
         '''
         if not isinstance(interval_minimum, int):
             raise ValueError("interval_minimum must be int")
@@ -109,7 +71,7 @@ class Fuzzer:
         # self.__setup_intervals(uniform_interval)
         # self.__setup_interval_events()
 
-    # def __setup_intervals(self, uniform_interval: int=config.UNIFORM_INTERVAL):
+    # def __setup_intervals(self, uniform_interval: int=config.UNIFORM_INTERVAL): # noqa
     #     '''
     #     sets up intervals for event types. It configures:
     #     self.network_delay_interval,
@@ -118,9 +80,9 @@ class Fuzzer:
     #     self.airplane_interval,
     #     self.rotation_interval
     #     '''
-    #     self.network_delay_interval = self.duration_interval_steps_generator()
-    #     self.network_speed_interval = self.duration_interval_steps_generator()
-    #     self.gsm_profile_interval = self.uniform_duration_interval_steps_generator(
+    #     self.network_delay_interval = self.duration_interval_steps_generator() # noqa
+    #     self.network_speed_interval = self.duration_interval_steps_generator() # noqa
+    #     self.gsm_profile_interval = self.uniform_duration_interval_steps_generator( # noqa
     #         int(uniform_interval))
     #     self.airplane_interval = self.duration_interval_steps_generator()
     #     self.rotation_interval = self.duration_interval_steps_generator()
@@ -151,18 +113,18 @@ class Fuzzer:
     #     '''
     #     print("Gsm profile interval: events")
     #     util.print_dual_list(self.gsm_profile_interval,
-    #                          util.list_as_enum_name_list(self.gsm_profile_events, GsmProfile))
+    #                          util.list_as_enum_name_list(self.gsm_profile_events, GsmProfile)) # noqa
     #     print("airplane interval: events")
-    #     util.print_dual_list(self.airplane_interval, util.list_as_enum_name_list(
+    #     util.print_dual_list(self.airplane_interval, util.list_as_enum_name_list(# noqa
     #         self.airplane_events, Airplane))
     #     print("Network Delay interval: events")
     #     util.print_dual_list(self.network_delay_interval,
-    #                          util.list_as_enum_name_list(self.network_delay_events, NetworkDelay))
+    #                          util.list_as_enum_name_list(self.network_delay_events, NetworkDelay))# noqa
     #     print("Rotation interval: events")
-    #     util.print_dual_list(self.rotation_interval, util.list_as_enum_name_list(
+    #     util.print_dual_list(self.rotation_interval, util.list_as_enum_name_list(# noqa
     #         self.rotation_events, UserRotation))
     #     print("Network speed interval: events")
-    #     util.print_dual_list(self.network_speed_interval, util.list_as_enum_name_list(
+    #     util.print_dual_list(self.network_speed_interval, util.list_as_enum_name_list(# noqa
     #         self.network_speed_events, NetworkStatus))
 
     def __random_value_generator(self, lower_limit: int, upper_limit: int):
@@ -194,8 +156,10 @@ class Fuzzer:
     #     return intervals
 
     def list_intervalevent_to_IntervalEvent(self,
-                                            list_intervalevent: List[Tuple[int, EVENT_TYPES]],
-                                            event_type: EVENT_TYPES) -> List[IntervalEvent]:
+                                            list_intervalevent: List[Tuple[int,
+                                                                           EVENT_TYPES]],  # noqa
+                                            event_type: EVENT_TYPES
+                                            ) -> List[IntervalEvent]:
         # pylint: disable=invalid-name, E1126
         '''
         converts list to IntervalEvent type
@@ -204,12 +168,14 @@ class Fuzzer:
 
         for i in range(0, len(list_intervalevent)):
             entity = IntervalEvent(
-                i, list_intervalevent[i][0], list_intervalevent[i][1].name, event_type)
+                i, list_intervalevent[i][0], list_intervalevent[i][1].name,
+                event_type)
             interval_events.append(entity)
         return interval_events
 
     def generate_step_interval_event(self,
-                                     event_type: Type[EVENT_TYPES]) -> List[IntervalEvent]:
+                                     event_type: Type[EVENT_TYPES]
+                                     ) -> List[IntervalEvent]:
         '''
             returns a List of Interval_Event for each step
         '''
@@ -236,7 +202,8 @@ class Fuzzer:
         return interval_events
 
     def generate_step_uniforminterval_event(self,
-                                            event_type: EVENT_TYPES) -> List[IntervalEvent]:
+                                            event_type: EVENT_TYPES
+                                            ) -> List[IntervalEvent]:
         '''
             returns a List of interval_event for each step
         '''
@@ -259,7 +226,7 @@ class Fuzzer:
                 break
         return interval_events
 
-    # def uniform_duration_interval_steps_generator(self, uniform_interval: int)->List[int]:
+    # def uniform_duration_interval_steps_generator(self, uniform_interval: int)->List[int]: #noqa
     #     '''
     #         makes uniform interval steps by dividing `total_duration` with
     #         `uniform_interval`
@@ -278,7 +245,7 @@ class Fuzzer:
 
     # def event_per_step_generator(self,
     #                              intervals: List[int],
-    #                              event_type: Union[GsmProfile, NetworkDelay, NetworkStatus])->\
+    #                              event_type: Union[GsmProfile, NetworkDelay, NetworkStatus])->\ # noqa
     #         List[Union[GsmProfile, NetworkDelay, NetworkStatus]]:
     #     event_types = []
     #     for dummy in intervals:
@@ -292,7 +259,7 @@ class Fuzzer:
     #     for i in range(0, len(intervals) - 1):
     #         if PRINT_FLAG:
     #             print("{} - {}: {}".format(event_type,
-    #                                        intervals[i], enum_type(events[i]).name))
+    #                                        intervals[i], enum_type(events[i]).name))# noqa
     #         method_name(enum_type(events[i]))
     #         time.sleep(intervals[i])
 
@@ -326,12 +293,12 @@ class Fuzzer:
 
             file2 = open("test/ContextEventLog", "w")
 
-            if len(filedata) < 10 :
+            if len(filedata) < 10:
                 file2.write(IntervalEvent.__str__(interval_event))
             else:
                 file2.write(filedata + "\n" +
                             IntervalEvent.__str__(interval_event))
-            
+
             file2.close()
 
             method_name(interval_event.event_type[interval_event.event])
@@ -339,11 +306,12 @@ class Fuzzer:
             # for i in range(0, len(intervals) - 1):
             #     if PRINT_FLAG:
             #         print("{} - {}: {}".format(event_type,
-            #                                    intervals[i], enum_type(events[i]).name))
+            #                                    intervals[i], enum_type(events[i]).name))# noqa
             #     method_name(enum_type(events[i]))
             #     time.sleep(intervals[i])
 
-    def random_airplane_mode_call(self, adb_device: str, interval_events: List[IntervalEvent] = None):
+    def random_airplane_mode_call(self, adb_device: str,
+                                  interval_events: List[IntervalEvent] = None):
         '''
         randomly fuzzes airplane_mode_call for the specified
         running virtual device identified by `adb_device`
@@ -360,7 +328,8 @@ class Fuzzer:
 
         device.set_airplane_mode(Airplane.MODE_OFF)
 
-    def random_key_event(self, adb_device: str, interval_events: List[IntervalEvent]=None):
+    def random_key_event(self, adb_device: str,
+                         interval_events: List[IntervalEvent]=None):
         '''
             random fuzz of random key events
             and KeyEvent type IntervalEvent
@@ -428,7 +397,8 @@ class Fuzzer:
         telnet_obj.reset_network_delay()
 
     def random_gsm_profile(self, host: str, emulator: Emulator,
-                           uniform_interval: int, interval_events: List[IntervalEvent]=None):
+                           uniform_interval: int,
+                           interval_events: List[IntervalEvent]=None):
         '''
         randomly fuzzes gsm_profile by `TelnetAdb(host, port)` type object
         and GsmProfile type IntervalEvent
