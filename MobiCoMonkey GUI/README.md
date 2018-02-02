@@ -1,3 +1,3 @@
-Mobile Monkey Java
+MobiCoMonkey Java
 
 GUI based tool to run Mobile Monkey
