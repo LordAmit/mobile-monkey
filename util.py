@@ -2,7 +2,7 @@
 util module
 """
 from time import strftime, localtime
-from typing import List
+from typing import List, Any
 import enum
 import os
 import shutil
@@ -130,7 +130,7 @@ def return_current_time_in_logcat_style():
     return strftime("%m-%d %H:%M:%S", localtime())
 
 
-def debug_print(*msg: str, flag: bool):
+def debug_print(*msg: Any, flag: bool):
     '''
     prints if the provided flag is true
     '''
@@ -138,7 +138,7 @@ def debug_print(*msg: str, flag: bool):
         print(msg)
 
 
-def pid_from_emulator_port(emulator_port: int) -> str:
+def pid_from_emulator_port(emulator_port: str) -> int:
     '''
         :param emulator_port:
             integer `emulator_port`
@@ -156,10 +156,10 @@ def pid_from_emulator_port(emulator_port: int) -> str:
     # (LISTEN)
     pid = pid.split('\n')[1:][0].split(' ')[1]
     # 11803
-    return pid
+    return int(pid)
 
 
-def ps_details_of_pid(pid: str) -> str:
+def ps_details_of_pid(pid: int) -> str:
     '''
         retuns:
             device details from `pid`

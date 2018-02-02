@@ -1,7 +1,6 @@
 from pathlib import Path
 import shlex
 import time
-import util
 from enum import Enum
 import subprocess
 import api_commands
@@ -21,7 +20,7 @@ class TestType(Enum):
 
 class FatalWatcher():
 
-    def __init__(self, log_file_path: str):
+    def __init__(self, log_file_path: str) -> None:
         self.log_file_path = log_file_path
         self.file_contents = None
         self.stop_watching = False
@@ -46,7 +45,8 @@ class Logcat:
         Class logcat. instantiated by `Emulator` and `Apk`
     '''
 
-    def __init__(self, emulator: Emulator, apk: Apk, test_type: TestType):
+    def __init__(self, emulator: Emulator, apk: Apk,
+                 test_type: TestType)-> None:
         self.emulator = emulator
         self.apk = apk
         self.package_name = apk.package_name
@@ -107,7 +107,7 @@ class Logcat:
         #             fuzz.fatal_exception = True
         #             self.logfile.close()
         #             self.log_process.kill()
-                # self.logfile.flush()
+        # self.logfile.flush()
 
     def stop_logcat(self):
         '''

@@ -3,7 +3,6 @@ adb monkey interface
 '''
 import subprocess
 import time
-import util
 import config_reader as config
 import api_commands
 from emulator import Emulator
@@ -18,7 +17,8 @@ class AdbMonkey:
     '''
     adb = config.adb
 
-    def __init__(self, emulator: Emulator, apk: Apk, seed: int, number_of_events: int):
+    def __init__(self, emulator: Emulator, apk: Apk, seed: int,
+                 number_of_events: int)-> None:
 
         api_commands.adb_start_server_safe()
         if seed > 500 or seed < 0:
@@ -39,7 +39,8 @@ class AdbMonkey:
             raise ValueError("Provided {} not found.".format(apk.package_name))
         elif output > 1:
             raise ValueError(
-                "Provided {} is too unspecific, multiple entries found.".format(apk.package_name))
+                "Provided {} is too unspecific," +
+                " multiple entries found.".format(apk.package_name))
         self.app_package_name = apk.package_name
 
     def start_monkey(self):

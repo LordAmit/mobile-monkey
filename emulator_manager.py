@@ -4,8 +4,6 @@ Emulator Manager
 
 import subprocess
 import shlex
-from subprocess import Popen, PIPE
-import syslog
 import time
 import os
 from typing import List
@@ -14,7 +12,7 @@ import config_reader as config
 from contextConfig_reader import ContextConfigReader as c_config
 import api_commands
 import util
-emulator_processes = []
+emulator_processes: List = []
 
 context_list = {}
 
@@ -40,7 +38,8 @@ def create_emulator():
     android = config.get('android')
     target_id = 5
     emulator_create = subprocess.Popen(
-        [android, 'create', 'avd', '-n', context_list['emulator_name'], '-t', str(target_id), '-b',
+        [android, 'create', 'avd', '-n', context_list['emulator_name'], '-t',
+         str(target_id), '-b',
          context_list['abi']], stdin=subprocess.PIPE)
     stri = str('n').encode('utf-8')
     emulator_create.stdin.write(stri)
@@ -68,9 +67,11 @@ def kill_emulator(port: int = config.EMULATOR_PORT):
     command = "{} -s emulator-{} emu kill".format(config.adb, port)
     subprocess.check_output(shlex.split(command))
 
+
 def check_avd_booted_completely(emulator_port) -> str:
     """
-    Checks if the AVD specified in ``port`` is booted completely through a system call:
+    Checks if the AVD specified in ``port`` is booted completely
+    through a system call:
     >>> adb -s emulator-5555  shell getprop sys.boot_completed
     it returns 1 if boot is completed.
 
@@ -97,7 +98,7 @@ def check_avd_booted_completely(emulator_port) -> str:
         check = check.decode().strip()
         if check == "1":
             print("completed")
-            return 1
+            return "1"
         time.sleep(2)
         i = i + 1
         print("wait" + str(i))
@@ -172,7 +173,7 @@ def check_avd_booted_completely(emulator_port) -> str:
                      stdout=subprocess.PIPE)
     # print(current_process.pid, emulator_port)
     check = check_avd_booted_completely(emulator_port)
-    if check == 1:
+    if check == "1":
         print(context_list['emulator_name'] + " has booted completely")
         flag = True
         return flag
@@ -206,7 +207,7 @@ def adb_instances_manager() -> List[Emulator]:
     for adb_port in adb_ports:
         pid = util.pid_from_emulator_port(adb_port)
         model = api_commands.avd_model_from_pid(pid)
-        current_emulator = Emulator(adb_port, pid, model)
+        current_emulator = Emulator(int(adb_port), pid, model)
         emulators.append(current_emulator)
     util.detail_print(emulators)
     return emulators
@@ -229,7 +230,8 @@ def get_adb_instance_from_emulators(model: str) -> Emulator:
     raise ValueError('No emulator found for ' + model)
 
 
-def get_processid_of_adb_instance_by_model(emulators: List[Emulator], model: str):
+def get_processid_of_adb_instance_by_model(emulators: List[Emulator],
+                                           model: str):
     '''
     returns the PID of running adb_instance when the model name is specified
     '''
@@ -245,12 +247,12 @@ def get_device_emulator_model(output_raw):
     # print(output_raw)
     """
     PID TTY      STAT   TIME COMMAND
-    15522 tty2     Rl+  128:13 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5557 -avd nexus_s
+    15522 tty2     Rl+  128:13 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5557 -avd nexus_s # noqa
     """
     current_string = output_raw.split('\n')[1:][:1][0]
 
     """
-    15521 tty2     Rl+  134:48 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5555 -avd nexus_4
+    15521 tty2     Rl+  134:48 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5555 -avd nexus_4# noqa
     """
     index_of_avd = current_string.index('-avd')
     """
@@ -280,8 +282,8 @@ def emulator_wipe_data(emulator: Emulator):
 
 def emulator_start_avd(port: int, emulator_name: str):
     '''
-        starts emulator at the designated `port` specified by the `emulator_name`.
-        Internally, it observers headless flag from config file to start emulator in headless mode.
+        starts emulator at the designated `port` specified by the `emulator_name`.# noqa
+        Internally, it observers headless flag from config file to start emulator in headless mode.# noqa
     '''
     if config.HEADLESS:
         command = "{} -port {} -avd {} -no-skin -no-audio -no-window".format(
@@ -290,7 +292,7 @@ def emulator_start_avd(port: int, emulator_name: str):
         command = "{} -port {} -avd {} -accel auto -use-system-libs".format(
             config.EMULATOR, str(port), emulator_name)
     subprocess.Popen(shlex.split(command),
-                    stdout=subprocess.PIPE)
+                     stdout=subprocess.PIPE)
 
 
 if __name__ == '__main__':

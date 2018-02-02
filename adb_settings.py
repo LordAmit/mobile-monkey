@@ -25,7 +25,7 @@ class KeyboardEvent(Enum):
     KEYCODE_7 = auto()
     KEYCODE_8 = auto()
     KEYCODE_9 = auto()
-    
+
     KEYCODE_A = auto()
     KEYCODE_B = auto()
     KEYCODE_C = auto()
@@ -70,6 +70,7 @@ class KeyboardEvent(Enum):
     # KEYCODE_NUM = auto()
     KEYCODE_SPACE = auto()
 
+
 class KeyEvent(Enum):
 
     '''
@@ -81,7 +82,7 @@ class KeyEvent(Enum):
     # KEYCODE_BACK = ()
     # KEYCODE_CALL = ()
     # KEYCODE_ENDCALL = auto()
-    
+
     # KEYCODE_DPAD_UP = auto()
     # KEYCODE_DPAD_DOWN = auto()
     # KEYCODE_DPAD_LEFT = auto()
@@ -94,22 +95,22 @@ class KeyEvent(Enum):
     # KEYCODE_POWER = auto()
     # KEYCODE_CAMERA = auto()
     KEYCODE_CLEAR = auto()
-    
+
     # KEYCODE_ALT_LEFT = auto()
     # KEYCODE_ALT_RIGHT = auto()
     # KEYCODE_SHIFT_LEFT = auto()
     # KEYCODE_SHIFT_RIGHT = auto()
     # KEYCODE_TAB = auto()
-    
+
     # KEYCODE_SYM = auto()
     # KEYCODE_EXPLORER = auto()
     # KEYCODE_ENVELOPE = auto()
-    
+
     # KEYCODE_GRAVE = auto()
     # KEYCODE_HEADSETHOOK = auto()
-    
+
     # KEYCODE_FOCUS = auto()
-    
+
     # KEYCODE_MENU = auto()
     # KEYCODE_NOTIFICATION = auto()
     # KEYCODE_SEARCH = auto()
@@ -154,10 +155,10 @@ class AdbSettings:
     emulator_name = ''
     # TODO: Fix so that emulator_device is replaced by emulator.
 
-    def __init__(self, emulator_device: str):
+    def __init__(self, emulator_device: str)-> None:
 
         emulators = api_commands.adb_list_avd_devices()
-        if not emulator_device in emulators:
+        if emulator_device not in emulators:
             util.detail_print(emulator_device)
             print('error. possible choices are: ')
             util.detail_print(emulators)
@@ -183,7 +184,8 @@ class AdbSettings:
         sends key event to the emulator
         '''
         subprocess.check_output(
-            [ADB, '-s', self.emulator_name, 'shell', 'input', 'keyevent', str(event.name)])
+            [ADB, '-s', self.emulator_name, 'shell', 'input', 'keyevent',
+             str(event.name)])
 
         # http://stackoverflow.com/questions/6236340/how-to-limit-speed-of-internet-connection-on-android-emulator
 
@@ -192,7 +194,8 @@ class AdbSettings:
         sends key event to the emulator for testing purpose
         '''
         subprocess.check_output(
-            [ADB, '-s', self.emulator_name, 'shell', 'input', 'keyevent', event_name])
+            [ADB, '-s', self.emulator_name, 'shell', 'input', 'keyevent',
+             event_name])
 
     def subprocess_call_get(self, value, namespace: Namespace):
         '''
@@ -249,7 +252,8 @@ class AdbSettings:
         '''
             gets the accelerometer rotation value
         '''
-        return self.subprocess_call_get('accelerometer_rotation', Namespace.SYSTEM)
+        return self.subprocess_call_get('accelerometer_rotation',
+                                        Namespace.SYSTEM)
 
     def set_accelerometer_rotation(self, value: bool):
         '''
@@ -274,7 +278,8 @@ class AdbSettings:
         '''
             gets airplane mode by `mood`
         '''
-        if self.subprocess_call_get('airplane_mode_on', Namespace.GLOBAL) == '0':
+        if self.subprocess_call_get('airplane_mode_on',
+                                    Namespace.GLOBAL) == '0':
             return False
         else:
             return True

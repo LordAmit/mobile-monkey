@@ -8,7 +8,8 @@ class Emulator:
     Emulator class. Holds information about port, PID and model of running emulators
     '''
 
-    def __init__(self, emulator_port: int, emulator_pid: int, emulator_model: str):
+    def __init__(self, emulator_port: int, emulator_pid: int,
+                 emulator_model: str)-> None:
         self.port = emulator_port
         self.pid = emulator_pid
         self.model = emulator_model

@@ -10,7 +10,7 @@ class Apk:
     Apk class that contains apk_path, apk_name, and apk_permissions
     '''
 
-    def __init__(self, apk_path: str):
+    def __init__(self, apk_path: str)-> None:
         util.check_file_directory_exists(apk_path, True)
         self.apk_path = apk_path
         self.package_name = self.__adb_package_name_from_apk(apk_path)

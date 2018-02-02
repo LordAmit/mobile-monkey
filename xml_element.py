@@ -1,9 +1,15 @@
+from typing import Union
+
+
 class XML_Element:
     '''This class contains element attributes'''
 
-    def __init__(self, resource_id: str, element_class: str, checkable: str, checked: str, 
-                 clickable: str, enabled: str, focusable: str, focused: str, scrollable:str,
-                 long_clickable:str, password:str, selected:str, xpos:int, ypos: int):
+    def __init__(self, resource_id: str, element_class: str, checkable: str,
+                 checked: str, clickable: str, enabled: str, focusable: str,
+                 focused: str, scrollable: str, long_clickable: str,
+                 password: str, selected: str, xpos: Union[float, int],
+                 ypos: Union[float, int]) ->\
+            None:
         self.resource_id = resource_id
         self.element_class = element_class
         self.checkable = checkable

@@ -3,7 +3,7 @@ from emulator import Emulator
 import api_commands
 from apk import Apk
 import emulator_manager
-from xml.dom import minidom
+from xml.dom import minidom  # type: ignore
 from xml_element import XML_Element
 from adb_settings import AdbSettings
 import random
@@ -18,13 +18,13 @@ from adb_logcat import Logcat, TestType
 eventlog = open('test/EventLog', 'w')
 
 
-def start_test() -> str:
+def start_test():
 
     apk = Apk(config.APK_FULL_PATH)
 
     emulator = emulator_manager.get_adb_instance_from_emulators(
         config.EMULATOR_NAME)
-    adb_settings = AdbSettings("emulator-" + emulator.port)
+    adb_settings = AdbSettings("emulator-" + str(emulator.port))
     activities = []
 
     log = Logcat(emulator, apk, TestType.MobileMonkey)
@@ -113,8 +113,8 @@ def test_ui(activity: str, emulator: Emulator, adb_settings: AdbSettings,
     file.write("1")
 
 
-def element_list_compare(previous_elements: XML_Element,
-                         current_elements: XML_Element):
+def element_list_compare(previous_elements: List[XML_Element],
+                         current_elements: List[XML_Element]):
     for previous_item in previous_elements:
         for current_item in current_elements:
             if previous_item.resource_id == current_item.resource_id:
@@ -123,7 +123,7 @@ def element_list_compare(previous_elements: XML_Element,
     return current_elements
 
 
-def input_key_event(activity: str, element_list: XML_Element,
+def input_key_event(activity: str, element_list: List[XML_Element],
                     emulator: Emulator, adb_settings: AdbSettings):
     for item in element_list:
         print(item.resource_id, item.xpos, item.ypos)
