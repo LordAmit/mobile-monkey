@@ -13,7 +13,8 @@ ADB = config.adb
 
 PRINT_FLAG = True
 
-def decode_apk(apk:Apk):
+
+def decode_apk(apk: Apk):
     '''
     decodes provided apk to a folder
     '''
@@ -24,7 +25,8 @@ def decode_apk(apk:Apk):
         util.debug_print(result, flag=PRINT_FLAG)
 
         result = subprocess.check_output(
-            ['apktool', 'd', apk.apk_path, '-o', config.APK_FULL_PATH.split('.apk')[0], '-f']).decode()
+            ['apktool', 'd', apk.apk_path, '-o',
+             config.APK_FULL_PATH.split('.apk')[0], '-f']).decode()
         util.debug_print(result, flag=PRINT_FLAG)
     except subprocess.SubprocessError as error:
         print(error)
@@ -32,12 +34,12 @@ def decode_apk(apk:Apk):
 
 
 def overwrite_android_manifest():
-
-    ''' 
+    '''
     adds android:exported="true" to AndroidManifest.xml
     '''
 
-    file_address = config.APK_FULL_PATH.split('.apk')[0] + '/AndroidManifest.xml'
+    file_address = config.APK_FULL_PATH.split(
+        '.apk')[0] + '/AndroidManifest.xml'
 
     tree = ET.parse(file_address)
     root = tree.getroot()
@@ -58,21 +60,25 @@ def overwrite_android_manifest():
     f.write(newdata)
     f.close()
 
+
 def build_apk(apk: Apk):
     '''
     builds modified apk
     '''
     result = subprocess.check_output(
-        ['apktool', 'b', config.APK_FULL_PATH.split('.apk')[0], '-o', apk.apk_path]).decode()
+        ['apktool', 'b', config.APK_FULL_PATH.split('.apk')[0], '-o',
+         apk.apk_path]).decode()
     util.debug_print(result, flag=PRINT_FLAG)
+
 
 def sign_apk(apk: Apk):
     result = subprocess.check_output(
         [config.JARSIGNER, '-keystore',
          config.KEY, '-verbose', apk.apk_path,
          config.ALIAS], input=config.PASSWORD.encode()).decode()
-         
+
     util.debug_print(result, flag=PRINT_FLAG)
+
 
 def adb_install_apk(emulator: Emulator, apk: Apk):
     '''
@@ -81,18 +87,21 @@ def adb_install_apk(emulator: Emulator, apk: Apk):
     util.check_file_directory_exists(apk.apk_path, True)
     try:
         result = subprocess.check_output(
-            [config.adb, '-s', 'emulator-' + emulator.port, 'install', apk.apk_path]).decode()
+            [config.adb, '-s', 'emulator-' + str(emulator.port), 'install',
+             apk.apk_path]).decode()
         util.debug_print(result, flag=PRINT_FLAG)
     except subprocess.SubprocessError as error:
         print(error)
         raise ValueError("error installing.")
+
 
 def adb_get_activity_list(emulator: Emulator, apk: Apk):
     '''
     returns list of activities
     '''
 
-    command = "{} dump xmltree {} AndroidManifest.xml".format(config.AAPT, apk.apk_path)
+    command = "{} dump xmltree {} AndroidManifest.xml".format(
+        config.AAPT, apk.apk_path)
     result = subprocess.check_output(shlex.split(command)).decode()
     return result
 
@@ -103,7 +112,7 @@ def adb_stop_activity_of_apk(emulator: Emulator, apk: Apk):
     '''
     # adb shell am force-stop com.my.app.package
 
-    emulator_name = 'emulator-' + emulator.port
+    emulator_name = 'emulator-' + str(emulator.port)
     subprocess.check_output(
         [config.adb, '-s', emulator_name, 'shell', 'am', 'force-stop',
          apk.package_name])
@@ -116,7 +125,7 @@ def adb_start_launcher_of_apk(emulator: Emulator, apk: Apk):
     '''
     # adb shell monkey -p com.android.chrome -c
     # android.intent.category.LAUNCHER 1
-    emulator_name = 'emulator-' + emulator.port
+    emulator_name = 'emulator-' + str(emulator.port)
     subprocess.check_output(
         [config.adb, '-s', emulator_name, 'shell', 'monkey', '-p',
          apk.package_name, '-c', 'android.intent.category.LAUNCHER', '1'])
@@ -128,17 +137,20 @@ def adb_start_activity(emulator: Emulator, apk: Apk, activity: str):
         starts the specified activity.
     '''
     subprocess.check_output(
-        [config.adb, 'shell', 'am', 'start', '-n', apk.package_name+"/"+activity])
+        [config.adb, 'shell', 'am', 'start', '-n',
+         apk.package_name+"/"+activity])
     print(activity+" is started")
 
 
 def adb_display_properties():
-    result = subprocess.check_output([config.adb, 'shell', 'dumpsys', 'display'])
-    return result;
+    result = subprocess.check_output(
+        [config.adb, 'shell', 'dumpsys', 'display'])
+    return result
+
 
 def adb_display_scroll(height: str):
     subprocess.check_output(
-        [config.adb, 'shell', 'input', 'swipe 0 '+height+' 0 0' ])
+        [config.adb, 'shell', 'input', 'swipe 0 '+height+' 0 0'])
     print("scrolling up")
 
 
@@ -149,8 +161,9 @@ def adb_is_package_present(emulator: Emulator, app_package_name: str) -> int:
         returns 1 if multiple entries for specified package is present.
     '''
     output = subprocess.check_output(
-        [config.adb, '-s', 'emulator-' + emulator.port, 'shell', 'pm',
-         'list', 'packages', '|', 'grep', app_package_name]).decode().strip().split('\r\n')
+        [config.adb, '-s', 'emulator-' + str(emulator.port), 'shell', 'pm',
+         'list', 'packages', '|', 'grep',
+         app_package_name]).decode().strip().split('\r\n')
     # util.debug_print(output, len(output), flag=PRINT_FLAG)
     # self.number_of_events = number_of_events
     # self.seed = seed
@@ -163,13 +176,15 @@ def adb_is_package_present(emulator: Emulator, app_package_name: str) -> int:
 
 def adb_uninstall_package(emulator: Emulator, package: str):
     '''
-    uninstalls the provided package if only one entry with the specified package is found.
+    uninstalls the provided package if only one entry with the specified
+    package is found.
     '''
     # if adb_is_package_present(emulator, package) is not 1:
     #     raise ValueError("Package not found / Too generic.")
     try:
-        result = subprocess.check_output(
-            [config.adb, '-s', 'emulator-' + emulator.port, 'uninstall', package])
+        subprocess.check_output(
+            [config.adb, '-s', 'emulator-' + str(emulator.port),
+             'uninstall', package])
         print("uninstalled " + package)
     except subprocess.SubprocessError as error:
         print("maybe not found/uninstalled already")
@@ -203,7 +218,8 @@ def adb_start_server_safe():
             return True
         except subprocess.SubprocessError as exception:
             print(
-                'something disastrous happened. maybe ' + ADB + ' was not found')
+                'something disastrous happened. maybe ' + ADB +
+                ' was not found')
             return False
 
 
@@ -227,7 +243,8 @@ def adb_input_tap(emulator: Emulator, xpos: int, ypos: int):
     sends tap event to specified `emulator` via adb at the `X`, `Y` coordinates
     '''
     command = "{} -s emulator-{} shell input tap {} {}".format(config.adb,
-                                                               emulator.port, xpos, ypos)
+                                                               emulator.port,
+                                                               xpos, ypos)
     subprocess.check_output(shlex.split(command))
 
 
@@ -243,8 +260,9 @@ def adb_uiautomator_dump(emulator: Emulator):
     dump_file_address = config.DUMP_ADDRESS + \
         util.return_current_time() + "_dump.xml"
 
-    command_cat = "{} -s emulator-{} shell cat /sdcard/window_dump.xml ".format(
-        config.adb, emulator.port)
+    command_cat = "{} -s emulator-{}" +\
+        " shell cat /sdcard/window_dump.xml ".format(
+            config.adb, emulator.port)
 
     dump_content = subprocess.check_output(shlex.split(command_cat)).decode()
     dump_file = open(dump_file_address, mode='w')
@@ -277,14 +295,14 @@ def avd_model_from_pid(pid: str) -> str:
     # print(output_raw)
     """
     PID TTY      STAT   TIME COMMAND
-    15522 tty2     Rl+  128:13 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5557 -avd nexus_s
+    15522 tty2     Rl+  128:13 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5557 -avd nexus_s # noqa
     """
     device_detail = device_details.split('\n')[1:][:1][0]
     print(device_detail)
     """
-    15521 tty2     Rl+  134:48 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5555 -avd nexus_4
+    15521 tty2     Rl+  134:48 /home/amit/Android/Sdk/tools/emulator64-x86 -port 5555 -avd nexus_4 # noqa
     or
-    11803 ?        Sl     9:56 /home/amit/Android/Sdk/emulator/qemu/linux-x86_64/qemu-system-i386
+    11803 ?        Sl     9:56 /home/amit/Android/Sdk/emulator/qemu/linux-x86_64/qemu-system-i386 # noqa
     -port 5555     -avd Nexus6 -use-system-libs
 
     """
@@ -302,7 +320,9 @@ def adb_pidof_app(emulator: Emulator, apk: Apk):
     '''
     try:
         result = subprocess.check_output(
-            [config.adb, '-s', 'emulator-' + emulator.port, 'shell', 'pidof', apk.package_name])
+            [config.adb, '-s', 'emulator-' + str(emulator.port),
+             'shell', 'pidof',
+             apk.package_name])
         result = result.decode().split('\n')[0]
         util.debug_print(result, flag=PRINT_FLAG)
         return result
@@ -328,7 +348,8 @@ def gradle_install(gradlew_path: str, project_path: str):
     print(gradlew_path, project_path)
     try:
         subprocess.check_output(
-            [gradlew_path, '-p', project_path, 'tasks', 'installDebug', '--info', '--debug',
+            [gradlew_path, '-p', project_path, 'tasks', 'installDebug',
+             '--info', '--debug',
              '--stacktrace'])
     except subprocess.CalledProcessError:
         print('error: gradle problem executing: ' + gradlew_path)
@@ -344,7 +365,8 @@ def gradle_test(gradlew_path: str, project_path: str):
     print(gradlew_path, project_path)
     try:
         subprocess.check_output(
-            [gradlew_path, '-p', project_path, 'tasks', 'connectedAndroidTest', '--info', '--debug',
+            [gradlew_path, '-p', project_path, 'tasks', 'connectedAndroidTest',
+             '--info', '--debug',
              '--stacktrace'])
     except subprocess.CalledProcessError:
         print('error: gradle problem executing: ' + gradlew_path)

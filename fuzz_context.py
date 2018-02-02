@@ -2,7 +2,7 @@
 Fuzz contexts - to conduct contextual testing of app
 '''
 import time
-from typing import List, Tuple, Union, Type
+from typing import List, Union, Type
 import random
 from adb_logcat import FatalWatcher
 
@@ -13,17 +13,15 @@ from adb_settings import Airplane
 from adb_settings import KeyEvent
 
 from telnet_connector import TelnetAdb
-from telnet_connector import GsmProfile
-from telnet_connector import NetworkDelay
-from telnet_connector import NetworkStatus
+from telnet_connector import GsmProfile, NetworkDelay, NetworkStatus
 import config_reader as config
 
 from interval_event import IntervalEvent
 
 PRINT_FLAG = True
 
-EVENT_TYPES = Union[GsmProfile, NetworkDelay,
-                    NetworkStatus, Airplane, UserRotation, KeyEvent]
+EVENT_TYPES = Type[Union[GsmProfile, NetworkDelay,
+                         NetworkStatus, Airplane, UserRotation, KeyEvent]]
 
 
 class Fuzzer:
@@ -155,26 +153,25 @@ class Fuzzer:
     # self.intervals = intervals
     #     return intervals
 
-    def list_intervalevent_to_IntervalEvent(self,
-                                            list_intervalevent: List[Tuple[int,
-                                                                           EVENT_TYPES]],  # noqa
-                                            event_type: EVENT_TYPES
-                                            ) -> List[IntervalEvent]:
-        # pylint: disable=invalid-name, E1126
-        '''
-        converts list to IntervalEvent type
-        '''
-        interval_events = []
+    # def list_intervalevent_to_IntervalEvent(self,
+    #                                         list_intervalevent: List[Tuple[int, EVENT_TYPES]],  # noqa
+    #                                         event_type: EVENT_TYPES
+    #                                         ) -> List[IntervalEvent]:
+    #     # pylint: disable=invalid-name, E1126
+    #     '''
+    #     converts list to IntervalEvent type
+    #     '''
+    #     interval_events = []
 
-        for i in range(0, len(list_intervalevent)):
-            entity = IntervalEvent(
-                i, list_intervalevent[i][0], list_intervalevent[i][1].name,
-                event_type)
-            interval_events.append(entity)
-        return interval_events
+    #     for i in range(0, len(list_intervalevent)):
+    #         entity = IntervalEvent(
+    #             i, list_intervalevent[i][0], list_intervalevent[i][1].name,
+    #             event_type)
+    #         interval_events.append(entity)
+    #     return interval_events
 
     def generate_step_interval_event(self,
-                                     event_type: Type[EVENT_TYPES]
+                                     event_type: EVENT_TYPES
                                      ) -> List[IntervalEvent]:
         '''
             returns a List of Interval_Event for each step
@@ -226,7 +223,7 @@ class Fuzzer:
                 break
         return interval_events
 
-    # def uniform_duration_interval_steps_generator(self, uniform_interval: int)->List[int]: #noqa
+    # def uniform_duration_interval_steps_generator(self, uniform_interval: int)->List[int]: # noqa
     #     '''
     #         makes uniform interval steps by dividing `total_duration` with
     #         `uniform_interval`

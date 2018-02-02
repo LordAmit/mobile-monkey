@@ -10,8 +10,9 @@ from telnet_connector import NetworkStatus
 import util
 import config_reader as config
 
-EVENT_TYPES = Union[GsmProfile, NetworkDelay,
-                    NetworkStatus, Airplane, UserRotation, KeyEvent]
+EVENT_TYPES = Union[Type[GsmProfile], Type[NetworkDelay],
+                    Type[NetworkStatus], Type[Airplane],
+                    Type[UserRotation], Type[KeyEvent]]
 
 
 class IntervalEvent:
@@ -54,7 +55,7 @@ class IntervalEvent:
 
 def read_interval_event_from_file(file_address: str,
                                   event_type:
-                                  str)->List[IntervalEvent]:
+                                  EVENT_TYPES)->List[IntervalEvent]:
     '''
         imports event from file and returns `List[IntervalEvent]`
     '''

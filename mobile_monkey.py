@@ -33,7 +33,6 @@ def start_emulator() -> bool:
     '''
         starts emulator
     '''
-    command = config.EMULATOR
     global emulator_model
     if emulator_manager.adb_instances_manager():
         util.debug_print('already emulators are running.', flag=PRINT_FLAG)
@@ -52,7 +51,8 @@ def start_emulator() -> bool:
         return True
 
 
-def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer, will_monkey: bool) -> List:
+def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer,
+                   will_monkey: bool) -> List:
     '''
         runs the threads after checking permissions.
     '''
@@ -85,19 +85,22 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer, will_monkey: bool
             GsmProfile)
         contextual_events += len(gsm_profile_interval_events)
         threads.append(Thread(target=fuzz.random_gsm_profile, args=(
-            config.LOCALHOST, emulator, config.UNIFORM_INTERVAL, gsm_profile_interval_events)))
+            config.LOCALHOST, emulator,
+            config.UNIFORM_INTERVAL, gsm_profile_interval_events)))
 
     user_rotation_interval_events = fuzz.generate_step_interval_event(
         UserRotation)
     contextual_events += len(user_rotation_interval_events)
     threads.append(Thread(
-        target=fuzz.random_rotation, args=((emulator_name, user_rotation_interval_events))))
+        target=fuzz.random_rotation, args=((emulator_name,
+                                            user_rotation_interval_events))))
 
     key_event_interval_events = fuzz.generate_step_interval_event(
         KeyboardEvent)
     contextual_events += len(key_event_interval_events)
     threads.append(Thread(
-        target=fuzz.random_key_event, args=((emulator_name, key_event_interval_events))))
+        target=fuzz.random_key_event, args=((emulator_name,
+                                             key_event_interval_events))))
     if will_monkey:
         monkey = AdbMonkey(emulator, apk,
                            config.SEED, config.DURATION)
@@ -141,7 +144,8 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
     log.start_logcat()
 
     fuzz = Fuzzer(config.MINIMUM_INTERVAL,
-                  config.MAXIMUM_INTERVAL, config.SEED, config.DURATION, FatalWatcher(log.file_address))
+                  config.MAXIMUM_INTERVAL, config.SEED,
+                  config.DURATION, FatalWatcher(log.file_address))
     # log.experimental_start_logcat(fuzz)
     # fuzz.print_intervals_events()
     threads = threads_to_run(emulator, apk, fuzz, WILL_MONKEY)
@@ -200,7 +204,8 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
     log.stop_logcat()
     api_commands.adb_uninstall_apk(emulator, apk)
     util.debug_print(
-        'Finished testing and uninstalling app at {}'.format(time.ctime()), flag=TIME_PRINT_FLAG)
+        'Finished testing and uninstalling app at {}'.format(time.ctime()),
+        flag=TIME_PRINT_FLAG)
     print(Analyzer(log.file_address))
     if wipe_after_finish:
         print("successfully completed testing app. Closing emulator")
@@ -209,4 +214,5 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
 
 
 if __name__ == '__main__':
+
     run(Apk(config.APK_FULL_PATH), config.EMULATOR_NAME, config.EMULATOR_PORT)

@@ -25,6 +25,7 @@ class NetworkStatus(Enum):
     evdo = 7
     full = 8
 
+
 class NetworkDelay(Enum):
 
     '''
@@ -34,6 +35,7 @@ class NetworkDelay(Enum):
     edge = 1
     umts = 2
     none = 3
+
 
 class GsmProfile(Enum):
 
@@ -45,7 +47,7 @@ class GsmProfile(Enum):
     STRENGTH2 = 2
     STRENGTH3 = 3
     STRENGTH4 = 4
-    __name__ = 'GsmProfile'
+
 
 class TelnetAdb:
 
@@ -55,13 +57,14 @@ class TelnetAdb:
     GSM_BREAK = 10
     telnet = None
 
-    def __init__(self, host: str='localhost', port: str=config.EMULATOR_PORT):
+    def __init__(self, host: str='localhost',
+                 port: int=int(config.EMULATOR_PORT))-> None:
         '''initiates the telnet to adb connection at provided `host`:`port`'''
         self.__establish_connection(host, port)
 
-    def __establish_connection(self, host: str, port: str) -> telnetlib.Telnet:
+    def __establish_connection(self, host: str, port: int):
         try:
-            self.telnet = telnetlib.Telnet(host, port)
+            self.telnet = telnetlib.Telnet(host, int(port))
         except ConnectionRefusedError:
             raise ConnectionRefusedError("Connection refused")
         self.__telnet_read_until()
@@ -135,5 +138,5 @@ class TelnetAdb:
 
 
 if __name__ == '__main__':
-    TNC = TelnetAdb('localhost', '5555')
+    TNC = TelnetAdb(config.LOCALHOST, int(config.EMULATOR_PORT))
     TNC.kill_avd()
