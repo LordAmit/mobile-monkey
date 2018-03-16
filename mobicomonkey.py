@@ -14,7 +14,7 @@ import os
 import util
 import monkey
 from adb_logcat import Logcat, TestType
-
+import mutex
 eventlog = open('test/EventLog', 'w')
 
 
@@ -94,8 +94,17 @@ def start_test():
     eventlog.close()
 
 
+def force_update_element_list():
+    print("found mutex = " + str(mutex.ROTATION_MUTEX))
+    print("element list force update here.")
+    mutex.ROTATION_MUTEX = 0
+    print("reset the MUTEX after update.")
+
+
 def test_ui(activity: str, emulator: Emulator, adb_settings: AdbSettings,
             display_height: str):
+
+    import mutex
 
     file = open('test/StopFlagWatcher', 'w')
     file.truncate()
@@ -103,6 +112,8 @@ def test_ui(activity: str, emulator: Emulator, adb_settings: AdbSettings,
     element_list = get_elements_list(emulator, adb_settings)
 
     while len(element_list) > 0:
+        if(mutex.ROTATION_MUTEX):
+            force_update_element_list()
         input_key_event(activity, element_list, emulator, adb_settings)
         previous_elements = element_list
         api_commands.adb_display_scroll("{}".format(
