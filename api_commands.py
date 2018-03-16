@@ -261,10 +261,8 @@ def adb_uiautomator_dump(emulator: Emulator):
     dump_file_address = config.DUMP_ADDRESS + \
         util.return_current_time() + "_dump.xml"
 
-    command_cat = "{} -s emulator-{}" +\
-        " shell cat /sdcard/window_dump.xml ".format(
-            config.adb, emulator.port)
-
+    command_cat = "{} -s emulator-{} shell cat /sdcard/window_dump.xml "
+    command_cat = command_cat.format(config.adb, emulator.port)
     dump_content = subprocess.check_output(shlex.split(command_cat)).decode()
     dump_file = open(dump_file_address, mode='w')
     dump_file.write(dump_content)
