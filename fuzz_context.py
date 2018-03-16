@@ -11,7 +11,7 @@ from adb_settings import AdbSettings
 from adb_settings import UserRotation
 from adb_settings import Airplane
 from adb_settings import KeyEvent
-
+import mutex
 from telnet_connector import TelnetAdb
 from telnet_connector import GsmProfile, NetworkDelay, NetworkStatus
 import config_reader as config
@@ -351,8 +351,51 @@ class Fuzzer:
         #     device.set_user_rotation, "rotation_mode",
         #     self.rotation_interval, self.rotation_events, UserRotation)
         # util.debug_print(interval_events, flag=PRINT_FLAG)
-        self.__execute_interval_event(
-            device.set_user_rotation, interval_events)
+
+        # self.__execute_interval_event(
+        #     device.set_user_rotation, interval_events)
+        # device.set_user_rotation(UserRotation.ROTATION_POTRAIT)
+        file = open('test/StopFlagWatcher', 'r')
+
+        for interval_event in interval_events:
+
+            if "1" in file.readline(1):
+                print("Contextual event finished")
+                break
+
+            if self.fatal_watcher.has_fatal_exception_watch():
+                print("Fatal Exception Detected. Breaking from " +
+                      interval_event.event_type.__name__)
+                break
+
+            # if self.fatal_exception:
+            #     print("fatal crash. Stopping " +
+            #           interval_event.event_type.__name__)
+            #     break
+            # util.debug_print(interval_event, flag=PRINT_FLAG)
+
+            print(interval_event)
+
+            file2 = open("test/ContextEventLog", 'r')
+            filedata = file2.read()
+
+            file2 = open("test/ContextEventLog", "w")
+
+            if len(filedata) < 10:
+                file2.write(IntervalEvent.__str__(interval_event))
+            else:
+                file2.write(filedata + "\n" +
+                            IntervalEvent.__str__(interval_event))
+
+            file2.close()
+
+            device.set_user_rotation(
+                interval_event.event_type[interval_event.event])
+            print("testing rotation manual service")
+            mutex.ROTATION_MUTEX = 1
+            print("ROTATION_MUTEX set to 1 for forcing update")
+            time.sleep(interval_event.interval)
+
         device.set_user_rotation(UserRotation.ROTATION_POTRAIT)
 
     def random_network_speed(self, host: str, emulator: Emulator,
