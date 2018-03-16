@@ -9,7 +9,7 @@ from adb_logcat import FatalWatcher, Logcat
 from apk import Apk
 from emulator import Emulator
 from fuzz_context import Fuzzer
-from adb_settings import Airplane
+from adb_settings import Airplane, UserRotation
 from telnet_connector import GsmProfile, NetworkDelay, NetworkStatus
 import interval_event
 PRINT_FLAG = True
@@ -67,6 +67,14 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer) -> List:
         threads.append(Thread(target=fuzz.random_gsm_profile, args=(
             config.LOCALHOST, emulator, config.UNIFORM_INTERVAL,
             gsm_profile_interval_events)))
+
+    # ROTATION EVENT #FIXME
+    user_rotation_interval_events = fuzz.generate_step_interval_event(
+        UserRotation)
+    # contextual_events += len(user_rotation_interval_events)
+    threads.append(Thread(
+        target=fuzz.random_rotation, args=((emulator_name,
+                                            user_rotation_interval_events))))
 
     return threads
 
