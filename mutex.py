@@ -1,0 +1,1 @@
+ROTATION_MUTEX = 0
