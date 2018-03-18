@@ -222,8 +222,11 @@ class AdbSettings:
             airplane_mode_off
             user_rotation POTRAIT
         '''
+        print("setting airplane mode to False")
         self.set_airplane_mode(False)
+        print("setting user rotation to potrait")
         self.set_user_rotation(UserRotation.ROTATION_POTRAIT)
+        print("setting accelerometer rotation to True")
         self.set_accelerometer_rotation(True)
 
     # def adb_start_server_safe(self):
@@ -286,7 +289,7 @@ class AdbSettings:
 
     def set_airplane_mode(self, mode: Airplane):
         '''
-            gets airplane mode by `mood`
+            sets airplane mode by `mode`
         '''
         if mode == Airplane.MODE_ON:
             self.subprocess_call_set('airplane_mode_on 1',
