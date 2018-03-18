@@ -323,7 +323,7 @@ class Fuzzer:
         #     device.set_airplane_mode, "airplane_mode",
         #     self.airplane_interval, self.airplane_events, Airplane)
 
-        device.set_airplane_mode(Airplane.MODE_OFF)
+        # device.set_airplane_mode(Airplane.MODE_OFF)
 
     def random_key_event(self, adb_device: str,
                          interval_events: List[IntervalEvent]=None):
@@ -396,7 +396,7 @@ class Fuzzer:
             print("ROTATION_MUTEX set to 1 for forcing update")
             time.sleep(interval_event.interval)
 
-        device.set_user_rotation(UserRotation.ROTATION_POTRAIT)
+        # device.set_user_rotation(UserRotation.ROTATION_POTRAIT)
 
     def random_network_speed(self, host: str, emulator: Emulator,
                              interval_events: List[IntervalEvent]=None):
@@ -416,7 +416,7 @@ class Fuzzer:
         self.__execute_interval_event(
             telnet_obj.set_connection_speed, interval_events)
 
-        telnet_obj.reset_network_speed()
+        # telnet_obj.reset_network_speed()
 
     def random_network_delay(self, host: str, emulator: Emulator,
                              interval_events: List[IntervalEvent]=None):
@@ -434,7 +434,7 @@ class Fuzzer:
         # self.__interval_event_execution(
         #     telnet_obj.set_connection_delay, "connection_delay",
         # self.network_delay_interval, self.network_delay_events, NetworkDelay)
-        telnet_obj.reset_network_delay()
+        # telnet_obj.reset_network_delay()
 
     def random_gsm_profile(self, host: str, emulator: Emulator,
                            uniform_interval: int,
@@ -456,7 +456,7 @@ class Fuzzer:
         # util.debug_print(interval_events, flag=PRINT_FLAG)
         self.__execute_interval_event(
             telnet_obj.set_gsm_profile, interval_events)
-        telnet_obj.reset_gsm_profile()
+        # telnet_obj.reset_gsm_profile()
 
     def reset_adb(self, adb_device):
         '''
@@ -464,3 +464,10 @@ class Fuzzer:
         '''
         device = AdbSettings(adb_device)
         device.reset_all()
+
+    def reset_telnet_obj(self, host: str, emulator: Emulator):
+        """
+        resets the emulator for telnet specific contexts
+        """
+        telnet_obj = TelnetAdb(host, emulator.port)
+        telnet_obj.reset_all()
