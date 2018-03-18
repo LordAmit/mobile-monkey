@@ -132,8 +132,11 @@ class TelnetAdb:
         >>> self.reset_network_speed()
         >>> self.reset_gsm_profile()
         '''
+        print("setting network delay to 0")
         self.reset_network_delay()
+        print("setting network speed to full")
         self.reset_network_speed()
+        print("resetting GSM profile")
         self.reset_gsm_profile()
 
 
