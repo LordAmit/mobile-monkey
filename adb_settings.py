@@ -222,7 +222,7 @@ class AdbSettings:
             airplane_mode_off
             user_rotation POTRAIT
         '''
-        self.set_accelerometer_rotation(False)
+        self.set_airplane_mode(False)
         self.set_user_rotation(UserRotation.ROTATION_POTRAIT)
         self.set_accelerometer_rotation(True)
 
