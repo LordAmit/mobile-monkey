@@ -94,11 +94,13 @@ def start_test():
     eventlog.close()
 
 
-def force_update_element_list():
+def force_update_element_list(emulator: Emulator, adb_settings: AdbSettings):
     print("found mutex = " + str(mutex.ROTATION_MUTEX))
     print("element list force update here.")
+    element_list = get_elements_list(emulator, adb_settings)
     mutex.ROTATION_MUTEX = 0
     print("reset the MUTEX after update.")
+    return element_list
 
 
 def test_ui(activity: str, emulator: Emulator, adb_settings: AdbSettings,
@@ -112,9 +114,7 @@ def test_ui(activity: str, emulator: Emulator, adb_settings: AdbSettings,
     element_list = get_elements_list(emulator, adb_settings)
 
     while len(element_list) > 0:
-        if(mutex.ROTATION_MUTEX):
-            force_update_element_list()
-        input_key_event(activity, element_list, emulator, adb_settings)
+        traverse_elements(activity, element_list, emulator, adb_settings)
         previous_elements = element_list
         api_commands.adb_display_scroll("{}".format(
             int(display_height) - int(display_height) / 10))
@@ -134,21 +134,30 @@ def element_list_compare(previous_elements: List[XML_Element],
     return current_elements
 
 
-def input_key_event(activity: str, element_list: List[XML_Element],
+def traverse_elements(activity: str, element_list: List[XML_Element],
                     emulator: Emulator, adb_settings: AdbSettings):
-    for item in element_list:
-        print(item.resource_id, item.xpos, item.ypos)
-        api_commands.adb_input_tap(emulator, item.xpos, item.ypos)
-        rand = random.randint(config.MINIMUM_KEYEVENT, config.MAXIMUM_KEYEVENT)
-        for i in range(rand):
-            KeyCode = KeyboardEvent(random.randint(0, 40)).name
-            print("Sending event " + KeyCode)
-            adb_settings.adb_send_key_event_test(KeyCode)
-            eventlog.write(util.return_current_time_in_logcat_style() + '\t' +
-                           activity + '\t' + item.resource_id +
-                           '\t' + KeyCode + '\n')
-        adb_settings.adb_send_key_event_test("KEYCODE_BACK")
+    for i in range(0, len(element_list)):
+        if(mutex.ROTATION_MUTEX):
+            element_list = element_list_compare(element_list[0:i], force_update_element_list(emulator, adb_settings))
+            for j in range(0, len(element_list)):
+                input_key_event(
+                    activity, element_list[j], emulator, adb_settings)
+            break
+        #print(item.resource_id, item.xpos, item.ypos)
+        input_key_event(activity, element_list[i], emulator, adb_settings)
 
+def input_key_event(activity: str, item: XML_Element,
+                    emulator: Emulator, adb_settings: AdbSettings):
+    api_commands.adb_input_tap(emulator, item.xpos, item.ypos)
+    rand = random.randint(config.MINIMUM_KEYEVENT, config.MAXIMUM_KEYEVENT)
+    for i in range(rand):
+        KeyCode = KeyboardEvent(random.randint(0, 40)).name
+        print("Sending event " + KeyCode)
+        adb_settings.adb_send_key_event_test(KeyCode)
+        eventlog.write(util.return_current_time_in_logcat_style() + '\t' +
+                        activity + '\t' + item.resource_id +
+                        '\t' + KeyCode + '\n')
+    adb_settings.adb_send_key_event_test("KEYCODE_BACK")
 
 def get_elements_list(emulator: Emulator, adb_settings: AdbSettings) -> List:
     xmldoc = minidom.parse(api_commands.adb_uiautomator_dump(emulator))
