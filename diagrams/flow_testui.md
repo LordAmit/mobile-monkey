@@ -1,0 +1,22 @@
+```mermaid
+
+graph TD;
+subgraph Element Handling
+StartTestUIThread --> GetElementList
+
+StorePreviousElements --> ScrollDown
+ScrollDown --> GetAdditionalElements
+GetAdditionalElements --> GetElementList
+end
+
+subgraph Input KeyEvent in Elements
+GetElementList --> TraverseElements
+TraverseElements --> StorePreviousElements
+TraverseElements --> RotationYes
+TraverseElements --> RotationNo
+RotationYes --> RefreshElements
+RotationNo --> UseElements
+RefreshElements --> UseElements
+UseElements --> InputKeyEvent
+end
+```
