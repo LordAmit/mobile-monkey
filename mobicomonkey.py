@@ -6,6 +6,7 @@ import emulator_manager
 from xml.dom import minidom  # type: ignore
 from xml_element import XML_Element
 from adb_settings import AdbSettings
+from telnet_connector import TelnetAdb
 import random
 from typing import List
 from threading import Thread
@@ -16,6 +17,16 @@ import monkey
 from adb_logcat import Logcat, TestType
 import mutex
 eventlog = open('test/EventLog', 'w')
+
+
+def reset_emulator(
+        host: str = config.LOCALHOST,
+        emulator_port: str = config.EMULATOR_PORT):
+    print("resetting emulator")
+    adb_device = AdbSettings("emulator-" + str(emulator_port))
+    telnet_object = TelnetAdb(host, int(emulator_port))
+    adb_device.reset_all()
+    telnet_object.reset_all()
 
 
 def start_test():
@@ -106,8 +117,6 @@ def force_update_element_list(emulator: Emulator, adb_settings: AdbSettings):
 def test_ui(activity: str, emulator: Emulator, adb_settings: AdbSettings,
             display_height: str):
 
-    import mutex
-
     file = open('test/StopFlagWatcher', 'w')
     file.truncate()
 
@@ -135,16 +144,19 @@ def element_list_compare(previous_elements: List[XML_Element],
 
 
 def traverse_elements(activity: str, element_list: List[XML_Element],
-                    emulator: Emulator, adb_settings: AdbSettings):
+                      emulator: Emulator, adb_settings: AdbSettings):
     for i in range(0, len(element_list)):
         if(mutex.ROTATION_MUTEX):
-            element_list = element_list_compare(element_list[0:i], force_update_element_list(emulator, adb_settings))
+            element_list = element_list_compare(element_list[0:i],
+                                                force_update_element_list(
+                                                    emulator, adb_settings))
             for j in range(0, len(element_list)):
                 input_key_event(
                     activity, element_list[j], emulator, adb_settings)
             break
-        #print(item.resource_id, item.xpos, item.ypos)
+        # print(item.resource_id, item.xpos, item.ypos)
         input_key_event(activity, element_list[i], emulator, adb_settings)
+
 
 def input_key_event(activity: str, item: XML_Element,
                     emulator: Emulator, adb_settings: AdbSettings):
@@ -155,9 +167,10 @@ def input_key_event(activity: str, item: XML_Element,
         print("Sending event " + KeyCode)
         adb_settings.adb_send_key_event_test(KeyCode)
         eventlog.write(util.return_current_time_in_logcat_style() + '\t' +
-                        activity + '\t' + item.resource_id +
-                        '\t' + KeyCode + '\n')
+                       activity + '\t' + item.resource_id +
+                       '\t' + KeyCode + '\n')
     adb_settings.adb_send_key_event_test("KEYCODE_BACK")
+
 
 def get_elements_list(emulator: Emulator, adb_settings: AdbSettings) -> List:
     xmldoc = minidom.parse(api_commands.adb_uiautomator_dump(emulator))
@@ -192,3 +205,4 @@ def get_elements_list(emulator: Emulator, adb_settings: AdbSettings) -> List:
 
 if __name__ == '__main__':
     start_test()
+    reset_emulator()
