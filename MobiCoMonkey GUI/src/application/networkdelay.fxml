@@ -52,11 +52,11 @@
 				</AnchorPane>
 				<AnchorPane>
                <children>
-                  <Button fx:id="add" layoutX="346.0" layoutY="99.0" mnemonicParsing="false" onAction="#handleAddAction" text="Add" />
+                  <Button fx:id="add" layoutX="315.0" layoutY="99.0" mnemonicParsing="false" onAction="#handleAddAction" text="Add" />
                   <Button fx:id="delete" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#handleDeleteAction" style="-fx-background-color: #d9534f;" text="Delete Selected" />
                   <ChoiceBox fx:id="value" layoutX="14.0" layoutY="98.0" prefWidth="150.0" />
-                  <TextField fx:id="delay" layoutX="194.0" layoutY="99.0" prefHeight="26.0" prefWidth="123.0" promptText="Delay (1-10)" />
-                  <Button fx:id="save" layoutX="340.0" layoutY="148.0" mnemonicParsing="false" onAction="#handleSaveAction" text="Save" />
+                  <TextField fx:id="delay" layoutX="174.0" layoutY="99.0" prefHeight="26.0" prefWidth="123.0" promptText="Delay (1-10)" />
+                  <Button fx:id="save" layoutX="309.0" layoutY="147.0" mnemonicParsing="false" onAction="#handleSaveAction" text="Save" />
                   <Label layoutX="14.0" layoutY="75.0" text="Network Delay" />
                   <Label layoutX="194.0" layoutY="75.0" text="Delay (1-10)" />
                </children>
