@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -169,7 +170,6 @@ public class ResultDisplayController {
         										}
         								    	
         								    	thirdListViewItems.add(error);
-        								    	
         								    	hmapTime.put(error, logTime);
         								    }
     										
@@ -179,6 +179,9 @@ public class ResultDisplayController {
 								}
                     			
 							}
+                    		
+                    		/*thirdListViewItems.add("IInputConnectionWrapper: "+"\n"+"finishComposingText"+"\n" + 
+                    		"on inactive InputConnection");*/
                     		
                     		thirdListView.setItems(thirdListViewItems);
 							
@@ -220,6 +223,8 @@ public class ResultDisplayController {
                     		
                     		String eventLogLine;
                     		
+                    		ArrayList<Date> timeList = new ArrayList<Date>();
+                    		
                     		while ((eventLogLine = reader2.readLine())!= null) {
                     			
                     			System.out.println(eventLogLine);
@@ -247,7 +252,8 @@ public class ResultDisplayController {
 										msg = msg + " " + arr[i];
 										
 									}
-    						    	
+							    	
+    						    	timeList.add(d2);
     						    	fourthListViewItems.add(msg);
     						    	
     						    }
@@ -268,14 +274,14 @@ public class ResultDisplayController {
     						    	
     						    	String id = eventLogLine.split("\t")[2].split(":")[1];
 							    	String keycode = eventLogLine.split("\t")[3];
-    						    	
-    						    	fourthListViewItems.add(id + " " + keycode);
+							    	timeList.add(d2);
+    						    	fourthListViewItems.add(" " + id + " " + keycode);
     						    	
     						    }
                         		
     						}
                         	
-                        	fourthListView.setItems(fourthListViewItems);
+                        	fourthListView.setItems(timeComparedList(timeList, fourthListViewItems));
                         	
 						} catch (Exception e) {
 							// TODO: handle exception
@@ -285,6 +291,21 @@ public class ResultDisplayController {
                     }
                 }
         );
+    }
+    
+    public ObservableList<String> timeComparedList(ArrayList<Date> timeList, ObservableList<String> fourthListViewItems){
+		
+    	for(int i=0; i<timeList.size(); i++){
+    		for(int j=0; j<timeList.size(); j++){
+    			if(timeList.get(i).compareTo(timeList.get(j)) > 0){
+    				String temp = fourthListViewItems.get(i);
+    				fourthListViewItems.set(i, fourthListViewItems.get(j));
+    				fourthListViewItems.set(j, temp);
+    			}
+    		}
+    	}
+    	
+    	return fourthListViewItems;
     }
 
 }

@@ -11,6 +11,9 @@ import java.util.ResourceBundle;
 
 import com.sun.corba.se.spi.orbutil.fsm.Guard.Result;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -152,7 +155,7 @@ public class FxController implements Initializable{
         Scene scene = new Scene(root);
         GridPane baseGrid = (GridPane) root;
         Stage stage = new Stage();
-        stage.setTitle("Gsm Profile Events Generation");
+        stage.setTitle("Gsm Profile Events Creator");
         stage.setScene(scene);
         stage.show();
         
@@ -178,7 +181,7 @@ public class FxController implements Initializable{
         Scene scene = new Scene(root);
         GridPane baseGrid = (GridPane) root;
         Stage stage = new Stage();
-        stage.setTitle("Network Status Events Generation");
+        stage.setTitle("Network Status Events Creator");
         stage.setScene(scene);
         stage.show();
         
@@ -204,7 +207,7 @@ public class FxController implements Initializable{
         Scene scene = new Scene(root);
         GridPane baseGrid = (GridPane) root;
         Stage stage = new Stage();
-        stage.setTitle("Network Delay Events Generation");
+        stage.setTitle("Network Delay Events Creator");
         stage.setScene(scene);
         stage.show();
         
@@ -227,6 +230,8 @@ public class FxController implements Initializable{
     @FXML
     private void handleResultButtonAction(ActionEvent event) throws IOException{
     	Parent root = FXMLLoader.load(getClass().getResource("resultDisplayView.fxml"));
+    	DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
+    	root.styleProperty().bind(Bindings.format("-fx-font-size: %.2fpt;", fontSize));
         Scene scene = new Scene(root);
         GridPane baseGrid = (GridPane) root;
         Stage stage = new Stage();

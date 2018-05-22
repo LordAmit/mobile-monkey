@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="baseGrid" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ResultDisplayController">
+<GridPane fx:id="baseGrid" minHeight="500.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ResultDisplayController">
 	<rowConstraints>
 		<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
 		<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -38,30 +38,30 @@
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
 	</columnConstraints>
 	<children>
-		<SplitPane dividerPositions="0.1, 0.4, 0.7" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
+		<SplitPane dividerPositions="0.1, 0.35, 0.7" GridPane.columnSpan="2147483647" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2147483647" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS">
 			<items>
 				<AnchorPane>
 					<children>
 						<ListView fx:id="firstListView" layoutX="-42.0" layoutY="37.0" prefHeight="471.0" prefWidth="171.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
-                  <Text layoutX="17.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
+                  <Text layoutX="46.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type" />
 					</children>
 				</AnchorPane>
 				<AnchorPane prefHeight="508.0" prefWidth="176.0">
 					<children>
-						<ListView fx:id="secondListView" layoutY="37.0" prefHeight="471.0" prefWidth="166.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
-                  <Text layoutX="76.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity" />
+						<ListView fx:id="secondListView" layoutY="80.0" prefHeight="618.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
+                  <Text layoutX="131.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activity" />
 					</children>
 				</AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="508.0" prefWidth="107.0">
                <children>
                   <ListView fx:id="thirdListView" layoutY="37.0" prefHeight="471.0" prefWidth="167.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
-                  <Text layoutX="54.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error message" />
+                  <Text layoutX="192.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="508.0" prefWidth="148.0">
                <children>
                   <ListView fx:id="fourthListView" layoutX="18.0" layoutY="37.0" prefHeight="471.0" prefWidth="170.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="37.0" />
-                  <Text layoutX="80.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
+                  <Text layoutX="167.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
                </children>
             </AnchorPane>
 			</items>
