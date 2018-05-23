@@ -59,26 +59,31 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer,
     threads = []
     global contextual_events
     util.debug_print(apk.permissions, flag=PRINT_FLAG)
-    emulator_name = 'emulator-' + emulator.port
+    emulator_name = 'emulator-' + str(emulator.port)
     if "android.permission.INTERNET" in apk.permissions or \
             "android.permission.ACCESS_NETWORK_STATE" in apk.permissions:
         util.debug_print("Internet permission detected", flag=PRINT_FLAG)
         network_delay_interval_events = fuzz.generate_step_interval_event(
             NetworkDelay)
+        # print(network_delay_interval_events)
         contextual_events += len(network_delay_interval_events)
         threads.append(Thread(target=fuzz.random_network_delay, args=(
             config.LOCALHOST, emulator, network_delay_interval_events)))
         network_speed_interval_event = fuzz.generate_step_interval_event(
             NetworkStatus)
+        # print(network_speed_interval_event)
         contextual_events += len(network_speed_interval_event)
         threads.append(Thread(target=fuzz.random_network_speed, args=(
             config.LOCALHOST, emulator, network_speed_interval_event)))
+
         airplane_mode_interval_events = fuzz.generate_step_interval_event(
             Airplane)
+        # print(airplane_mode_interval_events)
         contextual_events += len(airplane_mode_interval_events)
         threads.append(Thread(
             target=fuzz.random_airplane_mode_call,
             args=(emulator_name, airplane_mode_interval_events)))
+
     if "android.permission.ACCESS_NETWORK_STATE" in apk.permissions:
         util.debug_print("access_network_state detected", flag=PRINT_FLAG)
         gsm_profile_interval_events = fuzz.generate_step_uniforminterval_event(
@@ -214,5 +219,7 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
 
 
 if __name__ == '__main__':
-
+    file = open('test/StopFlagWatcher', 'w')
+    file.truncate()
+    file.close()
     run(Apk(config.APK_FULL_PATH), config.EMULATOR_NAME, config.EMULATOR_PORT)
