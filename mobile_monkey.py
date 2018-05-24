@@ -219,7 +219,13 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
 
 
 if __name__ == '__main__':
-    file = open('test/StopFlagWatcher', 'w')
+    import os
+
+    dir = os.path.dirname(__file__)
+
+    StopFlagWatcher = os.path.join(dir, 'test/StopFlagWatcher')
+
+    file = open(StopFlagWatcher, 'w')
     file.truncate()
     file.close()
     run(Apk(config.APK_FULL_PATH), config.EMULATOR_NAME, config.EMULATOR_PORT)

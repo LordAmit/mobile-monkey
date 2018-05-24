@@ -362,8 +362,8 @@ class Fuzzer:
         # self.__execute_interval_event(
         #     device.set_user_rotation, interval_events)
         # device.set_user_rotation(UserRotation.ROTATION_POTRAIT)
-        file = open('test/StopFlagWatcher', 'r')
-
+        # file = open('test/StopFlagWatcher', 'r')
+        file = open(StopFlagWatcher, 'r')
         for interval_event in interval_events:
 
             if "1" in file.readline(1):
@@ -383,10 +383,10 @@ class Fuzzer:
 
             print(interval_event)
 
-            file2 = open("test/ContextEventLog", 'r')
+            file2 = open(ContextEventLog, 'r')
             filedata = file2.read()
 
-            file2 = open("test/ContextEventLog", "w")
+            file2 = open(ContextEventLog, "w")
 
             if len(filedata) < 10:
                 file2.write(IntervalEvent.__str__(interval_event))

@@ -51,9 +51,11 @@ def start_test():
             emulator, config.EMULATOR_NAME, config.EMULATOR_PORT,
             config.SEED, log)
         return
+
     log.start_logcat()
     activity = os.path.join(dir, 'test/activity')
     activity_list = os.path.join(dir, 'test/activity_list')
+
     if config.GUIDED_APPROACH == 2:
         # file = open("test/activity", "w")
         file = open(activity, "w")
@@ -279,5 +281,8 @@ def get_elements_list(emulator: Emulator, adb_settings: AdbSettings) -> List:
 
 
 if __name__ == '__main__':
+    file = open(StopFlagWatcher, 'w')
+    file.truncate()
+    file.close()
     start_test()
     reset_emulator()

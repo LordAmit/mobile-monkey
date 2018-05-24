@@ -3,7 +3,7 @@
 '''
 from threading import Thread
 from typing import List
-
+import os
 import config_reader as config
 from adb_logcat import FatalWatcher, Logcat
 from apk import Apk
@@ -15,6 +15,11 @@ import interval_event
 PRINT_FLAG = True
 TIME_PRINT_FLAG = True
 
+dir = os.path.dirname(__file__)
+network_delay = os.path.join(dir, 'test/networkdelay.txt')
+network_status = os.path.join(dir, 'test/networkstatus.txt')
+gsm_profile = os.path.join(dir, 'test/gsmprofile.txt')
+
 
 def _context_threads_only(emulator: Emulator, fuzz: Fuzzer) -> List:
     threads = []
@@ -24,7 +29,7 @@ def _context_threads_only(emulator: Emulator, fuzz: Fuzzer) -> List:
     if config.CONTEXT_FILE == 1:
         network_delay_interval_events =\
             interval_event.read_interval_event_from_file(
-                'test/networkdelay.txt', NetworkDelay)
+                network_delay, NetworkDelay)
     else:
         network_delay_interval_events = fuzz.generate_step_interval_event(
             NetworkDelay)
@@ -34,7 +39,7 @@ def _context_threads_only(emulator: Emulator, fuzz: Fuzzer) -> List:
     if config.CONTEXT_FILE == 1:
         network_speed_interval_event =\
             interval_event.read_interval_event_from_file(
-                'test/networkstatus.txt', NetworkStatus)
+                network_status, NetworkStatus)
     else:
         network_speed_interval_event = fuzz.generate_step_interval_event(
             NetworkStatus)
@@ -50,7 +55,7 @@ def _context_threads_only(emulator: Emulator, fuzz: Fuzzer) -> List:
     if config.CONTEXT_FILE == 1:
         gsm_profile_interval_events = \
             interval_event.read_interval_event_from_file(
-                'test/gsmprofile.txt', GsmProfile)
+                gsm_profile, GsmProfile)
     else:
         gsm_profile_interval_events = fuzz.generate_step_interval_event(
             GsmProfile)
@@ -60,12 +65,12 @@ def _context_threads_only(emulator: Emulator, fuzz: Fuzzer) -> List:
         gsm_profile_interval_events)))
 
     # # ROTATION EVENT #FIXME
-    # user_rotation_interval_events = fuzz.generate_step_interval_event(
-    #     UserRotation)
-    # # contextual_events += len(user_rotation_interval_events)
-    # threads.append(Thread(
-    #     target=fuzz.random_rotation, args=((emulator_name,
-    #                                         user_rotation_interval_events))))
+    user_rotation_interval_events = fuzz.generate_step_interval_event(
+        UserRotation)
+    # contextual_events += len(user_rotation_interval_events)
+    threads.append(Thread(
+        target=fuzz.random_rotation, args=((emulator_name,
+                                            user_rotation_interval_events))))
 
     return threads
 
@@ -83,7 +88,7 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer) -> List:
         if config.GUIDED_APPROACH == 1:
             network_delay_interval_events =\
                 interval_event.read_interval_event_from_file(
-                    'test/networkdelay.txt', NetworkDelay)
+                    network_delay, NetworkDelay)
         else:
             network_delay_interval_events = fuzz.generate_step_interval_event(
                 NetworkDelay)
@@ -94,7 +99,7 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer) -> List:
         if config.GUIDED_APPROACH == 1:
             network_speed_interval_event =\
                 interval_event.read_interval_event_from_file(
-                    'test/networkstatus.txt', NetworkStatus)
+                    network_status, NetworkStatus)
         else:
             network_speed_interval_event = fuzz.generate_step_interval_event(
                 NetworkStatus)
@@ -114,7 +119,7 @@ def threads_to_run(emulator: Emulator, apk: Apk, fuzz: Fuzzer) -> List:
         if config.GUIDED_APPROACH == 1:
             gsm_profile_interval_events = \
                 interval_event.read_interval_event_from_file(
-                    'test/gsmprofile.txt', GsmProfile)
+                    gsm_profile, GsmProfile)
         else:
             gsm_profile_interval_events = fuzz.generate_step_interval_event(
                 GsmProfile)

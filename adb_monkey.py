@@ -49,16 +49,25 @@ class AdbMonkey:
         '''
         # adb shell monkey -p com.eatl.appstore -v -v -v -s 314 --throttle
         # 1000 100
-        subprocess.check_call([
-            self.adb, 'shell', 'monkey',
-            '-p', self.app_package_name,
-            '--throttle', config.MONKEY_INTERVAL,
-            # '--pct-touch', '60',
-            # '--pct-trackball', '20',
-            # '--pct-motion', '20',
-            '-s', str(self.seed),
-            '-v', '-v', '-v',
-            str(self.number_of_events)])
+        command = "{} shell monkey -p {} --throttle {} -s {} \
+        -v -v -v {}".format(
+            self.adb, self.app_package_name, config.MONKEY_INTERVAL, self.seed,
+            str(self.number_of_events)
+        )
+        print(command)
+
+        # subprocess.check_call([
+        #     self.adb, 'shell', 'monkey',
+        #     '-p', self.app_package_name,
+        #     '--throttle', config.MONKEY_INTERVAL,
+        #     # '--pct-touch', '60',
+        #     # '--pct-trackball', '20',
+        #     # '--pct-motion', '20',
+        #     '-s', str(self.seed),
+        #     '-v', '-v', '-v',
+        #     str(self.number_of_events)])
+        import shlex
+        subprocess.check_call(shlex.split(command))
         print('Monkey finished at: {}'.format(time.ctime()))
 
 
@@ -72,16 +81,23 @@ def main():
     import os
     import api_commands
 
+    import os
+    dir = os.path.dirname(__file__)
+    activity = os.path.join(dir, 'test/activity')
+    activity_list = os.path.join(dir, 'test/activity_list')
     activities = []
     apk = Apk(config.APK_FULL_PATH)
     emulator = emulator_manager.get_adb_instance_from_emulators(
         config.EMULATOR_NAME)
-    file = open("test/activity", "w")
+    # file = open("test/activity", "w")
+    file = open(activity, 'w')
     file.write(api_commands.adb_get_activity_list(emulator, apk))
     file.close()
 
-    file = open('test/activity', 'r')
-    file2 = open('test/activity_list', 'w')
+    # file = open('test/activity', 'r')
+    file = open(activity, 'r')
+    # file2 = open('test/activity_list', 'w')
+    file2 = open(activity_list, 'w')
 
     for l in file.readlines():
         if 'A: android:name' in l and 'Activity' in l:
