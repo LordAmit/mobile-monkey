@@ -73,21 +73,20 @@ def run(apk: Apk, emulator_name: str, emulator_port: int):
 
     api_commands.adb_uninstall_apk(emulator, apk)
 
-    #api_commands.decode_apk(apk)
+    if config.OVERRIDE_UNSIGNED:
+        api_commands.decode_apk(apk)
 
-    #api_commands.overwrite_android_manifest()
+        api_commands.overwrite_android_manifest()
 
-    #api_commands.build_apk(apk)
+        api_commands.build_apk(apk)
 
-    #api_commands.sign_apk(apk)
+        api_commands.sign_apk(apk)
 
     api_commands.adb_install_apk(emulator, apk)
 
     api_commands.adb_start_launcher_of_apk(emulator, apk)
 
-    #mobicomonkey.start_test()
-
-
+    # mobicomonkey.start_test()
 
 
 if __name__ == '__main__':
