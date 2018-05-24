@@ -18,7 +18,7 @@ headless: False
 seed: 314
 duration: 40
 uniform_interval: 12
-apk_full_path: %(root)s/git/testApps/network_analyzer.apk
+apk_full_path: %(root)s/git/testApps/ride.apk
 emulator_name: Nexus6T
 emulator_port: 5555
 dump_address: %(root)s/git/testApps/dump/
@@ -31,7 +31,7 @@ monkey_log: %(log_address)s%(monkey_log_file)s.log
 mobile_monkey_log: %(log_address)s%(mobile_monkey_log_file)s.log
 minimum_keyevent: 5
 maximum_keyevent: 10
-guided_approach: 3
+guided_approach: 0
 jarsigner: /usr/bin/jarsigner
 key_address: %(root)s/my.keystore
 key_alias: amit
