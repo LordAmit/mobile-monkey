@@ -69,6 +69,8 @@ KEY = get("key_address")
 ALIAS = get("key_alias")
 PASSWORD = get("key_password")
 
+OVERRIDE_UNSIGNED = bool(int(get('override_unsigned')))
+CONTEXT_FILE = bool(int(get('context_file')))
 # def avd_file_reader():
 #     """
 #     returns the list of avds

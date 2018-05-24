@@ -3,21 +3,22 @@ root: /home/amit
 directory: %(root)s/Downloads/
 adb: %(root)s/Android/Sdk/platform-tools/adb
 aapt: %(root)s/Android/Sdk/build-tools/27.0.3/aapt
+apksigner: %(root)s/Android/Sdk/build-tools/27.0.3/apksigner
 localhost: localhost
 emulator: %(root)s/Android/Sdk/emulator/emulator
 android: %(root)s/Android/Sdk/tools/android
 tools: %(root)s/Android/Sdk/tools/
 current_directory: %(root)s/git/mobile-monkey/
 temp: %(current_directory)stemp/
-telnet_key: rsEH0WZrxSN7mzU6
-minimum_interval: 1
+telnet_key: 5hyqUwuaQH5+fe15
+minimum_interval: 5
 maximum_interval: 10
 monkey_interval: 500
 headless: False
-seed: 155
-duration: 100
+seed: 314
+duration: 40
 uniform_interval: 12
-apk_full_path: %(root)s/git/testApps/ride.apk
+apk_full_path: %(root)s/git/testApps/network_analyzer.apk
 emulator_name: Nexus6T
 emulator_port: 5555
 dump_address: %(root)s/git/testApps/dump/
@@ -30,8 +31,10 @@ monkey_log: %(log_address)s%(monkey_log_file)s.log
 mobile_monkey_log: %(log_address)s%(mobile_monkey_log_file)s.log
 minimum_keyevent: 5
 maximum_keyevent: 10
-guided_approach: 0
+guided_approach: 3
 jarsigner: /usr/bin/jarsigner
 key_address: %(root)s/my.keystore
 key_alias: amit
 key_password: iit123
+override_unsigned=0
+context_file=1
