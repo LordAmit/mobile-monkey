@@ -23,10 +23,10 @@ def reset_emulator(
         host: str = config.LOCALHOST,
         emulator_port: str = config.EMULATOR_PORT):
     print("resetting emulator")
-    adb_device = AdbSettings("emulator-" + str(emulator_port))
     telnet_object = TelnetAdb(host, int(emulator_port))
-    adb_device.reset_all()
     telnet_object.reset_all()
+    adb_device = AdbSettings("emulator-" + str(emulator_port))
+    adb_device.reset_all()
 
 
 def start_test():
@@ -40,7 +40,66 @@ def start_test():
 
     log = Logcat(emulator, apk, TestType.MobileMonkey)
 
-    log.start_logcat()
+    # log.start_logcat()
+    if config.GUIDED_APPROACH == 3:
+
+        monkey.run_contexts_only(
+            emulator, config.EMULATOR_NAME, config.EMULATOR_PORT,
+            config.SEED, log)
+        return
+
+    if config.GUIDED_APPROACH == 2:
+        file = open("test/activity", "w")
+        file.write(api_commands.adb_get_activity_list(emulator, apk))
+        file.close()
+
+        file = open('test/activity', 'r')
+        file2 = open('test/activity_list', 'w')
+
+        for l in file.readlines():
+            if 'A: android:name' in l and 'Activity' in l:
+                arr = l.split('"')
+                activities.append(arr[1])
+                file2.write(arr[1] + "\n")
+                print(arr[1])
+        file.close()
+        file2.close()
+        os.remove('test/activity')
+
+        print(len(activities))
+        seed = config.SEED
+        for activity in activities:
+
+            try:
+                api_commands.adb_start_activity(emulator, apk, activity)
+            except Exception:
+                print(Exception)
+
+            threads = []
+
+            threads.append(Thread(target=monkey.run, args=(
+                emulator, apk, config.EMULATOR_NAME, config.EMULATOR_PORT,
+                seed, log)))
+
+            # monkey.run(emulator, apk, config.EMULATOR_NAME,
+            # config.EMULATOR_PORT, seed, log)
+
+            # threads.append(Thread(target=test_ui, args=(
+            #     activity, emulator, adb_settings, display_height)))
+            from adb_monkey import AdbMonkey
+            ad_monkey = AdbMonkey(emulator, apk, seed, config.DURATION)
+            # ad_monkey.start_monkey()
+            threads.append(Thread(target=ad_monkey.start_monkey))
+
+            [thread.start() for thread in threads]
+
+            [thread.join() for thread in threads]
+
+            seed = seed + 1
+
+    log.stop_logcat()
+    eventlog.close()
+    return
 
     if config.GUIDED_APPROACH == 1:
         file = open('test/activity_list', 'r')
