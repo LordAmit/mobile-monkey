@@ -18,6 +18,12 @@ import config_reader as config
 
 from interval_event import IntervalEvent
 
+import os
+dir = os.path.dirname(__file__)
+StopFlagWatcher = os.path.join(dir, 'test/StopFlagWatcher')
+ContextEventLog = os.path.join(dir, 'test/ContextEventLog')
+
+
 PRINT_FLAG = True
 
 EVENT_TYPES = Type[Union[GsmProfile, NetworkDelay,
@@ -264,8 +270,8 @@ class Fuzzer:
                                  interval_events: List[IntervalEvent]):
         # util.debug_print("Execution: ", interval_events, flag=PRINT_FLAG)
 
-        file = open('test/StopFlagWatcher', 'r')
-
+        # file = open('test/StopFlagWatcher', 'r')
+        file = open(StopFlagWatcher, 'r')
         for interval_event in interval_events:
 
             if "1" in file.readline(1):
@@ -285,11 +291,12 @@ class Fuzzer:
 
             print(interval_event)
 
-            file2 = open("test/ContextEventLog", 'r')
+            # file2 = open("test/ContextEventLog", 'r')
+            file2 = open(ContextEventLog, 'r')
             filedata = file2.read()
 
-            file2 = open("test/ContextEventLog", "w")
-
+            # file2 = open("test/ContextEventLog", "w")
+            file2 = open(ContextEventLog, 'w')
             if len(filedata) < 10:
                 file2.write(IntervalEvent.__str__(interval_event))
             else:
