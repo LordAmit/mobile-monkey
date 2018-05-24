@@ -60,3 +60,44 @@ class AdbMonkey:
             '-v', '-v', '-v',
             str(self.number_of_events)])
         print('Monkey finished at: {}'.format(time.ctime()))
+
+
+def main():
+    import config_reader as config
+    from apk import Apk
+    from adb_settings import AdbSettings
+    import emulator_manager
+    from adb_logcat import Logcat, TestType
+    # print("resetting emulator")
+    import os
+    import api_commands
+
+    activities = []
+    apk = Apk(config.APK_FULL_PATH)
+    emulator = emulator_manager.get_adb_instance_from_emulators(
+        config.EMULATOR_NAME)
+    file = open("test/activity", "w")
+    file.write(api_commands.adb_get_activity_list(emulator, apk))
+    file.close()
+
+    file = open('test/activity', 'r')
+    file2 = open('test/activity_list', 'w')
+
+    for l in file.readlines():
+        if 'A: android:name' in l and 'Activity' in l:
+            arr = l.split('"')
+            activities.append(arr[1])
+            file2.write(arr[1] + "\n")
+            print(arr[1])
+    file.close()
+    file2.close()
+    os.remove('test/activity')
+
+    # log = Logcat(emulator, apk, TestType.MobileMonkey)
+    # log.start_logcat()
+    AdbMonkey(emulator, apk, config.SEED, config.DURATION*10).start_monkey()
+    # log.stop_logcat()
+
+
+if __name__ == '__main__':
+    main()
