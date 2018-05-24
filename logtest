@@ -1,0 +1,645 @@
+'adb already running in PID: 8643\n',)
+17722 pts/0    Sl     3:38 /mnt/linux_h/h/Android/Sdk/emulator/qemu/linux-x86_64/qemu-system-i386 -port 5555 -avd Nexus6T -accel auto -use-system-libs
+{'model': 'Nexus6T', 'pid': 17722, 'port': 5555}
+('6680',)
+app_pid: 6680
+com.ashequr.rideshareing.MainActivity
+com.ashequr.rideshareing.RequestRideActivity
+com.ashequr.rideshareing.DriveRideActivity
+com.ashequr.rideshareing.AvailableRoutesActivity
+com.ashequr.rideshareing.RequestSuccessActivity
+com.ashequr.rideshareing.DriveSuccessActivity
+6
+com.ashequr.rideshareing.MainActivity is started
+('adb already running in PID: 20958 8643\n',)
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:51:34 NetworkDelay 0 6 none
+05-24 18:51:34 Airplane 0 6 MODE_OFF
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:51:34 NetworkStatus 0 6 lte
+05-24 18:51:34 UserRotation 0 6 ROTATION_REVERSE_POTRAIT
+:Monkey: seed=314 count=20
+:AllowPackage: com.ashequr.rideshareing
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Selecting main activities from category android.intent.category.LAUNCHER
+//   - NOT USING main activity com.android.camera.Camera (from package com.android.camera)
+//   - NOT USING main activity com.google.android.apps.chrome.Main (from package com.android.chrome)
+//   - NOT USING main activity com.android.contacts.activities.PeopleActivity (from package com.android.contacts)
+//   - NOT USING main activity com.android.dialer.DialtactsActivity (from package com.android.dialer)
+//   - NOT USING main activity com.android.gallery3d.app.GalleryActivity (from package com.android.gallery3d)
+//   - NOT USING main activity com.android.settings.Settings (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.docs.app.NewMainProxyActivity (from package com.google.android.apps.docs)
+//   - NOT USING main activity com.google.android.apps.messaging.ui.ConversationListActivity (from package com.google.android.apps.messaging)
+//   - NOT USING main activity com.google.android.apps.photos.home.HomeActivity (from package com.google.android.apps.photos)
+//   - NOT USING main activity com.android.calendar.AllInOneActivity (from package com.google.android.calendar)
+//   - NOT USING main activity com.android.deskclock.DeskClock (from package com.google.android.deskclock)
+//   - NOT USING main activity com.google.android.gm.ConversationListActivityGmail (from package com.google.android.gm)
+//   - NOT USING main activity com.android.music.activitymanagement.TopLevelActivity (from package com.google.android.music)
+//   - NOT USING main activity com.google.android.talk.SigningInActivity (from package com.google.android.talk)
+//   - NOT USING main activity com.google.android.youtube.videos.EntryPoint (from package com.google.android.videos)
+//   - NOT USING main activity com.google.android.youtube.app.honeycomb.Shell$HomeActivity (from package com.google.android.youtube)
+//   - NOT USING main activity com.android.calculator2.Calculator (from package com.android.calculator2)
+//   - NOT USING main activity com.android.customlocale2.CustomLocaleActivity (from package com.android.customlocale2)
+//   - NOT USING main activity com.android.development.Development (from package com.android.development)
+//   - NOT USING main activity com.android.documentsui.LauncherActivity (from package com.android.documentsui)
+//   - NOT USING main activity com.google.android.maps.MapsActivity (from package com.google.android.apps.maps)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.VoiceSearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity org.chromium.webview_shell.WebViewBrowserActivity (from package org.chromium.webview_shell)
+//   + Using main activity com.ashequr.rideshareing.MainActivity (from package com.ashequr.rideshareing)
+//   - NOT USING main activity org.wikipedia.main.MainActivity (from package org.wikipedia)
+// Selecting main activities from category android.intent.category.MONKEY
+//   - NOT USING main activity com.android.settings.Settings$RunningServicesActivity (from package com.android.settings)
+//   - NOT USING main activity com.android.settings.Settings$StorageUseActivity (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.nexuslauncher.NexusLauncherActivity (from package com.google.android.apps.nexuslauncher)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+// Seeded: 314
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.ashequr.rideshareing/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.ashequr.rideshareing/.MainActivity } in package com.ashequr.rideshareing
+Sleeping for 500 milliseconds
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+:Sending Key (ACTION_DOWN): 160    // KEYCODE_NUMPAD_ENTER
+:Sending Key (ACTION_UP): 160    // KEYCODE_NUMPAD_ENTER
+Sleeping for 500 milliseconds
+    // Allowing start of Intent { cmp=com.ashequr.rideshareing/.RequestRideActivity } in package com.ashequr.rideshareing
+:Sending Touch (ACTION_DOWN): 0:(992.0,2358.0)
+:Sending Touch (ACTION_MOVE): 0:(991.9463,2350.1968)
+:Sending Touch (ACTION_MOVE): 0:(991.84393,2350.085)
+:Sending Touch (ACTION_UP): 0:(991.7323,2345.543)
+Sleeping for 500 milliseconds
+:Sending Trackball (ACTION_MOVE): 0:(0.0,-2.0)
+:Sending Trackball (ACTION_MOVE): 0:(3.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,0.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,-4.0)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,-2.0)
+:Sending Key (ACTION_DOWN): 21    // KEYCODE_DPAD_LEFT
+:Sending Key (ACTION_UP): 21    // KEYCODE_DPAD_LEFT
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 82    // KEYCODE_MENU
+Events injected: 20
+:Sending rotation degree=0, persist=false
+:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=2116ms (0ms mobile, 0ms wifi, 2116ms not connected)
+// Monkey finished
+Monkey finished at: Thu May 24 18:51:36 2018
+05-24 18:51:40 NetworkDelay 1 5 edge
+05-24 18:51:40 NetworkStatus 1 9 evdo
+05-24 18:51:40 Airplane 1 6 MODE_OFF
+05-24 18:51:40 UserRotation 1 7 ROTATION_REVERSE_POTRAIT
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:51:45 NetworkDelay 2 5 umts
+05-24 18:51:46 Airplane 2 6 MODE_ON
+05-24 18:51:48 UserRotation 2 7 ROTATION_LANDSCAPE
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:51:49 NetworkStatus 2 5 gprs
+05-24 18:51:50 NetworkDelay 3 4 none
+05-24 18:51:53 Airplane 3 2 MODE_OFF
+com.ashequr.rideshareing.RequestRideActivity is started
+('adb already running in PID: 20958 8643\n',)
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:51:56 NetworkDelay 0 8 none
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:51:56 NetworkStatus 0 5 gprs
+05-24 18:51:56 Airplane 0 5 MODE_OFF
+05-24 18:51:56 UserRotation 0 9 ROTATION_REVERSE_LANDSCAPE
+:Monkey: seed=315 count=20
+:AllowPackage: com.ashequr.rideshareing
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Selecting main activities from category android.intent.category.LAUNCHER
+//   - NOT USING main activity com.android.camera.Camera (from package com.android.camera)
+//   - NOT USING main activity com.google.android.apps.chrome.Main (from package com.android.chrome)
+//   - NOT USING main activity com.android.contacts.activities.PeopleActivity (from package com.android.contacts)
+//   - NOT USING main activity com.android.dialer.DialtactsActivity (from package com.android.dialer)
+//   - NOT USING main activity com.android.gallery3d.app.GalleryActivity (from package com.android.gallery3d)
+//   - NOT USING main activity com.android.settings.Settings (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.docs.app.NewMainProxyActivity (from package com.google.android.apps.docs)
+//   - NOT USING main activity com.google.android.apps.messaging.ui.ConversationListActivity (from package com.google.android.apps.messaging)
+//   - NOT USING main activity com.google.android.apps.photos.home.HomeActivity (from package com.google.android.apps.photos)
+//   - NOT USING main activity com.android.calendar.AllInOneActivity (from package com.google.android.calendar)
+//   - NOT USING main activity com.android.deskclock.DeskClock (from package com.google.android.deskclock)
+//   - NOT USING main activity com.google.android.gm.ConversationListActivityGmail (from package com.google.android.gm)
+//   - NOT USING main activity com.android.music.activitymanagement.TopLevelActivity (from package com.google.android.music)
+//   - NOT USING main activity com.google.android.talk.SigningInActivity (from package com.google.android.talk)
+//   - NOT USING main activity com.google.android.youtube.videos.EntryPoint (from package com.google.android.videos)
+//   - NOT USING main activity com.google.android.youtube.app.honeycomb.Shell$HomeActivity (from package com.google.android.youtube)
+//   - NOT USING main activity com.android.calculator2.Calculator (from package com.android.calculator2)
+//   - NOT USING main activity com.android.customlocale2.CustomLocaleActivity (from package com.android.customlocale2)
+//   - NOT USING main activity com.android.development.Development (from package com.android.development)
+//   - NOT USING main activity com.android.documentsui.LauncherActivity (from package com.android.documentsui)
+//   - NOT USING main activity com.google.android.maps.MapsActivity (from package com.google.android.apps.maps)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.VoiceSearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity org.chromium.webview_shell.WebViewBrowserActivity (from package org.chromium.webview_shell)
+//   + Using main activity com.ashequr.rideshareing.MainActivity (from package com.ashequr.rideshareing)
+//   - NOT USING main activity org.wikipedia.main.MainActivity (from package org.wikipedia)
+// Selecting main activities from category android.intent.category.MONKEY
+//   - NOT USING main activity com.android.settings.Settings$RunningServicesActivity (from package com.android.settings)
+//   - NOT USING main activity com.android.settings.Settings$StorageUseActivity (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.nexuslauncher.NexusLauncherActivity (from package com.google.android.apps.nexuslauncher)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+// Seeded: 315
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.ashequr.rideshareing/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.ashequr.rideshareing/.MainActivity } in package com.ashequr.rideshareing
+Sleeping for 500 milliseconds
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+:Sending Touch (ACTION_DOWN): 0:(1291.0,1424.0)
+:Sending Touch (ACTION_UP): 0:(1294.6031,1440.0)
+Sleeping for 500 milliseconds
+:Sending Trackball (ACTION_MOVE): 0:(3.0,-2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,0.0)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-2.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-4.0)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,-2.0)
+:Sending Touch (ACTION_DOWN): 0:(2105.0,1255.0)
+:Sending Touch (ACTION_MOVE): 0:(2104.9526,1256.4073)
+:Sending Touch (ACTION_MOVE): 0:(2104.1174,1265.3103)
+:Sending Touch (ACTION_MOVE): 0:(2095.922,1267.2244)
+:Sending Touch (ACTION_MOVE): 0:(2092.3555,1279.1053)
+:Sending Touch (ACTION_MOVE): 0:(2088.2896,1291.7721)
+:Sending Touch (ACTION_MOVE): 0:(2082.257,1303.9868)
+Events injected: 20
+:Sending rotation degree=0, persist=false
+:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=1075ms (0ms mobile, 0ms wifi, 1075ms not connected)
+// Monkey finished
+Monkey finished at: Thu May 24 18:51:57 2018
+05-24 18:52:01 NetworkStatus 1 10 edge
+05-24 18:52:01 Airplane 1 5 MODE_OFF
+05-24 18:52:04 NetworkDelay 1 7 gsm
+05-24 18:52:05 UserRotation 1 5 ROTATION_REVERSE_LANDSCAPE
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:52:06 Airplane 2 6 MODE_OFF
+05-24 18:52:11 NetworkDelay 2 5 gsm
+05-24 18:52:11 NetworkStatus 2 5 edge
+05-24 18:52:11 UserRotation 2 6 ROTATION_POTRAIT
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:52:13 Airplane 3 4 MODE_ON
+com.ashequr.rideshareing.DriveRideActivity is started
+('adb already running in PID: 20958 8643\n',)
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:52:18 NetworkDelay 0 5 gsm
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:52:18 NetworkStatus 0 8 full
+05-24 18:52:18 UserRotation 0 7 ROTATION_REVERSE_LANDSCAPE
+05-24 18:52:18 Airplane 0 6 MODE_OFF
+:Monkey: seed=316 count=20
+:AllowPackage: com.ashequr.rideshareing
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Selecting main activities from category android.intent.category.LAUNCHER
+//   - NOT USING main activity com.android.camera.Camera (from package com.android.camera)
+//   - NOT USING main activity com.google.android.apps.chrome.Main (from package com.android.chrome)
+//   - NOT USING main activity com.android.contacts.activities.PeopleActivity (from package com.android.contacts)
+//   - NOT USING main activity com.android.dialer.DialtactsActivity (from package com.android.dialer)
+//   - NOT USING main activity com.android.gallery3d.app.GalleryActivity (from package com.android.gallery3d)
+//   - NOT USING main activity com.android.settings.Settings (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.docs.app.NewMainProxyActivity (from package com.google.android.apps.docs)
+//   - NOT USING main activity com.google.android.apps.messaging.ui.ConversationListActivity (from package com.google.android.apps.messaging)
+//   - NOT USING main activity com.google.android.apps.photos.home.HomeActivity (from package com.google.android.apps.photos)
+//   - NOT USING main activity com.android.calendar.AllInOneActivity (from package com.google.android.calendar)
+//   - NOT USING main activity com.android.deskclock.DeskClock (from package com.google.android.deskclock)
+//   - NOT USING main activity com.google.android.gm.ConversationListActivityGmail (from package com.google.android.gm)
+//   - NOT USING main activity com.android.music.activitymanagement.TopLevelActivity (from package com.google.android.music)
+//   - NOT USING main activity com.google.android.talk.SigningInActivity (from package com.google.android.talk)
+//   - NOT USING main activity com.google.android.youtube.videos.EntryPoint (from package com.google.android.videos)
+//   - NOT USING main activity com.google.android.youtube.app.honeycomb.Shell$HomeActivity (from package com.google.android.youtube)
+//   - NOT USING main activity com.android.calculator2.Calculator (from package com.android.calculator2)
+//   - NOT USING main activity com.android.customlocale2.CustomLocaleActivity (from package com.android.customlocale2)
+//   - NOT USING main activity com.android.development.Development (from package com.android.development)
+//   - NOT USING main activity com.android.documentsui.LauncherActivity (from package com.android.documentsui)
+//   - NOT USING main activity com.google.android.maps.MapsActivity (from package com.google.android.apps.maps)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.VoiceSearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity org.chromium.webview_shell.WebViewBrowserActivity (from package org.chromium.webview_shell)
+//   + Using main activity com.ashequr.rideshareing.MainActivity (from package com.ashequr.rideshareing)
+//   - NOT USING main activity org.wikipedia.main.MainActivity (from package org.wikipedia)
+// Selecting main activities from category android.intent.category.MONKEY
+//   - NOT USING main activity com.android.settings.Settings$RunningServicesActivity (from package com.android.settings)
+//   - NOT USING main activity com.android.settings.Settings$StorageUseActivity (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.nexuslauncher.NexusLauncherActivity (from package com.google.android.apps.nexuslauncher)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+// Seeded: 316
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.ashequr.rideshareing/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.ashequr.rideshareing/.MainActivity } in package com.ashequr.rideshareing
+Sleeping for 500 milliseconds
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+:Sending Key (ACTION_DOWN): 21    // KEYCODE_DPAD_LEFT
+:Sending Key (ACTION_UP): 21    // KEYCODE_DPAD_LEFT
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 171    // KEYCODE_WINDOW
+:Sending Key (ACTION_UP): 171    // KEYCODE_WINDOW
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 19    // KEYCODE_DPAD_UP
+:Sending Key (ACTION_UP): 19    // KEYCODE_DPAD_UP
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 19    // KEYCODE_DPAD_UP
+:Sending Key (ACTION_UP): 19    // KEYCODE_DPAD_UP
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 156    // KEYCODE_NUMPAD_SUBTRACT
+:Sending Key (ACTION_UP): 156    // KEYCODE_NUMPAD_SUBTRACT
+Sleeping for 500 milliseconds
+:Sending Touch (ACTION_DOWN): 0:(565.0,791.0)
+:Sending Touch (ACTION_UP): 0:(560.14825,797.9854)
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 8    // KEYCODE_1
+:Sending Key (ACTION_UP): 8    // KEYCODE_1
+Sleeping for 500 milliseconds
+:Sending Trackball (ACTION_MOVE): 0:(1.0,0.0)
+:Sending Trackball (ACTION_MOVE): 0:(1.0,3.0)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,3.0)
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,1.0)
+:Sending Trackball (ACTION_MOVE): 0:(1.0,0.0)
+Events injected: 20
+:Sending rotation degree=0, persist=false
+:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=4076ms (0ms mobile, 0ms wifi, 4076ms not connected)
+// Monkey finished
+Monkey finished at: Thu May 24 18:52:23 2018
+05-24 18:52:23 NetworkDelay 1 7 gsm
+05-24 18:52:24 Airplane 1 6 MODE_ON
+05-24 18:52:26 UserRotation 1 10 ROTATION_POTRAIT
+05-24 18:52:26 NetworkStatus 1 5 evdo
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:52:30 NetworkDelay 2 6 edge
+05-24 18:52:31 Airplane 2 6 MODE_ON
+05-24 18:52:31 NetworkStatus 2 7 umts
+05-24 18:52:36 NetworkDelay 3 2 gsm
+05-24 18:52:36 UserRotation 2 3 ROTATION_LANDSCAPE
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:52:37 Airplane 3 2 MODE_ON
+com.ashequr.rideshareing.AvailableRoutesActivity is started
+('adb already running in PID: 20958 8643\n',)
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:52:40 NetworkDelay 0 8 gsm
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:52:40 NetworkStatus 0 6 full
+05-24 18:52:40 UserRotation 0 10 ROTATION_POTRAIT
+05-24 18:52:40 Airplane 0 7 MODE_ON
+:Monkey: seed=317 count=20
+:AllowPackage: com.ashequr.rideshareing
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Selecting main activities from category android.intent.category.LAUNCHER
+//   - NOT USING main activity com.android.camera.Camera (from package com.android.camera)
+//   - NOT USING main activity com.google.android.apps.chrome.Main (from package com.android.chrome)
+//   - NOT USING main activity com.android.contacts.activities.PeopleActivity (from package com.android.contacts)
+//   - NOT USING main activity com.android.dialer.DialtactsActivity (from package com.android.dialer)
+//   - NOT USING main activity com.android.gallery3d.app.GalleryActivity (from package com.android.gallery3d)
+//   - NOT USING main activity com.android.settings.Settings (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.docs.app.NewMainProxyActivity (from package com.google.android.apps.docs)
+//   - NOT USING main activity com.google.android.apps.messaging.ui.ConversationListActivity (from package com.google.android.apps.messaging)
+//   - NOT USING main activity com.google.android.apps.photos.home.HomeActivity (from package com.google.android.apps.photos)
+//   - NOT USING main activity com.android.calendar.AllInOneActivity (from package com.google.android.calendar)
+//   - NOT USING main activity com.android.deskclock.DeskClock (from package com.google.android.deskclock)
+//   - NOT USING main activity com.google.android.gm.ConversationListActivityGmail (from package com.google.android.gm)
+//   - NOT USING main activity com.android.music.activitymanagement.TopLevelActivity (from package com.google.android.music)
+//   - NOT USING main activity com.google.android.talk.SigningInActivity (from package com.google.android.talk)
+//   - NOT USING main activity com.google.android.youtube.videos.EntryPoint (from package com.google.android.videos)
+//   - NOT USING main activity com.google.android.youtube.app.honeycomb.Shell$HomeActivity (from package com.google.android.youtube)
+//   - NOT USING main activity com.android.calculator2.Calculator (from package com.android.calculator2)
+//   - NOT USING main activity com.android.customlocale2.CustomLocaleActivity (from package com.android.customlocale2)
+//   - NOT USING main activity com.android.development.Development (from package com.android.development)
+//   - NOT USING main activity com.android.documentsui.LauncherActivity (from package com.android.documentsui)
+//   - NOT USING main activity com.google.android.maps.MapsActivity (from package com.google.android.apps.maps)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.VoiceSearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity org.chromium.webview_shell.WebViewBrowserActivity (from package org.chromium.webview_shell)
+//   + Using main activity com.ashequr.rideshareing.MainActivity (from package com.ashequr.rideshareing)
+//   - NOT USING main activity org.wikipedia.main.MainActivity (from package org.wikipedia)
+// Selecting main activities from category android.intent.category.MONKEY
+//   - NOT USING main activity com.android.settings.Settings$RunningServicesActivity (from package com.android.settings)
+//   - NOT USING main activity com.android.settings.Settings$StorageUseActivity (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.nexuslauncher.NexusLauncherActivity (from package com.google.android.apps.nexuslauncher)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+// Seeded: 317
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.ashequr.rideshareing/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.ashequr.rideshareing/.MainActivity } in package com.ashequr.rideshareing
+Sleeping for 500 milliseconds
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+:Sending Key (ACTION_DOWN): 23    // KEYCODE_DPAD_CENTER
+:Sending Key (ACTION_UP): 23    // KEYCODE_DPAD_CENTER
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 82    // KEYCODE_MENU
+:Sending Key (ACTION_UP): 82    // KEYCODE_MENU
+Sleeping for 500 milliseconds
+:Sending Touch (ACTION_DOWN): 0:(465.0,399.0)
+:Sending Touch (ACTION_MOVE): 0:(467.87274,400.09372)
+:Sending Touch (ACTION_MOVE): 0:(469.50925,403.51562)
+:Sending Touch (ACTION_MOVE): 0:(470.43045,411.2661)
+:Sending Touch (ACTION_MOVE): 0:(471.8548,426.88025)
+:Sending Touch (ACTION_MOVE): 0:(473.50906,436.22464)
+:Sending Touch (ACTION_MOVE): 0:(476.13684,445.05905)
+:Sending Touch (ACTION_MOVE): 0:(478.31232,456.92548)
+:Sending Touch (ACTION_MOVE): 0:(478.3609,462.67206)
+:Sending Touch (ACTION_MOVE): 0:(478.60898,468.51764)
+:Sending Touch (ACTION_UP): 0:(480.67374,485.9655)
+Sleeping for 500 milliseconds
+:Sending Key (ACTION_DOWN): 109    // KEYCODE_BUTTON_SELECT
+:Sending Key (ACTION_UP): 109    // KEYCODE_BUTTON_SELECT
+Sleeping for 500 milliseconds
+:Sending Touch (ACTION_DOWN): 0:(729.0,1449.0)
+:Sending Touch (ACTION_UP): 0:(733.22815,1450.235)
+Events injected: 20
+:Sending rotation degree=0, persist=false
+:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=2540ms (0ms mobile, 0ms wifi, 2540ms not connected)
+// Monkey finished
+Monkey finished at: Thu May 24 18:52:43 2018
+05-24 18:52:46 NetworkStatus 1 8 evdo
+05-24 18:52:48 Airplane 1 7 MODE_ON
+05-24 18:52:48 NetworkDelay 1 10 none
+05-24 18:52:51 UserRotation 1 5 ROTATION_REVERSE_LANDSCAPE
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:52:54 NetworkStatus 2 6 edge
+05-24 18:52:55 Airplane 2 6 MODE_ON
+05-24 18:52:56 UserRotation 2 5 ROTATION_REVERSE_POTRAIT
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:52:58 NetworkDelay 2 2 edge
+com.ashequr.rideshareing.RequestSuccessActivity is started
+('adb already running in PID: 20958 8643\n',)
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:53:02 NetworkDelay 0 10 gsm
+05-24 18:53:02 NetworkStatus 0 9 edge
+05-24 18:53:02 Airplane 0 8 MODE_OFF
+05-24 18:53:02 UserRotation 0 7 ROTATION_REVERSE_LANDSCAPE
+:Monkey: seed=318 count=20
+:AllowPackage: com.ashequr.rideshareing
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Selecting main activities from category android.intent.category.LAUNCHER
+//   - NOT USING main activity com.android.camera.Camera (from package com.android.camera)
+//   - NOT USING main activity com.google.android.apps.chrome.Main (from package com.android.chrome)
+//   - NOT USING main activity com.android.contacts.activities.PeopleActivity (from package com.android.contacts)
+//   - NOT USING main activity com.android.dialer.DialtactsActivity (from package com.android.dialer)
+//   - NOT USING main activity com.android.gallery3d.app.GalleryActivity (from package com.android.gallery3d)
+//   - NOT USING main activity com.android.settings.Settings (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.docs.app.NewMainProxyActivity (from package com.google.android.apps.docs)
+//   - NOT USING main activity com.google.android.apps.messaging.ui.ConversationListActivity (from package com.google.android.apps.messaging)
+//   - NOT USING main activity com.google.android.apps.photos.home.HomeActivity (from package com.google.android.apps.photos)
+//   - NOT USING main activity com.android.calendar.AllInOneActivity (from package com.google.android.calendar)
+//   - NOT USING main activity com.android.deskclock.DeskClock (from package com.google.android.deskclock)
+//   - NOT USING main activity com.google.android.gm.ConversationListActivityGmail (from package com.google.android.gm)
+//   - NOT USING main activity com.android.music.activitymanagement.TopLevelActivity (from package com.google.android.music)
+//   - NOT USING main activity com.google.android.talk.SigningInActivity (from package com.google.android.talk)
+//   - NOT USING main activity com.google.android.youtube.videos.EntryPoint (from package com.google.android.videos)
+//   - NOT USING main activity com.google.android.youtube.app.honeycomb.Shell$HomeActivity (from package com.google.android.youtube)
+//   - NOT USING main activity com.android.calculator2.Calculator (from package com.android.calculator2)
+//   - NOT USING main activity com.android.customlocale2.CustomLocaleActivity (from package com.android.customlocale2)
+//   - NOT USING main activity com.android.development.Development (from package com.android.development)
+//   - NOT USING main activity com.android.documentsui.LauncherActivity (from package com.android.documentsui)
+//   - NOT USING main activity com.google.android.maps.MapsActivity (from package com.google.android.apps.maps)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.VoiceSearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity org.chromium.webview_shell.WebViewBrowserActivity (from package org.chromium.webview_shell)
+//   + Using main activity com.ashequr.rideshareing.MainActivity (from package com.ashequr.rideshareing)
+//   - NOT USING main activity org.wikipedia.main.MainActivity (from package org.wikipedia)
+// Selecting main activities from category android.intent.category.MONKEY
+//   - NOT USING main activity com.android.settings.Settings$RunningServicesActivity (from package com.android.settings)
+//   - NOT USING main activity com.android.settings.Settings$StorageUseActivity (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.nexuslauncher.NexusLauncherActivity (from package com.google.android.apps.nexuslauncher)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+// Seeded: 318
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.ashequr.rideshareing/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.ashequr.rideshareing/.MainActivity } in package com.ashequr.rideshareing
+Sleeping for 500 milliseconds
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+:Sending Key (ACTION_DOWN): 184    // KEYCODE_PROG_GREEN
+:Sending Key (ACTION_UP): 184    // KEYCODE_PROG_GREEN
+Sleeping for 500 milliseconds
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,4.0)
+:Sending Trackball (ACTION_MOVE): 0:(3.0,3.0)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(1.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-1.0,-5.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-1.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,0.0)
+:Sending Trackball (ACTION_MOVE): 0:(-5.0,-1.0)
+:Sending Touch (ACTION_DOWN): 0:(1331.0,457.0)
+:Sending Touch (ACTION_UP): 0:(1334.5669,439.6532)
+Sleeping for 500 milliseconds
+:Sending Trackball (ACTION_MOVE): 0:(0.0,3.0)
+:Sending Trackball (ACTION_MOVE): 0:(3.0,2.0)
+:Sending Trackball (ACTION_MOVE): 0:(-3.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,-5.0)
+Events injected: 20
+:Sending rotation degree=0, persist=false
+:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=1583ms (0ms mobile, 0ms wifi, 1583ms not connected)
+// Monkey finished
+Monkey finished at: Thu May 24 18:53:04 2018
+05-24 18:53:10 UserRotation 1 8 ROTATION_POTRAIT
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:53:11 Airplane 1 5 MODE_OFF
+05-24 18:53:11 NetworkStatus 1 8 lte
+05-24 18:53:12 NetworkDelay 1 8 none
+05-24 18:53:16 Airplane 2 7 MODE_ON
+05-24 18:53:18 UserRotation 2 5 ROTATION_REVERSE_LANDSCAPE
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:53:19 NetworkStatus 2 3 umts
+05-24 18:53:20 NetworkDelay 2 2 edge
+com.ashequr.rideshareing.DriveSuccessActivity is started
+('adb already running in PID: 20958 8643\n',)
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+05-24 18:53:24 NetworkStatus 0 6 edge
+05-24 18:53:24 NetworkDelay 0 6 gsm
+05-24 18:53:24 UserRotation 0 5 ROTATION_REVERSE_LANDSCAPE
+05-24 18:53:24 Airplane 0 9 MODE_ON
+:Monkey: seed=319 count=20
+:AllowPackage: com.ashequr.rideshareing
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+// Selecting main activities from category android.intent.category.LAUNCHER
+//   - NOT USING main activity com.android.camera.Camera (from package com.android.camera)
+//   - NOT USING main activity com.google.android.apps.chrome.Main (from package com.android.chrome)
+//   - NOT USING main activity com.android.contacts.activities.PeopleActivity (from package com.android.contacts)
+//   - NOT USING main activity com.android.dialer.DialtactsActivity (from package com.android.dialer)
+//   - NOT USING main activity com.android.gallery3d.app.GalleryActivity (from package com.android.gallery3d)
+//   - NOT USING main activity com.android.settings.Settings (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.docs.app.NewMainProxyActivity (from package com.google.android.apps.docs)
+//   - NOT USING main activity com.google.android.apps.messaging.ui.ConversationListActivity (from package com.google.android.apps.messaging)
+//   - NOT USING main activity com.google.android.apps.photos.home.HomeActivity (from package com.google.android.apps.photos)
+//   - NOT USING main activity com.android.calendar.AllInOneActivity (from package com.google.android.calendar)
+//   - NOT USING main activity com.android.deskclock.DeskClock (from package com.google.android.deskclock)
+//   - NOT USING main activity com.google.android.gm.ConversationListActivityGmail (from package com.google.android.gm)
+//   - NOT USING main activity com.android.music.activitymanagement.TopLevelActivity (from package com.google.android.music)
+//   - NOT USING main activity com.google.android.talk.SigningInActivity (from package com.google.android.talk)
+//   - NOT USING main activity com.google.android.youtube.videos.EntryPoint (from package com.google.android.videos)
+//   - NOT USING main activity com.google.android.youtube.app.honeycomb.Shell$HomeActivity (from package com.google.android.youtube)
+//   - NOT USING main activity com.android.calculator2.Calculator (from package com.android.calculator2)
+//   - NOT USING main activity com.android.customlocale2.CustomLocaleActivity (from package com.android.customlocale2)
+//   - NOT USING main activity com.android.development.Development (from package com.android.development)
+//   - NOT USING main activity com.android.documentsui.LauncherActivity (from package com.android.documentsui)
+//   - NOT USING main activity com.google.android.maps.MapsActivity (from package com.google.android.apps.maps)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.VoiceSearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+//   - NOT USING main activity org.chromium.webview_shell.WebViewBrowserActivity (from package org.chromium.webview_shell)
+//   + Using main activity com.ashequr.rideshareing.MainActivity (from package com.ashequr.rideshareing)
+//   - NOT USING main activity org.wikipedia.main.MainActivity (from package org.wikipedia)
+// Selecting main activities from category android.intent.category.MONKEY
+//   - NOT USING main activity com.android.settings.Settings$RunningServicesActivity (from package com.android.settings)
+//   - NOT USING main activity com.android.settings.Settings$StorageUseActivity (from package com.android.settings)
+//   - NOT USING main activity com.google.android.apps.nexuslauncher.NexusLauncherActivity (from package com.google.android.apps.nexuslauncher)
+//   - NOT USING main activity com.google.android.googlequicksearchbox.SearchActivity (from package com.google.android.googlequicksearchbox)
+// Seeded: 319
+// Event percentages:
+//   0: 15.0%
+//   1: 10.0%
+//   2: 2.0%
+//   3: 15.0%
+//   4: -0.0%
+//   5: -0.0%
+//   6: 25.0%
+//   7: 15.0%
+//   8: 2.0%
+//   9: 2.0%
+//   10: 1.0%
+//   11: 13.0%
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.ashequr.rideshareing/.MainActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.ashequr.rideshareing/.MainActivity } in package com.ashequr.rideshareing
+Sleeping for 500 milliseconds
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+:Sending Touch (ACTION_DOWN): 0:(1518.0,1367.0)
+:Sending Touch (ACTION_MOVE): 0:(1517.2877,1378.623)
+:Sending Touch (ACTION_UP): 0:(1494.4008,1382.0192)
+Sleeping for 500 milliseconds
+:Sending Touch (ACTION_DOWN): 0:(961.0,991.0)
+:Sending Touch (ACTION_MOVE): 0:(953.4407,976.042)
+:Sending Touch (ACTION_MOVE): 0:(943.3964,971.2566)
+:Sending Touch (ACTION_MOVE): 0:(936.0893,970.17566)
+:Sending Touch (ACTION_MOVE): 0:(934.51886,963.83966)
+:Sending Touch (ACTION_MOVE): 0:(927.0949,957.82605)
+:Sending Touch (ACTION_MOVE): 0:(923.247,954.5909)
+:Sending Touch (ACTION_MOVE): 0:(916.4414,948.2559)
+:Sending Touch (ACTION_MOVE): 0:(906.842,932.93164)
+:Sending Touch (ACTION_UP): 0:(901.7016,918.0884)
+Sleeping for 500 milliseconds
+:Sending Trackball (ACTION_MOVE): 0:(-4.0,-4.0)
+:Sending Trackball (ACTION_MOVE): 0:(3.0,3.0)
+:Sending Trackball (ACTION_MOVE): 0:(0.0,-4.0)
+:Sending Trackball (ACTION_MOVE): 0:(-2.0,-3.0)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,-2.0)
+:Sending Trackball (ACTION_MOVE): 0:(2.0,3.0)
+Events injected: 20
+:Sending rotation degree=0, persist=false
+:Dropped: keys=0 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=1607ms (0ms mobile, 0ms wifi, 1607ms not connected)
+// Monkey finished
+Monkey finished at: Thu May 24 18:53:27 2018
+05-24 18:53:30 UserRotation 1 8 ROTATION_POTRAIT
+05-24 18:53:30 NetworkDelay 1 10 none
+05-24 18:53:30 NetworkStatus 1 5 hsdpa
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:53:34 Airplane 1 6 MODE_OFF
+05-24 18:53:35 NetworkStatus 2 9 gprs
+05-24 18:53:39 UserRotation 2 7 ROTATION_LANDSCAPE
+testing rotation manual service
+ROTATION_MUTEX set to 1 for forcing update
+05-24 18:53:40 Airplane 2 5 MODE_ON
+05-24 18:53:41 NetworkDelay 2 4 gsm
+resetting emulator
+b"Android Console: Authentication required\r\nAndroid Console: type 'auth <auth_token>' to authenticate\r\nAndroid Console: you can find your <auth_token> in \r\n'/home/amit/.emulator_console_auth_token'\r\nOK"
+setting airplane mode to False
+setting user rotation to potrait
+setting accelerometer rotation to True
+setting network delay to 0
+setting network speed to full
+resetting GSM profile

@@ -7,7 +7,7 @@ import time
 import config_reader as config
 import util
 
-PRINT_FLAG = False
+PRINT_FLAG = True
 
 
 class NetworkStatus(Enum):

@@ -1,3 +1,6 @@
-0,6,NetworkDelay
-1,6,NetworkDelay
-1,3,NetworkDelay
+3,2,NetworkDelay
+0,2,NetworkDelay
+3,2,NetworkDelay
+2,5,NetworkDelay
+1,2,NetworkDelay
+0,7,NetworkDelay

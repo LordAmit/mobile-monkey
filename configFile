@@ -31,10 +31,10 @@ monkey_log: %(log_address)s%(monkey_log_file)s.log
 mobile_monkey_log: %(log_address)s%(mobile_monkey_log_file)s.log
 minimum_keyevent: 5
 maximum_keyevent: 10
-guided_approach: 0
+guided_approach: 1
 jarsigner: /usr/bin/jarsigner
 key_address: %(root)s/my.keystore
 key_alias: amit
 key_password: iit123
 override_unsigned=0
-context_file=1
+context_file=0
