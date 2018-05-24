@@ -51,6 +51,7 @@ Mobile Monkey is dependent on `configFile`. It is also configurable using the sa
 | temp              | path of the temporary directory, where the apk files are extracted and analyzed                                                                         |
 | telnet_key        | value of the telnet key. Generally found in a file called `.emulator_console_auth_token` from your home directory. Automatically created by Android SDK |
 | localhost         | is required for telnet                                                                                                                                  |
+| apktool           | tool required for testing unsigned apks or 3rd party apks. can be collected from [here](https://ibotpeaches.github.io/Apktool/install/).                |
 
 ### Configurations
 
