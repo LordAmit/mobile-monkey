@@ -15,7 +15,7 @@ chardet==3.0.4
 CherryPy==3.5.0
 configobj==5.0.6
 configparser==3.5.0
-cryptography==1.7.1
+cryptography==3.2
 cssselect==1.0.1
 cssutils==1.0
 cvxopt==1.1.4
