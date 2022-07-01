@@ -74,7 +74,7 @@ numexpr==2.6.1
 numpy==1.13.0
 numpydoc==0.7.0
 oauth==1.0.1
-openpyxl==2.3.0
+openpyxl==2.4.2
 pandas==0.20.2
 pandocfilters==1.4.1
 pathlib2==2.3.0
