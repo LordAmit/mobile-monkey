@@ -43,7 +43,7 @@ isort==4.2.15
 jdcal==1.0
 jedi==0.10.2
 Jinja2==2.9.6
-joblib==0.10.4.dev0
+joblib==1.2.0
 jobservice==0.8.0
 jsonschema==2.6.0
 jupyter-client==5.1.0
