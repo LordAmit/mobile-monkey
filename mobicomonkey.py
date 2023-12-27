@@ -7,7 +7,6 @@ from xml.dom import minidom  # type: ignore
 from xml_element import XML_Element
 from adb_settings import AdbSettings
 from telnet_connector import TelnetAdb
-import random
 from typing import List
 from threading import Thread
 from adb_settings import KeyboardEvent
@@ -16,6 +15,7 @@ import util
 import monkey
 from adb_logcat import Logcat, TestType
 import mutex
+import secrets
 
 dir = os.path.dirname(__file__)
 eventFile = os.path.join(dir, 'test/EventLog')
@@ -238,9 +238,9 @@ def traverse_elements(activity: str, element_list: List[XML_Element],
 def input_key_event(activity: str, item: XML_Element,
                     emulator: Emulator, adb_settings: AdbSettings):
     api_commands.adb_input_tap(emulator, item.xpos, item.ypos)
-    rand = random.randint(config.MINIMUM_KEYEVENT, config.MAXIMUM_KEYEVENT)
+    rand = secrets.SystemRandom().randint(config.MINIMUM_KEYEVENT, config.MAXIMUM_KEYEVENT)
     for i in range(rand):
-        KeyCode = KeyboardEvent(random.randint(0, 40)).name
+        KeyCode = KeyboardEvent(secrets.SystemRandom().randint(0, 40)).name
         print("Sending event " + KeyCode)
         adb_settings.adb_send_key_event_test(KeyCode)
         eventlog.write(util.return_current_time_in_logcat_style() + '\t' +
