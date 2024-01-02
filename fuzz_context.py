@@ -3,7 +3,6 @@ Fuzz contexts - to conduct contextual testing of app
 '''
 import time
 from typing import List, Union, Type
-import random
 from adb_logcat import FatalWatcher
 
 from emulator import Emulator
@@ -19,6 +18,8 @@ import config_reader as config
 from interval_event import IntervalEvent
 
 import os
+import secrets
+
 dir = os.path.dirname(__file__)
 StopFlagWatcher = os.path.join(dir, 'test/StopFlagWatcher')
 ContextEventLog = os.path.join(dir, 'test/ContextEventLog')
@@ -71,7 +72,7 @@ class Fuzzer:
         self.duration = int(duration)
         self.uniform_interval = int(uniform_interval)
         self.fatal_watcher = fatal_watcher
-        random.seed(self.seed)
+        secrets.SystemRandom().seed(self.seed)
         # self.__setup_intervals(uniform_interval)
         # self.__setup_interval_events()
 
@@ -137,7 +138,7 @@ class Fuzzer:
             raise ValueError("lower_limit must be int")
         if not isinstance(upper_limit, int):
             raise ValueError("upper_limit must be int")
-        return random.randint(lower_limit, upper_limit)
+        return secrets.SystemRandom().randint(lower_limit, upper_limit)
 
     # def duration_interval_steps_generator(self)->List[int]:
     #     '''
