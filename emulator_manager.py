@@ -190,7 +190,7 @@ def check_avd_booted_completely(emulator_port) -> str:
 def get_name(uid):
     path = os.getcwd() + '/temp/' + uid + '/' + uid + '/context'
     with open(path, 'r') as f:
-        first_line = f.readline()
+        first_line = f.readline(5_000_000)
     return first_line
 
 
